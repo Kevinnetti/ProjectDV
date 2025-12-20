@@ -3,23 +3,41 @@ import { AppBar, Toolbar, Typography, Container, Box, Card, CardContent, Button,
 import ArticleIcon from '@mui/icons-material/Article';
 
 function App() {
+  const sections = [
+    { id: 'gdp', label: 'Crollo Economico' },
+    { id: 'raid', label: 'Guerra Aerea' },
+    { id: 'sfollati', label: 'Stranieri in Patria' },
+    { id: 'fame', label: 'Geografia della Fame' },
+    { id: 'bilancio', label: 'Bilancio Silenzioso' },
+  ];
+
+  const handleScroll = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1, bgcolor: '#f5f5f5', minHeight: '100vh' }}>
       
       {/* HEADER / NAVBAR */}
-      <AppBar position="static" sx={{ bgcolor: '#1a1a1a' }}>
+      <AppBar position="sticky" sx={{ bgcolor: '#1a1a1a', top: 0, zIndex: 1200 }}>
         <Toolbar>
           <ArticleIcon sx={{ mr: 2 }} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             YEMEN: L'ECLISSI DELL'UMANITÀ
           </Typography>
-          <Button color="inherit">Intro</Button>
-          <Button color="inherit">Dati</Button>
+          {sections.map((section) => (
+            <Button key={section.id} color="inherit" onClick={() => handleScroll(section.id)}>
+              {section.label}
+            </Button>
+          ))}
         </Toolbar>
       </AppBar>
 
       {/* HERO SECTION (Intro) */}
-      <Box sx={{ py: 8, bgcolor: 'white', textAlign: 'center', borderBottom: '1px solid #ddd' }}>
+      <Box id="intro" sx={{ py: 8, bgcolor: 'white', textAlign: 'center', borderBottom: '1px solid #ddd' }}>
         <Container maxWidth="md">
           <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
             La Guerra Dimenticata
@@ -34,19 +52,19 @@ function App() {
       <Container maxWidth="lg" sx={{ py: 6 }}>
         
         {/* Sezione 1: GDP */}
-        <Section title="1. Il Crollo Economico" description="Come il PIL è crollato dimezzando la ricchezza del paese." />
+        <Section id="gdp" title="1. Il Crollo Economico" description="Come il PIL è crollato dimezzando la ricchezza del paese." />
 
         {/* Sezione 2: Raid Aerei */}
-        <Section title="2. La Guerra Aerea" description="Analisi dei target civili vs militari nei bombardamenti." />
+        <Section id="raid" title="2. La Guerra Aerea" description="Analisi dei target civili vs militari nei bombardamenti." />
 
         {/* Sezione 3: Sfollati */}
-        <Section title="3. Stranieri in Patria" description="Il movimento di milioni di persone intrappolate nei confini." />
+        <Section id="sfollati" title="3. Stranieri in Patria" description="Il movimento di milioni di persone intrappolate nei confini." />
 
         {/* Sezione 4: Fame */}
-        <Section title="4. Geografia della Fame" description="Mappa dell'insicurezza alimentare (IPC Phases)." />
+        <Section id="fame" title="4. Geografia della Fame" description="Mappa dell'insicurezza alimentare (IPC Phases)." />
 
         {/* Sezione 5: Bilancio Finale */}
-        <Section title="5. Il Bilancio Silenzioso" description="Morti dirette vs morti indirette: il vero costo della guerra." />
+        <Section id="bilancio" title="5. Il Bilancio Silenzioso" description="Morti dirette vs morti indirette: il vero costo della guerra." />
 
       </Container>
 
@@ -61,9 +79,9 @@ function App() {
 }
 
 // Un componente riutilizzabile per le sezioni
-function Section({ title, description }) {
+function Section({ id, title, description }) {
   return (
-    <Card sx={{ mb: 4, elevation: 3 }}>
+    <Card id={id} sx={{ mb: 4, elevation: 3 }}>
       <CardContent>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
