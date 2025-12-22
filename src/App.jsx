@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Container, Box, Button, Grid, Fab } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import GdpLineChartD3 from './components/GdpLineChartD3';
 
 function App() {
   const [activeSection, setActiveSection] = useState('');
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const getHeaderOffset = () => {
+    const navEl = document.getElementById('top-nav');
+    return navEl ? navEl.getBoundingClientRect().height + 15 : 0;
+  };
   
   const sections = [
+    { id: 'intro', label: "YEMEN: L'ECLISSI DELL'UMANITÀ" },
     { id: 'gdp', label: 'Crollo Economico' },
     { id: 'raid', label: 'Guerra Aerea' },
     { id: 'sfollati', label: 'Stranieri in Patria' },
@@ -18,6 +24,7 @@ function App() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
+      const headerOffset = getHeaderOffset();
       
       // Mostra il pulsante scroll-to-top dopo la sezione intro
       const introElement = document.getElementById('intro');
@@ -26,12 +33,11 @@ function App() {
         setShowScrollTop(scrollPosition > introBottom);
       }
       
-      const sectionElements = sections.map(s => ({
-        id: s.id,
-        element: document.getElementById(s.id)
-      })).filter(s => s.element);
+      const sectionElements = sections
+        .map(s => ({ id: s.id, element: document.getElementById(s.id) }))
+        .filter(s => s.element);
 
-      const sectionScrollPosition = scrollPosition + 200;
+      const sectionScrollPosition = scrollPosition + (window.innerHeight / 2) - headerOffset;
 
       for (let i = sectionElements.length - 1; i >= 0; i--) {
         const section = sectionElements[i];
@@ -50,9 +56,13 @@ function App() {
 
   const handleScrollTo = (id) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (!el) return;
+
+    const headerOffset = getHeaderOffset();
+    const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - headerOffset;
+
+    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
   };
 
   const scrollToTop = () => {
@@ -65,6 +75,7 @@ function App() {
       {/* HEADER / NAVBAR */}
       <Box sx={{ pt: 2, px: 2, display: 'flex', justifyContent: 'center', position: 'sticky', top: 0, zIndex: 9999 }}>
         <AppBar 
+          id="top-nav"
           position="static" 
           sx={{ 
             bgcolor: '#1a1a1a', 
@@ -77,8 +88,13 @@ function App() {
           <Toolbar sx={{ px: 3, justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <ArticleIcon sx={{ mr: 2 }} />
-              <Typography variant="h6" component="div" sx={{ fontSize: '1rem' }}>
-                YEMEN: L'ECLISSI DELL'UMANITÀ
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ fontSize: '1rem', cursor: 'pointer' }}
+                onClick={() => handleScrollTo('intro')}
+              >
+                
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', gap: 1 }}>
@@ -126,8 +142,24 @@ function App() {
           id="gdp" 
           title="1. Il Crollo Economico" 
           description="Come il PIL è crollato dimezzando la ricchezza del paese." 
-          body="Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi economica in crisi umanitaria." 
-        />
+         body={
+    <div style={{ textAlign: 'justify' }}>
+      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
+      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
+      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
+      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
+      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
+      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
+      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
+      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
+      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
+      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
+      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
+    </div>
+  }>
+      
+          <GdpLineChartD3 />
+        </Section>
 
         {/* Sezione 2: Raid Aerei */}
         <Section 
@@ -197,7 +229,7 @@ function App() {
 }
 
 // Un componente riutilizzabile per le sezioni
-function Section({ id, title, description, body }) {
+function Section({ id, title, description, body, children }) {
   return (
     <Box id={id} sx={{ mb: 8 }}>
       <Box sx={{ maxWidth: '900px', mx: 'auto', textAlign: 'center', mb: 3 }}>
@@ -208,7 +240,7 @@ function Section({ id, title, description, body }) {
           {description}
         </Typography>
         <Box sx={{ maxWidth: '640px', mx: 'auto' }}>
-          <Typography variant="body2" sx={{ color: '#777' }}>
+          <Typography variant="body2" component="div" sx={{ color: '#777' }}>
             {body}
           </Typography>
         </Box>
@@ -216,11 +248,15 @@ function Section({ id, title, description, body }) {
 
       {/* Area grafico a tutta larghezza */}
       <Box sx={{ mt: 3 }}>
-        <Box sx={{ height: 360, bgcolor: '#eee', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2 }}>
-          <Typography variant="body2" color="text.secondary">
-            [SPAZIO PER LA VISUALIZZAZIONE]
-          </Typography>
-        </Box>
+        {children ? (
+          children
+        ) : (
+          <Box sx={{ height: 360, bgcolor: '#eee', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              Grafico in arrivo
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Box>
   );
