@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Container, Box, Button, Grid, Fab } from '
 import ArticleIcon from '@mui/icons-material/Article';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import GdpLineChartD3 from './components/GdpLineChartD3';
+import FlowMapD3 from './components/FlowMapD3';
 
 function App() {
   const [activeSection, setActiveSection] = useState('');
@@ -166,32 +167,94 @@ function App() {
           id="raid" 
           title="2. La Guerra Aerea" 
           description="Analisi dei target civili vs militari nei bombardamenti." 
-          body="Mercati, scuole e ospedali sono stati colpiti insieme a obiettivi militari. Il rapporto tra target civili e militari mostra quanto spesso la popolazione sia finita nel fuoco incrociato." 
-        />
+          body={
+    <div style={{ textAlign: 'justify' }}>
+      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
+      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
+      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
+      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
+      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
+      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
+      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
+      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
+      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
+      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
+      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
+    </div>
+  }> </Section>
+
+    
 
         {/* Sezione 3: Sfollati */}
         <Section 
           id="sfollati" 
           title="3. Stranieri in Patria" 
           description="Il movimento di milioni di persone intrappolate nei confini." 
-          body="Oltre 4 milioni di yemeniti hanno abbandonato le proprie case restando entro i confini nazionali. Gli sfollati interni vivono in campi informali con accesso limitato ad acqua, lavoro e istruzione." 
-        />
+          body={
+    <div style={{ textAlign: 'justify' }}>
+      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
+      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
+      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
+      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
+      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
+      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
+      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
+      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
+      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
+      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
+      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
+    </div>
+  }>
+          <FlowMapD3 />
+        </Section>
 
         {/* Sezione 4: Fame */}
         <Section 
           id="fame" 
           title="4. Geografia della Fame" 
           description="Mappa dell'insicurezza alimentare (IPC Phases)." 
-          body="La mappa IPC evidenzia aree in emergenza (Fase 4) e in catastrofe (Fase 5). La carestia è stata evitata dagli aiuti, ma la dipendenza esterna e i prezzi interni rendono fragile ogni miglioramento." 
-        />
+          body={
+    <div style={{ textAlign: 'justify' }}>
+      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
+      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
+      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
+      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
+      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
+      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
+      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
+      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
+      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
+      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
+      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
+    </div>
+  }>
+      
+          <GdpLineChartD3 />
+        </Section>
 
         {/* Sezione 5: Bilancio Finale */}
         <Section 
           id="bilancio" 
           title="5. Il Bilancio Silenzioso" 
           description="Morti dirette vs morti indirette: il vero costo della guerra." 
-          body="Alle vittime dirette dei combattimenti si sommano quelle indirette: malnutrizione, epidemie e crollo dei servizi sanitari. Il bilancio reale supera di molto quello conteggiato dalle sole azioni militari." 
-        />
+         body={
+    <div style={{ textAlign: 'justify' }}>
+      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
+      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
+      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
+      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
+      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
+      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
+      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
+      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
+      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
+      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
+      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
+    </div>
+  }>
+      
+          <GdpLineChartD3 />
+        </Section>
 
       </Container>
 
