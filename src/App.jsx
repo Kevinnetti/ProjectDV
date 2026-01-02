@@ -4,6 +4,9 @@ import ArticleIcon from '@mui/icons-material/Article';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import GdpLineChartD3 from './components/GdpLineChartD3';
 import FlowMapD3 from './components/FlowMapD3';
+import MigrationGroupedChart from './components/MigrationGroupedChart';
+import Raid from './components/Raid';
+import Food from './components/food';
 
 function App() {
   const [activeSection, setActiveSection] = useState('');
@@ -181,7 +184,10 @@ function App() {
       nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
       sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
     </div>
-  }> </Section>
+  }> 
+    <Raid/>
+  
+  </Section>
 
     
 
@@ -206,6 +212,15 @@ function App() {
     </div>
   }>
           <FlowMapD3 />
+          <Box sx={{ maxWidth: '640px', mx: 'auto', my: 4, textAlign: 'justify' }}>
+             <Typography variant="body2" component="div" sx={{ color: '#777' }}>
+               Qui inserisci il testo intermedio che desideri mostrare tra la mappa e il grafico a barre. 
+               Ad esempio, puoi descrivere come i flussi migratori mostrati nella mappa sopra si traducono 
+               nei numeri specifici raggruppati per governatorato che vedrai nel grafico sottostante.
+               Questo box ha lo stesso stile e larghezza del testo introduttivo.
+             </Typography>
+          </Box>
+          <MigrationGroupedChart />  
         </Section>
 
         {/* Sezione 4: Fame */}
@@ -215,21 +230,19 @@ function App() {
           description="Mappa dell'insicurezza alimentare (IPC Phases)." 
           body={
     <div style={{ textAlign: 'justify' }}>
-      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
-      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
-      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
-      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
-      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
-      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
-      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
-      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
-      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
-      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
-      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
+      Yemen is facing alarmingly high levels of food insecurity, with pockets of the population projected to face IPC Phase 5 (Catastrophe) by September 2025. 
+
+Nearly half the population for both the Government of Yemen (GoY) and Sana'a Based Authorities (SBA) controlled areas are facing high levels of acute food insecurity, translating to over 17 million people classified in IPC Phase 3 or above (Crisis or worse) between May and August 2025. Over 5.2 million people are experiencing Emergency levels of acute food insecurity (IPC Phase 4) and 11.9 million people (34 percent of the analysed population) are experiencing Crisis (IPC Phase 3) levels of acute food insecurity. 
+
+The food security situation is projected to worsen between September 2025 and February 2026 with an estimated 18.1 million people expected to face Phase 3 or above (Crisis or worse), representing 52 percent of the population. Alongside severe reductions in humanitarian aid, the unseasonal deterioration is driven by below-average agricultural and livestock production due to erratic rainfall in May-June and anticipated flash floods—especially in Al Hodeidah, Ma’rib, Taizz, and Hajjah—diminishing the mitigating effects of the productive season.
+
+This marks a surge of 1 million additional people in Crisis or worse compared to the May to August 2025 period, including around 41,000 people expected to experience catastrophic levels of hunger and classified in IPC Phase 5 (Catastrophe) in Abs and Kushar in Hajjah governorate, Az Zuhrah in Al Hodeidah governorate, and Al Ashah in Amran governorate. Extreme food consumption gaps and high adoption of emergency and often irreversible coping mechanisms, are mainly attributable to the lingering and direct impact of conflict, macro-economic downturn and lack of income opportunities, as well as to the shrinking ability to address the extreme needs of people as safety nets weaken. 
+
+Yemen’s food security crisis stems from shocks—floods, conflict, and economic issues—exacerbated by poverty and other structural vulnerabilities. While external aid and strong social ties previously mitigated severe food insecurity, these safeguards are now weakening and insufficient to prevent further deterioration.
     </div>
   }>
       
-          <GdpLineChartD3 />
+          <Food />
         </Section>
 
         {/* Sezione 5: Bilancio Finale */}

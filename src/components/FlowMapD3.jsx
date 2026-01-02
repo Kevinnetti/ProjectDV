@@ -99,10 +99,8 @@ const FlowMapD3 = () => {
       svgRef.current = svg;
 
       // PROIEZIONE
-      const projection = d3.geoMercator()
-        .center([30, 30]) 
-        .scale(350)
-        .translate([width / 2, height / 2]);
+      // Adatta la proiezione all'intera mappa per mostrarla completa
+      const projection = d3.geoMercator().fitSize([width, height], geoData);
 
       const pathGenerator = d3.geoPath().projection(projection);
 
@@ -121,10 +119,10 @@ const FlowMapD3 = () => {
       svg.append("defs").append("marker")
         .attr("id", "arrowhead")
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 8)
+        .attr("refX", 6)
         .attr("refY", 0)
-        .attr("markerWidth", 4)
-        .attr("markerHeight", 4)
+        .attr("markerWidth", 3)
+        .attr("markerHeight", 3)
         .attr("orient", "auto")
         .append("path")
         .attr("d", "M0,-5L10,0L0,5")
@@ -141,10 +139,7 @@ const FlowMapD3 = () => {
     // Pulisci vecchie frecce
     arrowsLayer.selectAll("*").remove();
 
-    const projection = d3.geoMercator()
-        .center([30, 30]) 
-        .scale(350)
-        .translate([width / 2, height / 2]);
+    const projection = d3.geoMercator().fitSize([width, height], geoData);
     const pathGenerator = d3.geoPath().projection(projection);
 
     // Funzione helper per trovare centroide
@@ -169,7 +164,7 @@ const FlowMapD3 = () => {
     };
 
     // Scala spessore (fissa basata su un massimo globale ragionevole, es. 15.000)
-    const strokeScale = d3.scaleSqrt().domain([0, 15000]).range([0.5, 6]);
+    const strokeScale = d3.scaleSqrt().domain([0, 15000]).range([0.25, 3]);
 
     // Disegna nuove frecce
     currentYearData.forEach(row => {
@@ -203,7 +198,7 @@ const FlowMapD3 = () => {
               .transition().duration(200)
               .attr("stroke-opacity", 1)
               .attr("stroke", "#b71c1c")
-              .attr("stroke-width", strokeScale(row.value) + 2);
+              .attr("stroke-width", strokeScale(row.value) + 1);
 
             const tooltip = tooltipRef.current;
             if (!tooltip) return;
