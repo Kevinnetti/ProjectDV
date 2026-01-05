@@ -13,6 +13,7 @@ const Raid = () => {
   const [hovered, setHovered] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const yearsRange = useMemo(() => [2015, 2022], []);
+  const [showAggregated, setShowAggregated] = useState(false);
 
   // Calcola max raid per la scala colori
   const maxVal = useMemo(() => {
@@ -57,20 +58,31 @@ const Raid = () => {
       return '#000000'; // nero >200
     };
 
+    // helper per ottenere valore (anno o aggregato)
+    const getValueForFeature = (d) => {
+      if (showAggregated) {
+        const [minY, maxY] = yearsRange;
+        let s = 0;
+        for (let y = minY; y <= maxY; y++) s += d.properties.raids[y] || 0;
+        return s;
+      }
+      return d.properties.raids[year] || 0;
+    };
+
     const paths = svg.append('g')
       .selectAll('path')
       .data(districtData.features)
       .join('path')
       .attr('d', path)
       .attr('fill', d => {
-        const val = d.properties.raids[year] || 0;
+        const val = getValueForFeature(d);
         return getColor(val);
       })
       .attr('stroke', '#555')
       .attr('stroke-width', 0.5)
       .style('cursor', 'pointer')
       .on('mouseenter', (e, d) => {
-        d3.select(e.target).attr('stroke', '#fff').attr('stroke-width', 1.5).raise();
+        d3.select(e.target).attr('stroke', '#fff').attr('stroke-width', 1.5);
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -82,7 +94,7 @@ const Raid = () => {
         setHovered({
           id,
           name: d.properties.name,
-          count: d.properties.raids[year] || 0,
+          count: getValueForFeature(d),
           x: tx,
           y: ty
         });
@@ -148,7 +160,7 @@ const Raid = () => {
           .text(d.label);
       });
 
-  }, [year, maxVal]);
+  }, [year, maxVal, showAggregated]);
 
   // Gestione play/pause per avanzare gli anni (stesso pattern di FlowMapD3)
   useEffect(() => {
@@ -162,6 +174,7 @@ const Raid = () => {
   }, [isPlaying, yearsRange]);
 
   // Aggiorna il tooltip quando cambia l'anno in modo che mostri il valore corrente
+  // Aggiorna il tooltip quando cambia l'anno o la vista aggregata
   useEffect(() => {
     setHovered(h => {
       if (!h) return h;
@@ -171,14 +184,20 @@ const Raid = () => {
         return (h.id && fid === h.id) || (f.properties.name === h.name);
       });
       if (!feat) return h;
+      if (showAggregated) {
+        const [minY, maxY] = yearsRange;
+        let s = 0;
+        for (let y = minY; y <= maxY; y++) s += feat.properties.raids[y] || 0;
+        return { ...h, count: s };
+      }
       return { ...h, count: feat.properties.raids[year] || 0 };
     });
-  }, [year]);
+  }, [year, showAggregated]);
 
   return (
     <Box sx={{ m: 0, p: 0, width: '100%' }}>
       <Typography variant="h5" align="center" gutterBottom sx={{ color: 'inherit' }}>
-        Yemen Districts Raids: {year}
+        Yemen Districts Raids: {showAggregated ? `${yearsRange[0]}-${yearsRange[1]} (Aggregate)` : year}
       </Typography>
 
       <Box ref={containerRef} sx={{ minHeight: 600, position: 'relative' }}>
@@ -199,25 +218,39 @@ const Raid = () => {
       <Box sx={{ px: 5, py: 0, mt: -2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <IconButton
-              onClick={() => setIsPlaying(p => !p)}
-              size="large"
-              aria-label={isPlaying ? 'Pause' : 'Play'}
-              sx={{ bgcolor: isPlaying ? 'rgba(255,152,0,0.12)' : 'transparent' }}
+            {!showAggregated && (
+              <>
+                <IconButton
+                  onClick={() => setIsPlaying(p => !p)}
+                  size="large"
+                  aria-label={isPlaying ? 'Pause' : 'Play'}
+                  sx={{ bgcolor: isPlaying ? 'rgba(255,152,0,0.12)' : 'transparent' }}
+                >
+                  {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+                </IconButton>
+                <Typography variant="body2" sx={{ color: 'inherit' }}>{isPlaying ? 'Playing' : 'Paused'}</Typography>
+              </>
+            )}
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => setShowAggregated(s => !s)}
+              sx={{ ml: 1, textTransform: 'none' }}
             >
-              {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-            </IconButton>
-            <Typography variant="body2" sx={{ color: 'inherit' }}>{isPlaying ? 'Playing' : 'Paused'}</Typography>
+              {showAggregated ? 'Close Aggregate' : 'Aggregate'}
+            </Button>
           </Box>
 
           <Box sx={{ flex: 1 }}>
-            <Slider
-              value={year}
-              min={2015} max={2022} step={1}
-              marks valueLabelDisplay="auto"
-              onChange={(e, v) => { if (typeof v === 'number') setYear(v); }}
-              sx={{ color: '#ff9800' }}
-            />
+            {!showAggregated && (
+              <Slider
+                value={year}
+                min={2015} max={2022} step={1}
+                marks valueLabelDisplay="auto"
+                onChange={(e, v) => { if (typeof v === 'number') setYear(v); }}
+                sx={{ color: '#ff9800' }}
+              />
+            )}
           </Box>
         </Box>
       </Box>

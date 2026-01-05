@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Container, Box, Button, Grid, Fab } from '@mui/material';
+import { AppBar, Toolbar, Typography, Container, Box, Button, Grid, Fab, IconButton, Menu, MenuItem } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
+import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import GdpLineChartD3 from './components/GdpLineChartD3';
 import FlowMapD3 from './components/FlowMapD3';
 import MigrationGroupedChart from './components/MigrationGroupedChart';
 import Raid from './components/Raid';
 import Food from './components/food';
+import Fatalities from './components/Fatalities';
 
 function App() {
   const [activeSection, setActiveSection] = useState('');
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [navAnchorEl, setNavAnchorEl] = useState(null);
   const getHeaderOffset = () => {
     const navEl = document.getElementById('top-nav');
     return navEl ? navEl.getBoundingClientRect().height + 15 : 0;
   };
   
   const sections = [
-    { id: 'intro', label: "YEMEN: L'ECLISSI DELL'UMANITÀ" },
-    { id: 'gdp', label: 'Crollo Economico' },
-    { id: 'raid', label: 'Guerra Aerea' },
-    { id: 'sfollati', label: 'Stranieri in Patria' },
-    { id: 'fame', label: 'Geografia della Fame' },
-    { id: 'bilancio', label: 'Bilancio Silenzioso' },
+    { id: 'intro', label: 'YEMEN: THE ECLIPSE OF HUMANITY' },
+    { id: 'raid', label: 'Air Warfare' },
+    { id: 'gdp', label: 'Economic Collapse' },
+    { id: 'fame', label: 'Geography of Hunger' },
+    { id: 'sfollati', label: 'Displacement' },
+    { id: 'bilancio', label: 'The Silent Toll' },
   ];
 
   useEffect(() => {
@@ -101,7 +104,19 @@ function App() {
                 
               </Typography>
             </Box>
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            {/* Mobile menu icon (shown on xs) */}
+            <IconButton
+              color="inherit"
+              edge="start"
+              onClick={(e) => setNavAnchorEl(e.currentTarget)}
+              sx={{ display: { xs: 'flex', sm: 'none' } }}
+              aria-label="open navigation menu"
+            >
+              <MenuIcon />
+            </IconButton>
+
+            {/* Desktop buttons (hidden on xs) */}
+            <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: 1 }}>
               {sections.map((section) => (
                 <Button 
                   key={section.id} 
@@ -122,6 +137,25 @@ function App() {
                 </Button>
               ))}
             </Box>
+            
+            {/* Mobile menu dropdown */}
+            <Menu
+              anchorEl={navAnchorEl}
+              open={Boolean(navAnchorEl)}
+              onClose={() => setNavAnchorEl(null)}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+              {sections.map((section) => (
+                <MenuItem
+                  key={section.id}
+                  onClick={() => { setNavAnchorEl(null); handleScrollTo(section.id); }}
+                  selected={activeSection === section.id}
+                >
+                  {section.label}
+                </MenuItem>
+              ))}
+            </Menu>
           </Toolbar>
         </AppBar>
       </Box>
@@ -130,153 +164,116 @@ function App() {
       <Box id="intro" sx={{ py: 8, bgcolor: 'white', textAlign: 'center', borderBottom: '1px solid #ddd' }}>
         <Container maxWidth="md">
           <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-            La Guerra Dimenticata
+            The Forgotten War
           </Typography>
           <Typography variant="h5" color="text.secondary" paragraph>
-            Un viaggio attraverso i dati per comprendere la crisi umanitaria in Yemen: economia, bombe, fame e vite spezzate.
-          </Typography>
+            Yemen is often described as a 'forgotten war'. Crushed between regional powers, the poorest country on the Arabian Peninsula has faced a devastating conflict since 2014. What you will see while scrolling are not just numbers: they are the scars of a nation. From air raids that reshaped cities to economic collapse that emptied tables, and the desperate flight of millions.This is the story of how Yemen was driven to the brink.
+            </Typography>
         </Container>
       </Box>
 
       {/* SEZIONI DEL PROGETTO (Le 5 visualizzazioni) */}
       <Container maxWidth="lg" sx={{ py: 6 }}>
         
-        {/* Sezione 1: GDP */}
-        <Section 
-          id="gdp" 
-          title="1. Il Crollo Economico" 
-          description="Come il PIL è crollato dimezzando la ricchezza del paese." 
-         body={
-    <div style={{ textAlign: 'justify' }}>
-      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
-      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
-      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
-      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
-      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
-      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
-      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
-      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
-      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
-      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
-      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
-    </div>
-  }>
-      
-          <GdpLineChartD3 />
-        </Section>
-
-        {/* Sezione 2: Raid Aerei */}
+        {/* Sezione 1: Raid Aerei (scambiata con GDP) */}
         <Section 
           id="raid" 
-          title="2. La Guerra Aerea" 
-          description="Analisi dei target civili vs militari nei bombardamenti." 
+          title="1. Air Warfare" 
+          description="Air raids that devastated Yemen between 2015 and 2022." 
           body={
     <div style={{ textAlign: 'justify' }}>
-      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
-      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
-      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
-      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
-      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
-      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
-      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
-      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
-      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
-      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
-      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
+      For seven years, Yemen's skies have been synonymous with fear. The Yemen Data Project records every air raid carried out by the Saudi-led Coalition and the UAE between March 2015 and April 2022.
+
+Not only military targets were hit: bridges, hospitals, schools and markets were struck in attempts to halt the Houthi advance. Although bombing decreased after the 2022 truce, the systematic destruction of infrastructure during this period set the stage for the country's collapse.
     </div>
   }> 
     <Raid/>
   
   </Section>
 
-    
-
-        {/* Sezione 3: Sfollati */}
+        {/* Sezione 2: GDP (scambiata con Raid) */}
         <Section 
-          id="sfollati" 
-          title="3. Stranieri in Patria" 
-          description="Il movimento di milioni di persone intrappolate nei confini." 
-          body={
-    <div style={{ textAlign: 'justify' }}>
-      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
-      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
-      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
-      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
-      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
-      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
-      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
-      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
-      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
-      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
-      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
-    </div>
-  }>
-          <FlowMapD3 />
-          <Box sx={{ maxWidth: '640px', mx: 'auto', my: 4, textAlign: 'justify' }}>
-             <Typography variant="body2" component="div" sx={{ color: '#777' }}>
-               Qui inserisci il testo intermedio che desideri mostrare tra la mappa e il grafico a barre. 
-               Ad esempio, puoi descrivere come i flussi migratori mostrati nella mappa sopra si traducono 
-               nei numeri specifici raggruppati per governatorato che vedrai nel grafico sottostante.
-               Questo box ha lo stesso stile e larghezza del testo introduttivo.
-             </Typography>
-          </Box>
-          <MigrationGroupedChart />  
-        </Section>
-
-        {/* Sezione 4: Fame */}
-        <Section 
-          id="fame" 
-          title="4. Geografia della Fame" 
-          description="Mappa dell'insicurezza alimentare (IPC Phases)." 
-          body={
-    <div style={{ textAlign: 'justify' }}>
-      Yemen is facing alarmingly high levels of food insecurity, with pockets of the population projected to face IPC Phase 5 (Catastrophe) by September 2025. 
-
-Nearly half the population for both the Government of Yemen (GoY) and Sana'a Based Authorities (SBA) controlled areas are facing high levels of acute food insecurity, translating to over 17 million people classified in IPC Phase 3 or above (Crisis or worse) between May and August 2025. Over 5.2 million people are experiencing Emergency levels of acute food insecurity (IPC Phase 4) and 11.9 million people (34 percent of the analysed population) are experiencing Crisis (IPC Phase 3) levels of acute food insecurity. 
-
-The food security situation is projected to worsen between September 2025 and February 2026 with an estimated 18.1 million people expected to face Phase 3 or above (Crisis or worse), representing 52 percent of the population. Alongside severe reductions in humanitarian aid, the unseasonal deterioration is driven by below-average agricultural and livestock production due to erratic rainfall in May-June and anticipated flash floods—especially in Al Hodeidah, Ma’rib, Taizz, and Hajjah—diminishing the mitigating effects of the productive season.
-
-This marks a surge of 1 million additional people in Crisis or worse compared to the May to August 2025 period, including around 41,000 people expected to experience catastrophic levels of hunger and classified in IPC Phase 5 (Catastrophe) in Abs and Kushar in Hajjah governorate, Az Zuhrah in Al Hodeidah governorate, and Al Ashah in Amran governorate. Extreme food consumption gaps and high adoption of emergency and often irreversible coping mechanisms, are mainly attributable to the lingering and direct impact of conflict, macro-economic downturn and lack of income opportunities, as well as to the shrinking ability to address the extreme needs of people as safety nets weaken. 
-
-Yemen’s food security crisis stems from shocks—floods, conflict, and economic issues—exacerbated by poverty and other structural vulnerabilities. While external aid and strong social ties previously mitigated severe food insecurity, these safeguards are now weakening and insufficient to prevent further deterioration.
-    </div>
-  }>
-      
-          <Food />
-        </Section>
-
-        {/* Sezione 5: Bilancio Finale */}
-        <Section 
-          id="bilancio" 
-          title="5. Il Bilancio Silenzioso" 
-          description="Morti dirette vs morti indirette: il vero costo della guerra." 
+          id="gdp" 
+          title="2. Economic Collapse" 
+          description="How GDP fell and national wealth was halved." 
          body={
     <div style={{ textAlign: 'justify' }}>
-      Tra il 2014 e il 2023 il PIL reale si è quasi dimezzato: salari pubblici sospesi, 
-      inflazione e svalutazione hanno eroso il potere d'acquisto, trasformando la crisi 
-      economica in crisi umanitaria. Da quando sono scoppiate le violenze, le condizioni 
-      della popolazione in Yemen sono rapidamente peggiorate, portando il Paese sull'orlo 
-      della carestia e del collasso economico. Il conflitto in Yemen ha avuto un grave 
-      impatto sull'economia del Paese, causando instabilità economiche, limitando le 
-      importazioni e aggravando i disastri naturali. L'economia continua a deteriorarsi, 
-      con perdite di mezzi di sussistenza e aumento dei prezzi delle materie prime. 
-      La carenza di cibo, acqua potabile, servizi igienici e assistenza sanitaria, 
-      nonché la diffusione di massicce epidemie di colera e difterite, hanno gravato 
-      sulle condizioni di vita dei civili e privato le famiglie dei bisogni primari.
+      Bombs destroy buildings, but the economy destroys the future. The chart shows Yemen's GDP from the 1990s to today. Notice the sharp drop after 2014: in less than a decade the economy was halved.
+
+Port blockades, a split central bank and the collapse of the currency (Riyal) made goods scarce or unaffordable. Today even those who work struggle to buy basic food. Poverty is not an accident; it has become structural.
+
+Between 2014 and 2023 real GDP nearly halved: public wages were suspended, inflation and devaluation eroded purchasing power, turning the economic crisis into a humanitarian crisis. The conflict has severely impacted the economy, limiting imports and worsening existing shocks.
     </div>
   }>
       
           <GdpLineChartD3 />
         </Section>
 
+    
+
+        {/* Sezione 3: Fame (scambiata con Sfollati) */}
+        <Section 
+          id="fame" 
+          title="3. Geography of Hunger" 
+          description="Map of food insecurity (IPC phases)." 
+              body={
+            <div style={{ textAlign: 'justify' }}>
+          After a decade of war and economic collapse, this is the current result. The map shows IPC projections for 2025. You do not need to look far into the past to grasp the severity: red indicates areas where famine is imminent.
+
+        With ports blocked and humanitarian aid struggling to reach people, millions of Yemenis face 'Emergency' or 'Catastrophe' phases. Hunger in Yemen is not caused by a global lack of food but by physical and economic barriers to access.
+          </div>
+          }>
+      
+          <Food />
+        </Section>
+
+        {/* Sezione 4: Sfollati (scambiata con Fame) */}
+        <Section 
+          id="sfollati" 
+          title="4. Displacement" 
+          description="Movement of millions trapped within the country's borders." 
+              body={
+            <div style={{ textAlign: 'justify' }}>
+          When war destroys your home, you seek shelter. But the tragedy in Yemen is that most people cannot leave the country.
+
+        The chart compares internally displaced persons (IDPs) with refugees abroad from 2011 to today. The imbalance is clear: millions are IDPs, trapped in open-air confinement, forced to move from one combat zone to another without ever finding true safety.
+          </div>
+          }>
+          <FlowMapD3 />
+          <Box sx={{ maxWidth: '640px', mx: 'auto', my: 4, textAlign: 'justify' }}>
+             <Typography variant="body2" component="div" sx={{ color: '#777' }}>
+               Insert the intermediate text you want to show between the map and the bar chart. 
+               For example, describe how the migration flows shown on the map translate into the specific numbers grouped by governorate in the chart below.
+               This box uses the same style and width as the introductory text.
+             </Typography>
+          </Box>
+          <MigrationGroupedChart />  
+        </Section>
+
+        {/* Sezione 5: Bilancio Finale */}
+        <Section 
+          id="bilancio" 
+          title="5. The Silent Toll" 
+          description="Direct vs indirect deaths: the true cost of war." 
+         body={
+    <div style={{ textAlign: 'justify' }}>
+      How many deaths has the war caused? The answer is more complex than counting bodies on battlefields. According to UN estimates, the conflict has caused hundreds of thousands of casualties.
+
+The shocking detail is the cause: about 60% of these deaths are not due to direct violence (bombing or shootings), but to indirect causes contaminated water, cholera, lack of medicine and malnutrition. The war in Yemen has killed more children through hunger than soldiers with bullets.
+    </div>
+  }>
+      
+          <Fatalities />
+        </Section>
+
       </Container>
 
       {/* FOOTER */}
       <Box sx={{ py: 4, bgcolor: '#1a1a1a', color: 'white', textAlign: 'center' }}>
-        <Typography variant="body2">
-           Data Visualization Project 2025/2066 - Università di Genova
-            <br />
-           Nettikadan Kevin 
+         <Typography variant="body2">
+          Data Visualization Project 2025/2066 - University of Genoa
+          <br />
+          Nettikadan Kevin 
         </Typography>
       </Box>
 
@@ -295,7 +292,7 @@ Yemen’s food security crisis stems from shocks—floods, conflict, and economi
             },
             zIndex: 9998
           }}
-          aria-label="torna su"
+          aria-label="scroll to top"
         >
           <KeyboardArrowUpIcon />
         </Fab>
@@ -329,7 +326,7 @@ function Section({ id, title, description, body, children }) {
         ) : (
           <Box sx={{ height: 360, bgcolor: '#eee', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2 }}>
             <Typography variant="body2" color="text.secondary">
-              Grafico in arrivo
+              Chart coming soon
             </Typography>
           </Box>
         )}

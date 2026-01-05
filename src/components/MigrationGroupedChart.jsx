@@ -14,14 +14,14 @@ const MigrationGroupedChart = () => {
   const [loading, setLoading] = useState(true);
   const [useLogScale, setUseLogScale] = useState(false); // Default lineare
 
-  // 1. CARICAMENTO E ELABORAZIONE DATI (useMemo non necessario qui, meglio in useEffect)
+  // 1. Data loading and processing
   useEffect(() => {
     Promise.all([
       d3.csv(idpPath),
       d3.csv(pocPath)
     ]).then(([idpRaw, pocRaw]) => {
       
-      // Mappa per accumulare i dati per anno
+      // Map to accumulate data by year
       const statsByYear = new Map();
 
       // Elabora IDP (Interni)
@@ -63,7 +63,7 @@ const MigrationGroupedChart = () => {
     });
   }, []);
 
-  // Usa tutti i dati (nessun filtro via slider)
+  // Use all data (no slider filter)
   const filteredData = useMemo(() => data || [], [data]);
 
   // 2. DISEGNO DEL GRAFICO
@@ -100,7 +100,7 @@ const MigrationGroupedChart = () => {
       .range([0, x0.bandwidth()])
       .padding(0.05);
 
-    // Scala Y (Logaritmica o Lineare)
+    // Y scale (Logarithmic or Linear)
     let y;
     const maxVal = d3.max(filteredData, d => Math.max(d.internal, d.external));
     const minVal = d3.min(filteredData, d => Math.min(d.internal, d.external));
@@ -121,7 +121,7 @@ const MigrationGroupedChart = () => {
     // Colori
     const color = d3.scaleOrdinal()
       .domain(subgroups)
-      .range(['#d32f2f', '#000000']); // Rosso (Internal), Nero (External)
+      .range(['#d32f2f', '#000000']); // Red (Internal), Black (External)
 
     // Assi
     svg.append("g")
@@ -152,7 +152,7 @@ const MigrationGroupedChart = () => {
       .style("text-anchor", "middle")
       .style("fill", "#666")
       .style("font-size", "12px")
-      .text(useLogScale ? "Persone (Logaritmica)" : "Persone (Lineare)");
+      .text(useLogScale ? "People (Log scale)" : "People (Linear)");
 
     // Barre
     svg.append("g")
@@ -178,7 +178,7 @@ const MigrationGroupedChart = () => {
         .attr("fill", d => color(d.key))
         .attr("rx", 3)
         // Interazione
-        .on("mouseover", (event, d) => {
+          .on("mouseover", (event, d) => {
           d3.select(event.currentTarget).style("opacity", 0.8);
           
           const tooltip = tooltipRef.current;
@@ -188,7 +188,7 @@ const MigrationGroupedChart = () => {
           tooltip.innerHTML = `
             <div style="font-weight:bold; margin-bottom:4px">${d.year}</div>
             <div style="color:${color(d.key)}">
-              ${d.key === 'internal' ? 'Sfollati Interni' : 'Rifugiati Esteri'}: 
+              ${d.key === 'internal' ? 'Internally Displaced' : 'Refugees (external)'}: 
               <b>${d.value.toLocaleString()}</b>
             </div>
           `;
@@ -202,7 +202,7 @@ const MigrationGroupedChart = () => {
     const legend = svg.append("g")
       .attr("transform", `translate(${width - 150}, -20)`);
 
-    ['Interni (IDP)', 'Esteri (Refugees)'].forEach((label, i) => {
+    ['Internal (IDP)', 'External (Refugees)'].forEach((label, i) => {
       const g = legend.append("g").attr("transform", `translate(0, ${i * 20})`);
       g.append("rect")
         .attr("width", 12)
@@ -222,7 +222,7 @@ const MigrationGroupedChart = () => {
   return (
     <Paper elevation={0} sx={{ p: 3, position: 'relative', bgcolor: 'transparent' }}>
       <Typography variant="h6" color="primary" gutterBottom>
-        Confronto: Fuga Interna vs Esterna
+        Internal vs External Displacement
       </Typography>
 
       {/* Controlli (solo scala) */}
@@ -235,14 +235,14 @@ const MigrationGroupedChart = () => {
             onClick={() => setUseLogScale(false)}
             size="small"
           >
-            Scala Lineare
+            Linear Scale
           </Button>
           <Button 
             variant={useLogScale ? "contained" : "outlined"} 
             onClick={() => setUseLogScale(true)}
             size="small"
           >
-            Scala Logaritmica
+            Log Scale
           </Button>
         </Box>
 
@@ -275,8 +275,8 @@ const MigrationGroupedChart = () => {
       />
       
       <Typography variant="caption" sx={{ display: 'block', mt: 1, color: '#666' }}>
-        Nota: La differenza tra sfollati interni (milioni) e rifugiati (migliaia) è immensa. 
-        Usa la scala logaritmica per confrontare i trend.
+        Note: The difference between internally displaced people (millions) and refugees (thousands) is enormous. 
+        Use the log scale to compare trends.
       </Typography>
     </Paper>
   );

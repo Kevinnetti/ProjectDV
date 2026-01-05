@@ -86,14 +86,14 @@ const GdpLineChartD3 = () => {
       .attr("stroke-dasharray", "4,4");
 
     svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0)
-        .attr("x", 0 - (height / 2))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .style("font-size", "12px")
-        .style("fill", "#999")
-        .text("Miliardi di USD ($)");
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("x", 0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .style("font-size", "12px")
+      .style("fill", "#999")
+      .text("Billions of USD ($)");
 
     // Etichetta Asse X
     svg.append("text")
@@ -184,8 +184,8 @@ const GdpLineChartD3 = () => {
           .attr('r', 7)
           .attr('stroke-width', 3);
 
-        tooltipTextYear.text(`Anno: ${d.year}`);
-        tooltipTextGdp.text(`GDP: $${d.value.toFixed(2)} Mld`);
+        tooltipTextYear.text(`Year: ${d.year}`);
+        tooltipTextGdp.text(`GDP: $${d.value.toFixed(2)} Bn`);
 
         const bbox = tooltipText.node().getBBox();
         const padding = 8;
@@ -224,7 +224,7 @@ const GdpLineChartD3 = () => {
   return (
     <Box sx={{ position: 'relative' }}>
       <Typography variant="h6" color="primary" gutterBottom>
-        L'Economia dello Yemen (1990-2025)
+        Yemen's Economy (1990-2025)
       </Typography>
       
       {/* Mostra un caricamento se i dati non sono ancora arrivati */}
@@ -237,7 +237,7 @@ const GdpLineChartD3 = () => {
       )}
 
       <Typography variant="caption" sx={{ display: 'block', textAlign: 'right', mt: 1, color: '#777' }}>
-        Fonte: Dati CSV World Bank
+        Source: World Bank CSV data
       </Typography>
     </Box>
   );

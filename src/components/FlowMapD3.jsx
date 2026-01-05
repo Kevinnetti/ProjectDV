@@ -206,7 +206,7 @@ const FlowMapD3 = () => {
             tooltip.style.display = "block";
             tooltip.innerHTML = `
               <div style="font-weight:bold">${row.asylum_name} (${selectedYear})</div>
-              <div>Migranti: <span style="color:#ffccbc">${row.value.toLocaleString()}</span></div>
+              <div>Migrants: <span style="color:#ffccbc">${row.value.toLocaleString()}</span></div>
             `;
             positionTooltip(event);
           })
@@ -263,7 +263,7 @@ const FlowMapD3 = () => {
     <Paper elevation={0} sx={{ p: 3, bgcolor: 'transparent' }}>
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', mb: 2 }}>
         <Typography variant="h6" color="primary">
-          Evoluzione della Migrazione Yemenita
+          Yemeni Migration Trends
         </Typography>
       </Box>
 
@@ -287,7 +287,7 @@ const FlowMapD3 = () => {
           sx={{ borderRadius: 999, px: 2 }}
         >
           {isPlaying ? <PauseIcon sx={{ mr: 1 }} /> : <PlayArrowIcon sx={{ mr: 1 }} />}
-          {isPlaying ? 'Pausa' : 'Play'}
+          {isPlaying ? 'Pause' : 'Play'}
         </Button>
         <Box sx={{ display:'flex', alignItems:'baseline', gap: 1 }}>
           <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#d32f2f' }}>
@@ -333,7 +333,7 @@ const FlowMapD3 = () => {
       />
       
       <Typography variant="caption" sx={{display:'block', textAlign:'right', mt:1, color:'#777'}}>
-        Fonte: UNHCR Data (Elaborazione real-time)
+        Source: UNHCR data (processed in real-time)
       </Typography>
     </Paper>
   );
