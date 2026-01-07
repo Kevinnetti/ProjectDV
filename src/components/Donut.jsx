@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { HtmlTooltip } from './ChartTooltip';
 import * as d3 from 'd3';
+// Import CSV as URL so Vite copies it into the build and returns a runtime URL
+import csvUrl from '../data/Yemen_Data_Project_Unified.csv?url';
 
 export default function Donut({ height = 600 }) {
   const containerRef = useRef(null);
@@ -29,8 +31,8 @@ export default function Donut({ height = 600 }) {
   };
 
   useEffect(() => {
-    const file = '../data/Yemen_Data_Project_Unified.csv';
-    d3.csv(new URL(file, import.meta.url).href).then(rows => {
+    // Use the Vite-provided URL for the CSV
+    d3.csv(csvUrl).then(rows => {
       const rowsArr = rows || [];
       if (!rowsArr || rowsArr.length === 0) {
         setData([]);
