@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import { Paper, Typography, Box, CircularProgress, Slider, Button } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
+// tooltip uses tooltipRef DOM node (restored to original implementation)
 
 // Importiamo i file tramite Vite
 import geoJsonPath from '../data/world.geojson?url';
@@ -149,6 +150,7 @@ const FlowMapD3 = () => {
       return pathGenerator.centroid(feature);
     };
 
+    // Posiziona il tooltip accanto al cursore (usa hovered state)
     // Posiziona il tooltip accanto al cursore
     const positionTooltip = (event) => {
       const tooltip = tooltipRef.current;
@@ -315,7 +317,7 @@ const FlowMapD3 = () => {
         </Box>
       </Box>
 
-      {/* TOOLTIP */}
+      {/* TOOLTIP (restored DOM tooltip) */}
       <div 
         ref={tooltipRef}
         style={{

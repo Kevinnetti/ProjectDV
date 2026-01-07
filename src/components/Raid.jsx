@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import * as d3 from 'd3';
 import { Typography, Box, Slider, Button, IconButton } from '@mui/material';
+import { HtmlTooltip } from './ChartTooltip';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 
@@ -12,8 +13,9 @@ const Raid = () => {
   const [year, setYear] = useState(2015);
   const [hovered, setHovered] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const yearsRange = useMemo(() => [2015, 2022], []);
+  const yearsRange = useMemo(() => [2015, 2025], []);
   const [showAggregated, setShowAggregated] = useState(false);
+  const [isMapVisible, setIsMapVisible] = useState(false);
 
   // Calcola max raid per la scala colori
   const maxVal = useMemo(() => {
@@ -24,6 +26,67 @@ const Raid = () => {
     });
     return max || 10;
   }, [year]);
+
+  // Totali per anno (usati nella legenda sotto le categorie)
+  const yearCounts = useMemo(() => {
+    const [minY, maxY] = yearsRange;
+    const fmt = d3.format(',');
+    const out = [];
+    for (let y = minY; y <= maxY; y++) {
+      let s = 0;
+      districtData.features.forEach(f => {
+        const v = f.properties.raids && f.properties.raids[y] ? Number(f.properties.raids[y]) : 0;
+        s += v;
+      });
+      out.push({ year: y, total: s, totalFmt: fmt(s) });
+    }
+    return out;
+  }, [yearsRange]);
+
+  // Totali calcolati dal CSV unificato (preferiti) - dedup su Incident ID
+  const [csvYearCounts, setCsvYearCounts] = useState(null);
+  useEffect(() => {
+    const csvUrl = new URL('../data/Yemen_Data_Project_Unified.csv', import.meta.url);
+    d3.csv(csvUrl).then(rows => {
+      if (!rows || rows.length === 0) return;
+      const idKey = rows[0]['Incident ID'] !== undefined ? 'Incident ID' : null;
+      const counts = {};
+      const seen = new Set();
+      rows.forEach(r => {
+        let id = idKey ? (r[idKey] || '').toString().trim() : null;
+        // fallback composite key
+        if (!id) id = `${r.Date || ''}|${r.Target || r['Target'] || ''}|${r['Main category'] || r['Main category'] || ''}`;
+        if (seen.has(id)) return; // dedup
+        seen.add(id);
+        // parse year from Date column (format dd/mm/yyyy or yyyy-mm-dd)
+        const dateStr = r.Date || r.date || '';
+        let y = null;
+        if (dateStr) {
+          const m = dateStr.match(/(\d{4})$/);
+          if (m) y = Number(m[1]);
+          else {
+            const parts = dateStr.split('/');
+            if (parts.length === 3) {
+              const yy = Number(parts[2]);
+              if (!Number.isNaN(yy)) y = yy;
+            }
+          }
+        }
+        if (!y) return;
+        counts[y] = (counts[y] || 0) + 1;
+      });
+      const [minY, maxY] = yearsRange;
+      const fmt = d3.format(',');
+      const out = [];
+      for (let y = minY; y <= maxY; y++) {
+        const total = counts[y] || 0;
+        out.push({ year: y, total, totalFmt: fmt(total) });
+      }
+      setCsvYearCounts(out);
+    }).catch(err => {
+      console.warn('Failed to load unified CSV for year totals', err);
+    });
+  }, [yearsRange]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -53,7 +116,7 @@ const Raid = () => {
       if (v >= 1 && v <= 10) return '#4caf50'; // verde
       if (v >= 11 && v <= 35) return '#fdd835'; // giallo
       if (v >= 36 && v <= 70) return '#ff9800'; // arancione
-      if (v >= 71 && v <= 130) return '#f44336'; // rosso
+      if (v >= 71 && v <= 130) return '#d32f2f'; // rosso
       if (v >= 131 && v <= 200) return '#9c27b0'; // viola
       return '#000000'; // nero >200
     };
@@ -133,7 +196,7 @@ const Raid = () => {
       { label: '1 - 10', color: '#4caf50' },
       { label: '11 - 35', color: '#fdd835' },
       { label: '36 - 70', color: '#ff9800' },
-      { label: '71 - 130', color: '#f44336' },
+      { label: '71 - 130', color: '#d32f2f' },
       { label: '131 - 200', color: '#9c27b0' },
       { label: '200+', color: '#000000' }
     ];
@@ -160,7 +223,38 @@ const Raid = () => {
           .text(d.label);
       });
 
-  }, [year, maxVal, showAggregated]);
+    // Aggiungi i totali per anno sotto la legenda
+    try {
+      const yOffset = categories.length * (itemH + 8) + 8;
+      const yearGroup = legendGroup.append('g').attr('transform', `translate(0, ${yOffset})`);
+      const displayYears = (csvYearCounts && csvYearCounts.length) ? csvYearCounts : yearCounts;
+      // Show a single line: current year total, or aggregated total when showAggregated
+      const fmt = d3.format(',');
+      if (showAggregated) {
+        const totalAgg = displayYears.reduce((acc, d) => acc + (d.total || 0), 0);
+        yearGroup.append('text')
+          .attr('x', 0)
+          .attr('y', 2)
+          .attr('fill', '#222')
+          .style('font-size', '10px')
+          .style('font-weight', 600)
+          .text(`Total raids: ${fmt(totalAgg)}`);
+      } else {
+        const cur = displayYears.find(d => d.year === year) || { total: 0, totalFmt: fmt(0) };
+        yearGroup.append('text')
+          .attr('x', 0)
+          .attr('y', 2)
+          .attr('fill', '#222')
+          .style('font-size', '10px')
+          .style('font-weight', 600)
+          .text(`Total raids: ${cur.totalFmt}`);
+      }
+    } catch (e) {
+      // Non critico: se qualcosa va storto, non rompere la mappa
+      console.warn('Unable to render year totals in legend', e);
+    }
+
+  }, [year, maxVal, showAggregated, csvYearCounts]);
 
   // Gestione play/pause per avanzare gli anni (stesso pattern di FlowMapD3)
   useEffect(() => {
@@ -172,6 +266,22 @@ const Raid = () => {
     }, delay);
     return () => clearInterval(id);
   }, [isPlaying, yearsRange]);
+
+  // Observe container visibility so we can show the 'pace?' overlay when in viewport
+  useEffect(() => {
+    if (!containerRef.current) return;
+    let obs;
+    try {
+      obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => setIsMapVisible(e.isIntersecting));
+      }, { threshold: 0.25 });
+      obs.observe(containerRef.current);
+    } catch (err) {
+      // IntersectionObserver may not be available in some environments
+      setIsMapVisible(true);
+    }
+    return () => { if (obs) obs.disconnect(); };
+  }, []);
 
   // Aggiorna il tooltip quando cambia l'anno in modo che mostri il valore corrente
   // Aggiorna il tooltip quando cambia l'anno o la vista aggregata
@@ -201,17 +311,30 @@ const Raid = () => {
       </Typography>
 
       <Box ref={containerRef} sx={{ minHeight: 600, position: 'relative' }}>
-        {/* Tooltip posizionato vicino al distretto */}
-        {hovered && (
-          <Box sx={{
-            position: 'absolute', left: hovered.x, top: hovered.y,
-            bgcolor: 'rgba(255,255,255,0.95)', color: 'black',
-            p: 1.25, borderRadius: 1, boxShadow: 3, pointerEvents: 'none',
-            minWidth: 120, transform: 'translate(8px, -8px)'
-          }}>
-            <Typography variant="subtitle2" fontWeight="bold">{hovered.name}</Typography>
-            <Typography variant="body2">Raids: {hovered.count}</Typography>
-          </Box>
+        {/* Tooltip posizionato vicino al distretto (shared HtmlTooltip) */}
+        <HtmlTooltip open={!!hovered} x={hovered?.x} y={hovered?.y}>
+          {hovered && (
+            <>
+              <div style={{ fontWeight: 700, marginBottom: 6 }}>{hovered.name}</div>
+              <div>Raids: {hovered.count}</div>
+            </>
+          )}
+        </HtmlTooltip>
+        {/* Overlay 'pace?' when year is 2023 and map is visible */}
+        {year === 2023 && isMapVisible && (
+          <div style={{
+            position: 'absolute',
+            left: '50%',
+            top: '40%',
+            transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none',
+            zIndex: 9999,
+            color: 'rgba(255,255,255,0.95)',
+            textShadow: '0 4px 12px rgba(0,0,0,0.6)',
+            fontSize: 48,
+            fontWeight: 800,
+            letterSpacing: '0.04em'
+          }}>pace?</div>
         )}
       </Box>
 
@@ -245,10 +368,10 @@ const Raid = () => {
             {!showAggregated && (
               <Slider
                 value={year}
-                min={2015} max={2022} step={1}
+                min={2015} max={2025} step={1}
                 marks valueLabelDisplay="auto"
                 onChange={(e, v) => { if (typeof v === 'number') setYear(v); }}
-                sx={{ color: '#ff9800' }}
+                sx={{ color: '#d32f2f' }}
               />
             )}
           </Box>

@@ -4,9 +4,9 @@ from difflib import get_close_matches
 import re
 
 # NOMI FILE (Assicurati che siano nella stessa cartella)
-GEOJSON_FILE = 'IPC_YE_A_82302905_2025-12-30.geojson'
-CSV_FILE = 'raids.csv'
-OUTPUT_FILE = 'yemen_districts_clean.json'
+GEOJSON_FILE = 'src/data/IPC_YE_A_82302905_2025-12-30.geojson'
+CSV_FILE = 'src/data/Yemen_Data_Project_Unified.csv'
+OUTPUT_FILE = 'src/data/yemen_districts_clean.json'
 
 print("1. Caricamento file...")
 try:
@@ -77,8 +77,21 @@ for district_raw, group in df.groupby('District'):
         # Abbiamo trovato il distretto nella mappa!
         matched_count += 1
         
-        # Calcola raid per anno
-        yearly_raids = group.groupby('Year')['Min Air Raids'].sum()
+        # Calcola raid per anno (usa la colonna 'Min Projectiles' dal CSV unificato)
+        if 'Min Air Raids' in group.columns:
+            col_name = 'Min Air Raids'
+        elif 'Min Projectiles' in group.columns:
+            col_name = 'Min Projectiles'
+        else:
+            # fallback: usa la prima colonna numerica disponibile
+            numeric_cols = group.select_dtypes(include='number').columns.tolist()
+            col_name = numeric_cols[0] if numeric_cols else None
+
+        if col_name is None:
+            print(f"Warning: no numeric projectile column found for district '{district_raw}', skipping")
+            continue
+
+        yearly_raids = group.groupby('Year')[col_name].sum()
         
         # Inserisci nel GeoJSON
         raids_dict = {str(int(y)): int(c) for y, c in yearly_raids.items()}

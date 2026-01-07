@@ -1,0 +1,59 @@
+Incident ID,Date,Governorate,District,Area,Target,Main category,Sub-category,Min projectiles,Max projectiles,Civilian Casualties,Fatalities ,Woman fatalities,Child fatalities,Injured ,Woman injured,Child injured, Confirmed Time,Time of Day
+218,20/07/2024,Hudaydah,Al-Mina,Al-Hudaydah port,Fuel Storage Units,Economic_infrastructure,Oil & Gas,1,1,92,9,0,0,83,0,0,18,Evening
+219,20/07/2024,Hudaydah,Al-Mina,Al-Katib,Al-Katib Electricity Station,Economic_infrastructure,Water & Electricity,1,1,0,0,0,0,0,0,0,18,Evening
+260,29/09/2024,Hudaydah,Al-Mina,Al-Katib,Electricity Station,Economic_infrastructure,Water & Electricity,1,4,18,4,0,1,14,0,0,17,Afternoon
+261,29/09/2024,Hudaydah,Al-Mina,Al-Hudaydah port,Al-Hudaydah Port,Infrastructure,Transport,1,4,14,0,0,0,14,0,0,17,Afternoon
+262,29/09/2024,Hudaydah,Al-Salif,Ras Issa,Oil Tanks,Economic_infrastructure,Oil & Gas,1,5,15,0,0,0,15,0,0,17,Afternoon
+263,29/09/2024,Hudaydah,Al-Hali,,Electricity Station,Economic_infrastructure,Water & Electricity,1,4,15,1,0,0,14,0,0,17,Afternoon
+296,19/12/2024,Hudaydah,Al-Salif,Al-Salif seaport,Al-Salif Seaport,Infrastructure,Transport,1,1,7,7,0,0,0,0,0,3,Early-Morning
+297,19/12/2024,Capital,Bani Al-Harith,Dhahbah,Power Station,Economic_infrastructure,Water & Electricity,1,2,0,0,0,0,0,0,0,4,Early-Morning
+298,19/12/2024,Hudaydah,Al-MIna,Al-Hudaydah port,Al-Hudaydah Port,Infrastructure,Transport,1,7,2,0,0,0,2,0,0,4,Early-Morning
+299,19/12/2024,Hudaydah,Al-Salif,Ras Issa,Ras Issa Port,Infrastructure,Transport,1,2,3,2,0,0,1,0,0,4,Early-Morning
+300,19/12/2024,Sanaa,Sanhan,Hizyaz,Power Station,Economic_infrastructure,Water & Electricity,1,4,0,0,0,0,0,0,0,4,Early-Morning
+304,26/12/2024,Hudaydah,Al-Mina,Al-Katib,Power Station,Economic_infrastructure,Water & Electricity,1,2,0,0,0,0,0,0,0,17,Afternoon
+305,26/12/2024,Capital,Bani Al-Harith,Ar Rahabah,Sana'a Airport,Infrastructure,Transport,1,3,33,3,0,0,30,0,0,17,Afternoon
+306,26/12/2024,Hudaydah,Al-Mina,Al-Hudaydah port,Al-Hudaydah Port,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,17,Afternoon
+307,26/12/2024,Sanaa,Sanhan,Hizyaz,Power Station,Economic_infrastructure,Water & Electricity,1,2,0,0,0,0,0,0,0,17,Afternoon
+308,26/12/2024,Hudaydah,Al-Salif,Ras Issa,Ras Issa Port,Infrastructure,Transport,1,2,13,3,0,0,10,0,0,17,Afternoon
+322,10/01/2025,Sanaa,Sanhan,Hizyaz,Power Station,Economic_infrastructure,Water & Electricity,1,13,3,0,0,0,3,0,0,16,Afternoon
+323,10/01/2025,Hudaydah,Al-Salif,Ras Issa,Ras Issa Port,Infrastructure,Transport,1,2,4,1,0,0,3,0,0,16,Afternoon
+324,10/01/2025,Capital,Al-Sab'ein,An Nahdayn,Presidential Palace,Infrastructure,Gov. Compounds,1,1,0,0,0,0,0,0,0,15,Afternoon
+325,10/01/2025,Hudaydah,Al-Mina,Al-Hudaydah Port,Al-Hudaydah Port,Infrastructure,Transport,1,6,4,1,0,0,3,0,0,16,Afternoon
+658,05/05/2025,Hudaydah,Bajil,,Bajil Cement Factory,Infrastructure,Factory,1,2,38,3,0,0,35,0,1,19,Evening
+665,05/05/2025,Hudaydah,Al-Mina,Al-Hudaydah port,Al-Hudaydah Port,Infrastructure,Transport,1,6,5,1,0,0,4,0,0,19,Evening
+669,06/05/2025,Sanaa,Bani Matar,Faj Attan,Missiles Brigade Camp,Military_Security_Target,Military Site,1,1,0,0,0,0,0,0,0,15,Afternoon
+670,06/05/2025,Capital,Bani Al-Harith,Kawlat Jidr,Power Substation,Economic_infrastructure,Water & Electricity,1,1,0,0,0,0,0,0,0,16,Afternoon
+671,06/05/2025,Capital,Maain,Asr,Power Substation,Economic_infrastructure,Water & Electricity,1,2,2,0,0,0,2,0,0,16,Afternoon
+672,06/05/2025,Capital,Bani Al-Harith,Ar Rahabah,Sana'a Airport,Infrastructure,Transport,1,15,4,1,0,0,3,0,0,15,Afternoon
+673,06/05/2025,Sanaa,Sanhan,Hizyaz,Hizyaz Power Station,Economic_infrastructure,Water & Electricity,1,1,7,0,0,0,7,0,0,15,Afternoon
+675,06/05/2025,Capital,Bani Al-Harith,,Power Substation,Economic_infrastructure,Water & Electricity,1,1,0,0,0,0,0,0,0,16,Afternoon
+676,06/05/2025,Capital,Bani Al-Harith,Dhahaban,Dhahaban Power Station,Economic_infrastructure,Water & Electricity,1,2,9,2,0,0,7,0,0,15,Afternoon
+678,16/05/2025,Hudaydah,Al-Salif,Al-Salif seaport,Al-Salif Seaport,Infrastructure,Transport,1,18,4,1,0,0,3,0,0,17,Afternoon
+679,16/05/2025,Hudaydah,Al-Mina,Al-Hudaydah port,Al-Hudaydah Port,Infrastructure,Transport,1,17,6,0,0,0,6,0,0,17,Afternoon
+680,28/05/2025,Capital,Bani Al-Harith,Ar Rahabah,Sana'a Airport,Infrastructure,Transport,1,4,0,0,0,0,0,0,0,10,Midday
+681,10/06/2025,Hudaydah,Al-Mina,Al-Hudaydah port,Al-Hudaydah Port,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,8,Morning
+682,14/06/2025,Capital,Al-Sab'ein,,House belonging to pro-Houthi chief of staff Mohammed  Al-Ghumari,Political_Tribal,Figure,1,1,0,0,0,0,0,0,0,11,Night
+683,07/07/2025,Hudaydah,Al-Mina,Al-Hudaydah port,Al-Hudaydah Port,Infrastructure,Transport,1,10,0,0,0,0,0,0,0,24,Night
+684,07/07/2025,Hudaydah,Al-Mina,Al-Katib,Power Station,Economic_infrastructure,Water & Electricity,1,13,0,0,0,0,0,0,0,24,Night
+685,07/07/2025,Hudaydah,Al-Salif,Ras Issa,Ras Issa Port,Infrastructure,Transport,1,13,0,0,0,0,0,0,0,24,Night
+686,07/07/2025,Hudaydah,Al-Salif,Al-Salif seaport,Al-Salif Port,Infrastructure,Transport,1,13,0,0,0,0,0,0,0,24,Night
+687,07/07/2025,Hudaydah,Al-Salif,Ras Issa,Galaxy Leader Vessel,Civilian,Boat,1,1,0,0,0,0,0,0,0,24,Night
+688,21/07/2025,Hudaydah,Al-Mina,Al-Hudaydah port,Al-Hudaydah Port,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,11,Midday
+689,17/08/2025,Sanaa,Sanhan,Hizyaz,Hizyaz Power Station,Economic_infrastructure,Water & Electricity,1,1,0,0,0,0,0,0,0,4,Early-Morning
+690,24/08/2025,Capital,Al-Wahdah,60 street,Yemen Petroleum Company (YPC) Fuel Station,Economic_infrastructure,Oil & Gas,1,12,51,5,0,0,46,2,4,3,Afternoon
+691,24/08/2025,Capital,Al-Sab'ein,An Nahdayn,Presidential Palace,Infrastructure,Gov. Compounds,1,12,0,0,0,0,0,0,0,3,Afternoon
+692,24/08/2025,Sanaa,Sanhan,Hizyaz,Hizyaz Power Station,Economic_infrastructure,Water & Electricity,1,11,51,5,0,0,46,1,3,3,Afternoon
+693,28/08/2025,Capital,Al-Sab'ein,Hadda,Pro-Houthi Cabinet Workshop,Political_Tribal,Figure,1,10,14,12,0,0,2,0,0,4,Afternoon
+694,10/09/2025,Capital,Al-Tahrir,,26 September and Al-Yemen Newspapers,Media,Newspaper,1,8,185,38,11,5,147,29,31,16,Afternoon
+695,10/09/2025,Jawf,Al-Hazm,,Pro-Houthi 9th Infantry Brigade,Military_Security_Target,Military Site,1,8,0,0,0,0,0,0,0,16,Afternoon
+696,10/09/2025,Capital,Al-Wahdah,60 street,Fuel Storage Units,Economic_infrastructure,Oil & Gas,1,7,0,0,0,0,0,0,0,16,Afternoon
+697,10/09/2025,Jawf,Al-Hazm,Al-Hazm city,Central Bank of Yemen,Economic_infrastructure,Bank,1,4,26,8,0,0,18,0,0,16,Afternoon
+698,10/09/2025,Jawf,Al-Hazm,Al-Hazm city,Civil Authority,Infrastructure,Gov. Compounds,1,3,0,0,0,0,0,0,0,16,Afternoon
+699,16/09/2025,Hudaydah,Al-Mina,Al-Hudaydah port,Al-Hudaydah Port,Infrastructure,Transport,1,12,0,0,0,0,0,0,0,16,Afternoon
+700,25/09/2025,Capital,Bani Al-Harith,Dhahbah,Dhahaban Power Station,Economic_infrastructure,Water & Electricity,1,11,5,1,0,0,4,0,0,16,Afternoon
+701,25/09/2025,Capital,Al-Sab'ein,Hadda,Residential Area,Civilian,Residential Area,1,11,0,0,0,0,0,0,0,16,Afternoon
+702,25/09/2025,Capital,Al-Sab'ein,Presidential Palace,Presidential Palace,Infrastructure,Gov. Compounds,1,11,0,0,0,0,0,0,0,16,Afternoon
+703,25/09/2025,Capital,Maain,Ar Raqqas,Residential Area,Civilian,Residential Area,1,12,106,5,1,2,101,19,32,16,Afternoon
+704,25/09/2025,Capital,Al-Wahdah,60 street,Security And Intelligence Camp ,Military_Security_Target,Military Site,1,11,0,0,0,0,0,0,0,16,Afternoon
+705,25/09/2025,Capital,Old City,Al-Madrasah,National Security Compound,Military_Security_Target,Military Site,1,11,105,5,1,2,100,18,31,16,Afternoon
+NO STRIKES RECORDED SINCE 25/09/2025,,,,,,,,,,,,,,,,,,

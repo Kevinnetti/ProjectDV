@@ -7,6 +7,10 @@ export default function Food({ src, height = 520 }) {
 	const [data, setData] = useState(null);
 	const [stats, setStats] = useState(null);
 
+	// Unified color range to be used both for the map and the legends
+	const colorRange = ['#2ca02c','#ffdd57','#ff8c00','#d32f2f','#6a0dad'];
+	const colorScale = d3.scaleOrdinal().domain([1,2,3,4,5]).range(colorRange);
+
 	useEffect(() => {
 		// If a `src` prop is provided, try fetching it (useful for overrides).
 		if (src) {
@@ -81,9 +85,7 @@ export default function Food({ src, height = 520 }) {
 		const projection = d3.geoMercator().fitSize([width, height], data);
 		const path = d3.geoPath().projection(projection);
 
-		const color = d3.scaleOrdinal()
-			.domain([1,2,3,4,5])
-			.range(['#2ca02c','#ffdd57','#ff8c00','#d62728','#6a0dad']);
+		const color = colorScale;
 
 		// Tooltip
 		const tooltip = d3.select(container)
@@ -153,7 +155,7 @@ export default function Food({ src, height = 520 }) {
 						{[1,2,3,4,5].map(p => (
 							<div key={p} style={{ flex: '1 1 180px', minWidth: 140 }}>
 								<div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-									<div style={{ width: 12, height: 12, background: d3.schemeCategory10[p-1] || '#999', border: '1px solid #333' }} />
+									<div style={{ width: 12, height: 12, background: colorScale(p) || '#999', border: '1px solid #333' }} />
 									<div style={{ fontWeight: 700 }}>P{p}</div>
 								</div>
 								<div style={{ fontSize: 13, color: '#333', marginTop: 6 }}>
@@ -163,7 +165,7 @@ export default function Food({ src, height = 520 }) {
 									Population: {stats.popPercent[p].toFixed(1)}% ({Math.round(stats.popByPhase[p]).toLocaleString()})
 								</div>
 								<div style={{ height: 8, background: '#eef0f3', borderRadius: 6, marginTop: 8, overflow: 'hidden' }}>
-									<div style={{ height: '100%', width: `${Math.max(0, Math.min(100, stats.popPercent[p]))}%`, background: d3.interpolateRgb('#ffe6b3','#d9534f')(p/5) }} />
+									<div style={{ height: '100%', width: `${Math.max(0, Math.min(100, stats.popPercent[p]))}%`, background: colorScale(p) }} />
 								</div>
 							</div>
 						))}

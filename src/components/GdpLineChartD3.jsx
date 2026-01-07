@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { Paper, Typography, Box, CircularProgress } from '@mui/material';
+import { createSvgTooltip } from './ChartTooltip';
 
 // IMPORTANTE: Importiamo l'URL del file CSV grazie a Vite
 // '?url' dice a Vite di darci il percorso del file finale, non il contenuto grezzo
@@ -8,6 +9,7 @@ import gdpCsvPath from '../data/gdp.csv?url';
 
 const GdpLineChartD3 = () => {
   const containerRef = useRef(null);
+  const hasAnimatedRef = useRef(false);
   
   // Stato per i dati (inizialmente null perché dobbiamo caricarli)
   const [data, setData] = useState(null);
@@ -134,46 +136,44 @@ const GdpLineChartD3 = () => {
       .style("opacity", 0)
       .style("cursor", "pointer");
 
-    // --- ANIMAZIONE ---
+    // --- ANIMAZIONE (avvia solo quando visibile) ---
     const totalLength = path.node().getTotalLength();
 
-    path
-      .attr("stroke-dasharray", totalLength + " " + totalLength)
-      .attr("stroke-dashoffset", totalLength)
-      .transition()
-      .duration(2000)
-      .ease(d3.easeCubicOut)
-      .attr("stroke-dashoffset", 0)
-      .on("end", () => {
-        points
-           .transition()
-           .duration(500)
-           .style("opacity", 1);
-      });
+    const startAnimation = () => {
+      path
+        .attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicOut)
+        .attr("stroke-dashoffset", 0)
+        .on("end", () => {
+          points
+            .transition()
+            .duration(500)
+            .style("opacity", 1);
+        });
+    };
 
-    // --- INTERAZIONE: Tooltip SVG su ogni punto ---
-    const tooltipGroup = svg.append('g')
-      .style('opacity', 0)
-      .style('pointer-events', 'none');
+    let observer;
+    if (typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !hasAnimatedRef.current) {
+            hasAnimatedRef.current = true;
+            startAnimation();
+            if (observer) observer.disconnect();
+          }
+        });
+      }, { threshold: 0.25 });
+      observer.observe(containerRef.current);
+    } else {
+      // fallback: start immediately
+      startAnimation();
+    }
 
-    const tooltipRect = tooltipGroup.append('rect')
-      .attr('fill', 'rgba(0,0,0,0.85)')
-      .attr('rx', 4)
-      .attr('ry', 4);
-
-    const tooltipText = tooltipGroup.append('text')
-      .attr('fill', 'white')
-      .attr('font-size', '12px')
-      .attr('text-anchor', 'middle');
-
-    const tooltipTextYear = tooltipText.append('tspan')
-      .attr('x', 0)
-      .attr('dy', '1.2em')
-      .attr('font-weight', 'bold');
-
-    const tooltipTextGdp = tooltipText.append('tspan')
-      .attr('x', 0)
-      .attr('dy', '1.2em');
+    // --- INTERAZIONE: Tooltip SVG su ogni punto (shared helper) ---
+    const tooltip = createSvgTooltip(svg, { padding: 8, rx: 6, fontSize: 12 });
 
     // Hover su ogni singolo punto
     points
@@ -184,27 +184,12 @@ const GdpLineChartD3 = () => {
           .attr('r', 7)
           .attr('stroke-width', 3);
 
-        tooltipTextYear.text(`Year: ${d.year}`);
-        tooltipTextGdp.text(`GDP: $${d.value.toFixed(2)} Bn`);
-
-        const bbox = tooltipText.node().getBBox();
-        const padding = 8;
-        tooltipRect
-          .attr('x', bbox.x - padding)
-          .attr('y', bbox.y - padding)
-          .attr('width', bbox.width + padding * 2)
-          .attr('height', bbox.height + padding * 2);
-
         const cx = xScale(d.year);
         const cy = yScale(d.value);
-        const offsetX = cx > width / 2 ? -bbox.width - padding * 2 - 15 : 15;
-        const offsetY = cy > height / 2 ? -bbox.height - padding * 2 - 10 : 10;
-        
-        tooltipGroup
-          .attr('transform', `translate(${cx + offsetX}, ${cy + offsetY})`)
-          .transition()
-          .duration(200)
-          .style('opacity', 1);
+        const offsetX = cx > width / 2 ? -80 : 15;
+        const offsetY = cy > height / 2 ? -40 : 10;
+
+        tooltip.show(cx + offsetX, cy + offsetY, [`Year: ${d.year}`, `GDP: $${d.value.toFixed(2)} Bn`]);
       })
       .on('mouseleave', function() {
         d3.select(this)
@@ -213,12 +198,13 @@ const GdpLineChartD3 = () => {
           .attr('r', 4)
           .attr('stroke-width', 2);
 
-        tooltipGroup
-          .transition()
-          .duration(200)
-          .style('opacity', 0);
+        tooltip.hide();
       });
 
+    // cleanup observer on unmount/re-run
+    return () => {
+      if (observer) observer.disconnect();
+    };
   }, [data]); // Questo useEffect parte solo quando 'data' viene aggiornato
 
   return (

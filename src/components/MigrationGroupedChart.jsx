@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { Paper, Typography, Box, CircularProgress, Button } from '@mui/material';
+import { HtmlTooltip } from './ChartTooltip';
 
 // Import dei file CSV tramite Vite
 import idpPath from '../data/idp.csv?url';
@@ -9,6 +10,7 @@ import pocPath from '../data/migrations.csv?url';
 const MigrationGroupedChart = () => {
   const containerRef = useRef(null);
   const tooltipRef = useRef(null);
+  const [hovered, setHovered] = useState(null);
   
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -179,24 +181,17 @@ const MigrationGroupedChart = () => {
         .attr("rx", 3)
         // Interazione
           .on("mouseover", (event, d) => {
-          d3.select(event.currentTarget).style("opacity", 0.8);
-          
-          const tooltip = tooltipRef.current;
-          tooltip.style.opacity = 1;
-          tooltip.style.left = (event.clientX + 12) + "px";
-          tooltip.style.top = (event.clientY - 12) + "px";
-          tooltip.innerHTML = `
-            <div style="font-weight:bold; margin-bottom:4px">${d.year}</div>
-            <div style="color:${color(d.key)}">
-              ${d.key === 'internal' ? 'Internally Displaced' : 'Refugees (external)'}: 
-              <b>${d.value.toLocaleString()}</b>
-            </div>
-          `;
-        })
-        .on("mouseout", (event) => {
-          d3.select(event.currentTarget).style("opacity", 1);
-          tooltipRef.current.style.opacity = 0;
-        });
+            d3.select(event.currentTarget).style("opacity", 0.8);
+            if (!containerRef.current) return;
+            const rect = containerRef.current.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            setHovered({ x: Math.min(Math.max(8, x), rect.width - 150), y: Math.min(Math.max(8, y), rect.height - 80), data: d });
+          })
+          .on("mouseout", (event) => {
+            d3.select(event.currentTarget).style("opacity", 1);
+            setHovered(null);
+          });
 
     // Legenda
     const legend = svg.append("g")
@@ -257,22 +252,18 @@ const MigrationGroupedChart = () => {
         )}
       </Box>
 
-      {/* Tooltip HTML */}
-      <div 
-        ref={tooltipRef}
-        style={{
-          position: 'fixed',
-          opacity: 0,
-          background: 'rgba(255, 255, 255, 0.95)',
-          padding: '8px 12px',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          pointerEvents: 'none',
-          zIndex: 1000,
-          fontSize: '13px',
-          boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-        }}
-      />
+      {/* Tooltip HTML (shared HtmlTooltip) */}
+      <HtmlTooltip open={!!hovered} x={hovered?.x} y={hovered?.y}>
+        {hovered && (
+          <>
+            <div style={{ fontWeight: 'bold', marginBottom: 6 }}>{hovered.data.year}</div>
+            <div style={{ color: hovered.data.key === 'internal' ? '#d32f2f' : '#e3dbdbff' }}>
+              {hovered.data.key === 'internal' ? 'Internally Displaced' : 'Refugees (external)'}: 
+              <b>{hovered.data.value.toLocaleString()}</b>
+            </div>
+          </>
+        )}
+      </HtmlTooltip>
       
       <Typography variant="caption" sx={{ display: 'block', mt: 1, color: '#666' }}>
         Note: The difference between internally displaced people (millions) and refugees (thousands) is enormous. 

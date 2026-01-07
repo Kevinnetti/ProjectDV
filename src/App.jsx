@@ -9,6 +9,8 @@ import MigrationGroupedChart from './components/MigrationGroupedChart';
 import Raid from './components/Raid';
 import Food from './components/food';
 import Fatalities from './components/Fatalities';
+import MapDis from './components/mapdis';
+import Donut from './components/Donut';
 
 function App() {
   const [activeSection, setActiveSection] = useState('');
@@ -188,7 +190,15 @@ Not only military targets were hit: bridges, hospitals, schools and markets were
     </div>
   }> 
     <Raid/>
-  
+    <Box sx={{ maxWidth: '640px', mx: 'auto', my: 4, textAlign: 'justify' }}>
+             <Typography variant="body2" component="div" sx={{ color: '#777' }}>
+               Insert the intermediate text you want to show between the map and the bar chart. 
+               For example, describe how the migration flows shown on the map translate into the specific numbers grouped by governorate in the chart below.
+               This box uses the same style and width as the introductory text.
+             </Typography>
+          </Box>
+    <Donut/>
+    
   </Section>
 
         {/* Sezione 2: GDP (scambiata con Raid) */}
@@ -264,6 +274,7 @@ The shocking detail is the cause: about 60% of these deaths are not due to direc
   }>
       
           <Fatalities />
+          <MapDis />
         </Section>
 
       </Container>

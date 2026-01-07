@@ -1,0 +1,310 @@
+Incident ID,Date,Governorate,District,Area,Target,Main category,Sub-category,Min projectiles,Max projectiles,Civilian Casualties,Fatalities ,Woman fatalities,Child fatalities,Injured ,Woman injured,Child injured, Confirmed Time,Time of Day
+1,12/01/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,2,Early-Morning
+2,12/01/2024,Hajja,Abs,,Abs Airport,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,3,Early-Morning
+3,12/01/2024,Taiz,Al-Taiziyah,Al-Janad,Taiz Airport,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,3,Early-Morning
+4,12/01/2024,Capital,Bani Al-Harith,Al-Rahabah,Al-Daylami Air Base,Military_Security_Target,Military Site,1,4,0,0,0,0,0,0,0,2,Early-Morning
+5,12/01/2024,Saada,Sa'ada,Kahlan,Kahlan Military Camp,Military_Security_Target,Military Site,1,2,0,0,0,0,0,0,0,3,Early-Morning
+6,12/01/2024,Saada,Majz,Jabal Sama,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,4,Early-Morning
+7,12/01/2024,Saada,Majz,Takhyah,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,4,Early-Morning
+8,12/01/2024,Hudaydah,Zabid,,Unknown,Unknown,Unknown - Frontline area,1,2,0,0,0,0,0,0,0,3,Early-Morning
+9,12/01/2024,Taiz,Al-Taiziyah,Al-Janad,22nd Armoured Brigade,Military_Security_Target,Military Site,1,2,0,0,0,0,0,0,0,3,Early-Morning
+10,12/01/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,6,Morning
+11,13/01/2024,Capital,Bani Al-Harith,Al-Rahabah,Al-Daylami Air Base,Military_Security_Target,Military Site,1,1,0,0,0,0,0,0,0,3,Early-Morning
+12,13/01/2024,Hudaydah,Al-Mina,Al-Katib,Naval Base,Military_Security_Target,Military Site,1,1,0,0,0,0,0,0,0,18,Evening
+13,14/01/2024,Hudaydah,Al-Luhaiyah,Jabal Juda,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,19,Evening
+14,16/01/2024,Bayda,Mukayras,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,13,Midday
+15,17/01/2024,Saada,Majz,Takhyah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,23,Night
+16,17/01/2024,Dhamar,Dhamar City,,Military Police Camp,Military_Security_Target,Military Site,1,2,0,0,0,0,0,0,0,23,Night
+17,17/01/2024,Hudaydah,Al-Munirah,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,23,Night
+18,17/01/2024,Taiz,Al-Taiziyah,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,23,Night
+19,17/01/2024,Bayda,Al-Sawma'ah,,Technical Institute,Educational_Facility,Institute,1,2,0,0,0,0,0,0,0,23,Night
+20,17/01/2024,Saada,Majz,Jabal Sama,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,23,Night
+21,18/01/2024,Hudaydah,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,15,Afternoon
+22,19/01/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,18,Evening
+23,20/01/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,4,Early-Morning
+24,22/01/2024,Sanaa,Bani Hushaysh,Saraf,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,23,Night
+25,22/01/2024,Bayda,Rada'a,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,23,Night
+26,22/01/2024,Capital,Bani Al-Harith,Al-Rahabah,Al-Daylami Air Base,Military_Security_Target,Military Site,1,4,0,0,0,0,0,0,0,23,Night
+27,22/01/2024,Hudaydah,Al-Hawak,Kilo 16,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,23,Night
+28,22/01/2024,Taiz,Al-Taiziyah,Al-Janad,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,23,Night
+29,22/01/2024,Taiz,Maqbanah,Al-Barah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,23,Night
+30,22/01/2024,Capital,Al-Sab'ein,Al-Hafa,Al-Hafa Military Camp,Military_Security_Target,Military Site,1,4,0,0,0,0,0,0,0,23,Night
+31,24/01/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,2,Early-Morning
+32,27/01/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,3,Early-Morning
+33,31/01/2024,Saada,Sa'ada,Sa'ada City,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,15,Afternoon
+34,01/02/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,1,Early-Morning
+35,02/02/2024,Hajja,Abs,Al-Jar,Farms,Economic_infrastructure,Farms,1,3,1,0,0,0,1,0,0,16,Afternoon
+36,02/02/2024,Hajja,Abs,Al-Jar,Pro-Houthi Drone,Military_Security_Target,Military Site,1,4,0,0,0,0,0,0,0,16,Afternoon
+37,03/02/2024,Hudaydah,Al-Durayhimi,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,19,Evening
+38,03/02/2024,Bayda,Al-Sawadiyah,,Pro-Houthi Position,Military_Security_Target,Forces,1,4,0,0,0,0,0,0,0,24,Night
+39,03/02/2024,Taiz,Hayfan,,Telecommunications Network,Infrastructure,Communication,1,3,0,0,0,0,0,0,0,23,Night
+40,03/02/2024,Hudaydah,Al-Luhaiyah,Jabal Juda,Pro-Houthi Position,Military_Security_Target,Forces,1,5,0,0,0,0,0,0,0,24,Night
+41,03/02/2024,Hudaydah,Al-Luhaiyah,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,19,Evening
+42,03/02/2024,Hajja,Abs,Al-Jar,Pro-Houthi Position,Military_Security_Target,Forces,1,7,0,0,0,0,0,0,0,24,Night
+43,03/02/2024,Saada,Sa'ada,Sa'ada City,Pro-Houthi Position,Military_Security_Target,Forces,1,3,0,0,0,0,0,0,0,4,Early-Morning
+44,03/02/2024,Bayda,Rada'a,,Pro-Houthi Position,Military_Security_Target,Forces,1,3,0,0,0,0,0,0,0,24,Night
+45,03/02/2024,Capital,Al-Sab'ein,Al-Nahdain,Al-Nahdain Military Camp,Military_Security_Target,Military Site,1,6,0,0,0,0,0,0,0,23,Night
+46,03/02/2024,Hudaydah,Al-Salif,,Pro-Houthi Position,Military_Security_Target,Forces,1,4,0,0,0,0,0,0,0,24,Night
+47,03/02/2024,Sanaa,Bani Hushaysh,,Military Site,Military_Security_Target,Military Site,1,2,0,0,0,0,0,0,0,24,Night
+48,03/02/2024,Sanaa,Bani Matar,Faj Attan,Military Site,Military_Security_Target,Military Site,1,5,0,0,0,0,0,0,0,23,Night
+49,03/02/2024,Taiz,Maqbanah,Al-Barah,Telecommunications Network,Infrastructure,Communication,1,2,0,0,0,0,0,0,0,23,Night
+50,03/02/2024,Taiz,Hayfan,,Pro-Houthi Position,Military_Security_Target,Forces,1,3,0,0,0,0,0,0,0,23,Night
+51,03/02/2024,Taiz,Maqbanah,Al-Barah,Pro-Houthi Position,Military_Security_Target,Forces,1,3,0,0,0,0,0,0,0,23,Night
+52,04/02/2024,Hudaydah,Al-Zaydiyah,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,10,Early-Morning
+53,04/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,8,0,0,0,0,0,0,0,24,Night
+54,04/02/2024,Saada,Sa'ada,Sa'ada City,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,5,Early-Morning
+55,04/02/2024,Saada,Sa'ada,Sa'ada City,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,24,Night
+56,05/02/2024,Hudaydah,Al-Mina,Al-Katib,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,15,Afternoon
+57,05/02/2024,Hudaydah,Al-Mina,Al-Katib,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,17,Afternoon
+58,06/02/2024,Saada,Sa'ada,Sa'ada City,Unknown,Unknown,Unknown - Non-frontline area,1,3,0,0,0,0,0,0,0,3,Early-Morning
+59,07/02/2024,Hudaydah,Al-Salif,Ras Issa,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,21,Evening
+60,07/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,9,Evening
+61,07/02/2024,Saada,Baqim,Al-Ghawal Al-Qutaynat,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,23,Night
+62,08/02/2024,Saada,Baqim,Al-Ghawal Al-Qutaynat,Unknown,Unknown,Unknown - Frontline area,1,2,0,0,0,0,0,0,0,2,Early-Morning
+63,08/02/2024,Hudaydah,Al-Salif,Ash Shabakah,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,18,Evening
+64,08/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,10,Midday
+65,08/02/2024,Hudaydah,Al-Salif,Dabarah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,15,Afternoon
+66,09/02/2024,Hudaydah,Al-Durayhimi,Al-Taif,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,16,Afternoon
+67,09/02/2024,Hudaydah,Al-Durayhimi,Al-Taif,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,12,Midday
+68,09/02/2024,Saada,Baqim,Al-Ghawal Al-Qutaynat,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,22,Night
+69,09/02/2024,Hudaydah,Bajil,Al-Jabanah,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,16,Afternoon
+70,10/02/2024,Hudaydah,Al-Salif,,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,17,Afternoon
+71,10/02/2024,Hudaydah,Al-Salif,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,17,Afternoon
+72,13/02/2024,Hudaydah,Al-Tuhayat,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,15,Afternoon
+73,13/02/2024,Hudaydah,Al-Salif,Ras Issa,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,23,Night
+74,14/02/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,1,0,0,0,0,0,0,0,15,Afternoon
+75,14/02/2024,Hudaydah,Bait Al-Faqih,Al-Jah,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,2,0,0,0,0,0,0,0,18,Evening
+76,14/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,3,0,0,0,0,0,0,0,15,Afternoon
+77,14/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,1,0,0,0,0,0,0,0,20,Evening
+78,15/02/2024,Hudaydah,Bait Al-Faqih,Al-Jah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,15,Afternoon
+79,15/02/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,20,Evening
+80,16/02/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,2,0,0,0,0,0,0,0,15,Afternoon
+81,16/02/2024,Hudaydah,Al-Durayhimi,Al-Taif,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,1,0,0,0,0,0,0,0,18,Evening
+82,16/02/2024,Hudaydah,Al-Zuhrah,,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,1,0,0,0,0,0,0,0,14,Afternoon
+83,16/02/2024,Hudaydah,Al-Durayhimi,,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,1,0,0,0,0,0,0,0,18,Evening
+84,16/02/2024,Hudaydah,Bait Al-Faqih,Al-Jah,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,1,0,0,0,0,0,0,0,14,Afternoon
+85,16/02/2024,Hudaydah,Al-Luhaiyah,,Pro-Houthi Position,Pro-Houthi positions,Pro-Houthi positions,1,1,0,0,0,0,0,0,0,14,Afternoon
+86,17/02/2024,Hudaydah,Al-Salif,Ras Issa,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,16,Afternoon
+87,17/02/2024,Hudaydah,Bait Al-Faqih,Al-Jah,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,19,Evening
+88,17/02/2024,Hudaydah,,Al-Hudaydah city,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,19,Evening
+89,17/02/2024,Hudaydah,Al-Durayhimi,Al-Taif,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,19,Evening
+90,19/02/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,18,Evening
+91,19/02/2024,Hudaydah,Al-Dhuha,Al-Kadan,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,24,Night
+92,20/02/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,24,Night
+93,21/02/2024,Hudaydah,Bajil,Al-Arj,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,1,Early-Morning
+94,21/02/2024,Hudaydah,Bajil,Al-Arj,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,2,Early-Morning
+95,21/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,5,0,0,0,0,0,0,0,17,Afternoon
+96,22/02/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,17,Afternoon
+97,22/02/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,17,Afternoon
+98,23/02/2024,Hudaydah,Al-Durayhimi,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,21,Evening
+99,23/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,17,Afternoon
+100,24/02/2024,Sanaa,Bani Matar,Faj Attan,Missiles Brigade Camp,Military_Security_Target,Military Site,1,6,0,0,0,0,0,0,0,23,Night
+101,24/02/2024,Capital,Al-Thawrah,Al-Nahdhah,Pesticide Factory,Economic_infrastructure,Private factory,1,3,2,0,0,0,2,0,0,23,Night
+102,24/02/2024,Sanaa,Bani Hushaysh,Saraf,Khashm Al-Bakrah Military Camp,Military_Security_Target,Military Site,1,3,0,0,0,0,0,0,0,23,Night
+103,24/02/2024,Hajja,Abs,Al-Jar,Farms,Economic_infrastructure,Farms,1,2,0,0,0,0,0,0,0,23,Night
+104,24/02/2024,Sanaa,Hamdan,Jabal Uram,Pro-Houthi Position,Military_Security_Target,Forces,1,2,0,0,0,0,0,0,0,23,Night
+105,24/02/2024,Taiz,Hayfan,,Telecommunications Network,Infrastructure,Communication,1,2,0,0,0,0,0,0,0,23,Night
+106,24/02/2024,Taiz,Maqbanah,Shamir,Telecommunications Network,Infrastructure,Communication,1,1,8,1,0,0,7,0,0,23,Night
+107,24/02/2024,Capital,Al-Sab'ein,Al-Nahdain,Al-Nahdain Military Camp,Military_Security_Target,Military Site,1,3,0,0,0,0,0,0,0,23,Night
+108,26/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,17,Afternoon
+109,26/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,18,Evening
+110,27/02/2024,Hudaydah,Al-Luhaiyah,Labwan,Pro-Houthi Position,Military_Security_Target,Forces,1,2,0,0,0,0,0,0,0,23,Night
+111,29/02/2024,Hudaydah,Al-Durayhimi,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,18,Evening
+112,29/02/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,18,Evening
+113,01/03/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,12,Midday
+114,04/03/2024,Saada,Baqim,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,21,Evening
+115,05/03/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,21,Evening
+116,05/03/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,21,Evening
+117,05/03/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,21,Evening
+118,05/03/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,21,Evening
+119,06/03/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,19,Evening
+120,07/03/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,1,0,0,0,0,0,0,0,17,Afternoon
+121,07/03/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,17,Afternoon
+122,08/03/2024,,,,Pro-Houthi Truck-Mounted Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,9,Morning
+123,11/03/2024,Hudaydah,Al-Salif,Al-Arj,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,17,Afternoon
+124,11/03/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,20,Evening
+125,11/03/2024,Hudaydah,Al-Durayhimi,At Taif,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,20,Evening
+126,11/03/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Uncrewed Underwater Vessel ,Military_Security_Target,Other-Military,1,4,0,0,0,0,0,0,0,20,Evening
+127,12/03/2024,Saada,Majz,Takhyah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,5,0,0,0,0,0,0,0,23,Night
+128,13/03/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,4,0,0,0,0,0,0,0,17,Afternoon
+129,14/03/2024,Hudaydah,Bait Al-Faqih,Al-Jah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,4,0,0,0,0,0,0,0,16,Afternoon
+130,14/03/2024,Hudaydah,Al-Tuhayat,Al-Fazah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,21,Evening
+131,14/03/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,23,Night
+132,14/03/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,1,0,0,0,0,0,0,0,19,Evening
+133,15/03/2024,Hajja,Abs,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,1,Early-Morning
+134,15/03/2024,Hajja,Abs,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,2,Early-Morning
+135,16/03/2024,Hudaydah,Al-Durayhimi,Al-Taif,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,4,0,0,0,0,0,0,0,23,Night
+136,17/03/2024,Taiz,Al-Taiziyah,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,1,Early-Morning
+137,18/03/2024,Hudaydah,Al-Tuhayat,Al-Fazah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,4,0,0,0,0,0,0,0,19,Evening
+138,18/03/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,3,0,0,0,0,0,0,0,19,Evening
+139,18/03/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,3,0,0,0,0,0,0,0,19,Evening
+140,20/03/2024,Hudaydah,Al-Mina,Al-Katib,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,20,Evening
+141,22/03/2024,Capital,Al-Wahdah,Faj Attan,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,4,0,0,0,0,0,0,0,23,Night
+142,22/03/2024,Capital,Al-Sab'ein,Al-Nahdain,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,2,0,0,0,0,0,0,0,23,Night
+143,22/03/2024,Hudaydah,Al-Munirah,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,5,0,0,0,0,0,0,0,24,Night
+144,22/03/2024,Hudaydah,Al-Dhuha,Al-Kadan,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,12,Midday
+145,22/03/2024,Sanaa,Sanhan,Jarban,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,3,0,0,0,0,0,0,0,23,Night
+146,27/03/2024,Saada,Baqim,Al-Ghawal Al-Qutaynat,Unknown,Unknown,Unknown - Frontline area,1,1,0,0,0,0,0,0,0,15,Afternoon
+147,30/03/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,8,Morning
+148,01/04/2024,Hudaydah,Al-Durayhimi,Al-Taif,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,16,Afternoon
+149,03/04/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+150,04/04/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+151,06/04/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+152,08/04/2024,Hudaydah,Al-Hawak,Manzar,Civilian's House,Civilian,Residential Area,1,1,1,0,0,0,1,0,0,14,Midday
+153,10/04/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,4,0,0,0,0,0,0,0,20,Evening
+154,10/04/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,3,0,0,0,0,0,0,0,20,Evening
+155,14/04/2024,Taiz,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,23,Night
+156,14/04/2024,Taiz,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,23,Night
+157,14/04/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,Unknown,Unknown
+158,16/04/2024,Hudaydah,Bajil,,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,18,Evening
+159,25/04/2024,,,,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+160,25/04/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+161,30/04/2024,Hudaydah,Al-Salif,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,20,Evening
+162,02/05/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,5,0,0,0,0,0,0,0,14,Midday
+163,13/05/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,1,0,0,0,0,0,0,0,15,Afternoon
+164,14/05/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,4,0,0,0,0,0,0,0,21,Evening
+165,22/05/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,6,0,0,0,0,0,0,0,15,Afternoon
+166,23/05/2024,Hudaydah,Al-Hawak,,Al-Hudaydah Airport,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,20,Evening
+167,28/05/2024,Hudaydah,Bajil,Al-Jabanah,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,20,Evening
+168,30/05/2024,Capital,Al-Sab'ein,Al-Nahdain,Al-Nahdain Military Camp,Military_Security_Target,Military Site,1,3,0,0,0,0,0,0,0,23,Night
+169,30/05/2024,Capital,Bani Al-Harith,Al-Rahabah,Pro-Houthi Position,Military_Security_Target,Forces,1,1,0,0,0,0,0,0,0,23,Night
+170,30/05/2024,Hudaydah,Al-Salif,Al-Salif seaport,Coast Guard Site,Military_Security_Target,Military Site,1,1,39,14,0,0,25,0,0,24,Night
+171,30/05/2024,Hudaydah,Al-Hawak,,House belonging to former president Ali Saleh,Political_Tribal,Figure,1,1,0,0,0,0,0,0,0,24,Night
+172,30/05/2024,Taiz,Hayfan,Al-Abus,Telecommunications Network,Infrastructure,Communication,1,1,0,0,0,0,0,0,0,24,Night
+173,30/05/2024,Hudaydah,Al-Durayhimi,Ghulayfiqah,Ghulayfiqah Military Camp,Military_Security_Target,Military Site,1,2,0,0,0,0,0,0,0,24,Night
+174,30/05/2024,Hudaydah,Al-Hawak,,Radio Broadcast Building,Media,Radio station,1,1,12,2,0,0,10,0,0,24,Night
+175,30/05/2024,Sanaa,Sanhan,Jarban,Pro-Houthi Position,Military_Security_Target,Forces,1,2,0,0,0,0,0,0,0,23,Night
+176,30/05/2024,Hudaydah,Al-Hawak,,House belonging to former Vice President Ali Mohsen Al-Ahamar,Political_Tribal,Figure,1,1,0,0,0,0,0,0,0,24,Night
+177,06/06/2024,Hudaydah,Al-Luhaiyah,,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,16,Afternoon
+178,06/06/2024,Hudaydah,Al-Luhaiyah,Al-Khawbah,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,16,Afternoon
+179,07/06/2024,Hudaydah,Al-Salif,Al-Salif seaport,Fishing boats,Economic_infrastructure,Boat,1,1,0,0,0,0,0,0,0,14,Midday
+180,07/06/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,4,0,0,0,0,0,0,0,14,Midday
+181,07/06/2024,Capital,Al-Thawrah,Al-Nahdhah,Maintenance Military Camp,Military_Security_Target,Military Site,1,2,0,0,0,0,0,0,0,17,Afternoon
+182,09/06/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,14,Midday
+183,09/06/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile Launcher,Military_Security_Target,Moving Target (weapons/fighters),1,1,0,0,0,0,0,0,0,14,Midday
+184,10/06/2024,Hudaydah,Al-Tuhayat,Al-Fazah,Unknown,Unknown,Unknown - Frontline area,1,1,0,0,0,0,0,0,0,20,Evening
+185,11/06/2024,Hudaydah,Al-Salif,,Pro-Houthi Missile Launcher,Military_Security_Target,Moving Target (weapons/fighters),1,3,0,0,0,0,0,0,0,21,Evening
+186,12/06/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile Launcher,Military_Security_Target,Moving Target (weapons/fighters),1,1,0,0,0,0,0,0,0,18,Evening
+187,12/06/2024,Hudaydah,Al-Tuhayat,,Pro-Houthi Missile Launcher,Military_Security_Target,Moving Target (weapons/fighters),1,2,0,0,0,0,0,0,0,21,Evening
+188,12/06/2024,Raymah,Al-Jubain,,Governmental Compound,Infrastructure,Gov. Compounds,1,1,0,0,0,0,0,0,0,24,Night
+189,12/06/2024,Raymah,Al-Jubain,,Radio Broadcast Building,Media,Radio station,1,1,11,2,0,0,9,0,0,24,Night
+190,13/06/2024,Hudaydah,Al-Salif,,Unknown,Unknown,Unknown - Non-frontline area,1,3,0,0,0,0,0,0,0,15,Afternoon
+191,17/06/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,6,0,0,0,0,0,0,0,19,Evening
+192,17/06/2024,Hudaydah,Kamaran,,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,4,0,0,0,0,0,0,0,18,Evening
+193,18/06/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,Unknown,Unknown
+194,19/06/2024,Hudaydah,Al-Durayhimi,Al-Taif,Pro-Houthi Position,Military_Security_Target,Forces,1,3,0,0,0,0,0,0,0,15,Afternoon
+195,19/06/2024,Raymah,Al-Jubain,,Radio Broadcast Building,Media,Radio station,1,5,0,0,0,0,0,0,0,20,Evening
+196,20/06/2024,Hudaydah,Al-Salif,,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,1,0,0,0,0,0,0,0,15,Afternoon
+197,22/06/2024,Hudaydah,Al-Luhaiyah,,Unknown,Unknown,Unknown - Non-frontline area,1,4,0,0,0,0,0,0,0,15,Afternoon
+198,26/06/2024,,,,Pro-Houthi Radar,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+199,28/06/2024,Taiz,Mawiyah,Al-Zahrah,Pro-Houthi Ground Control Station Vehicle,Military_Security_Target,Moving Target (weapons/fighters),1,2,0,0,0,0,0,0,0,1,Early-Morning
+200,28/06/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,4,0,0,0,0,0,0,0,17,Afternoon
+201,28/06/2024,Taiz,Mawiyah,Al-Zahrah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,1,Early-Morning
+202,29/06/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,1,0,0,0,0,0,0,0,18,Evening
+203,01/07/2024,,,,Pro-Houthi Radar,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+204,03/07/2024,,,,Pro-Houthi Radar,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+205,04/07/2024,Hajja,Midi,Buhyas,Pro-Houthi Radar,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,19,Evening
+206,04/07/2024,Hudaydah,Al-Luhaiyah,,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,22,Night
+207,04/07/2024,Hudaydah,Bayt Al-Faqih,Al-Jah,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,22,Night
+208,06/07/2024,Hudaydah,Kamaran,,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,15,Afternoon
+209,07/07/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,Unknown,Unknown
+210,09/07/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+211,11/07/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,5,0,0,0,0,0,0,0,17,Afternoon
+212,12/07/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,3,0,0,0,0,0,0,0,12,Midday
+213,14/07/2024,Hudaydah,Al-Luhaiyah,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,19,Evening
+214,14/07/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,2,0,0,0,0,0,0,0,19,Evening
+215,14/07/2024,Hajja,Midi,Buhyas,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,14,Midday
+216,15/07/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,Unknown,Unknown
+217,18/07/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,3,0,0,0,0,0,0,0,1,Early-Morning
+220,21/07/2024,Hajja,Midi,,Unknown,Unknown,Unknown - Frontline area,1,2,0,0,0,0,0,0,0,16,Afternoon
+221,21/07/2024,Hudaydah,Al-Salif,Ras Issa,Unknown,Unknown,Unknown - Non-frontline area,1,4,0,0,0,0,0,0,0,17,Afternoon
+222,23/07/2024,,,,Pro-Houthi Missile Launcher,Military_Security_Target,Moving Target (weapons/fighters),1,2,0,0,0,0,0,0,0,Unknown,Unknown
+223,24/07/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,Unknown,Unknown
+224,25/07/2024,,,,Pro-Houthi Drone Launcher,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+225,26/07/2024,Hudaydah,Kamaran,,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,4,0,0,0,0,0,0,0,18,Evening
+226,26/07/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,4,0,0,0,0,0,0,0,22,Night
+227,29/07/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+228,03/08/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+229,03/08/2024,,,,Pro-Houthi Missile Launcher,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+230,07/08/2024,Taiz,Dimnat Khadir,Al-Rahidah,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,1,Early-Morning
+231,07/08/2024,Taiz,Dimnat Khadir,Al-Rahidah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,1,Early-Morning
+232,08/08/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,17,Afternoon
+233,08/08/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Position,Military_Security_Target,Forces,1,1,0,0,0,0,0,0,0,17,Afternoon
+234,09/08/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Missile Launcher,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,1,Early-Morning
+235,09/08/2024,Hudaydah,Al-Salif,Ras Issa,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,1,Early-Morning
+236,12/08/2024,Hudaydah,Kamaran,,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,11,Midday
+237,15/08/2024,Hudaydah,Al-Salif,,Pro-Houthi Position,Military_Security_Target,Forces,1,1,0,0,0,0,0,0,0,21,Evening
+238,18/08/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+239,21/08/2024,Hudaydah,Al-Salif,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,16,Afternoon
+240,21/08/2024,Hudaydah,Al-Salif,,Pro-Houthi Radar,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,16,Afternoon
+241,22/08/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+242,23/08/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+243,29/08/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+244,29/08/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+245,30/08/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+246,31/08/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+247,31/08/2024,,,,Pro-Houthi Drone Boat,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+248,02/09/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+249,03/09/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+250,06/09/2024,,,,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+251,06/09/2024,,,,Pro-Houthi Support Vehicle,Military_Security_Target,Moving Target (weapons/fighters),1,1,0,0,0,0,0,0,0,Unknown,Unknown
+252,08/09/2024,Ibb,Ibb,Maytam,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,1,Early-Morning
+253,08/09/2024,Ibb,Ibb,Maytam,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,1,Early-Morning
+254,09/09/2024,Hudaydah,Bajil,Al-Jabanah,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,14,Midday
+255,10/09/2024,Taiz,Maqbanah,Al-Kamb,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,2,0,0,0,0,0,0,0,23,Night
+256,10/09/2024,Taiz,Al-Taiziyah,Al-Janad,Pro-Houthi Drone,Military_Security_Target,Other-Military,1,1,11,2,0,2,9,0,9,11,Midday
+257,11/09/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+258,15/09/2024,,,,Pro-Houthi Missile,Military_Security_Target,Other-Military,1,1,0,0,0,0,0,0,0,Unknown,Unknown
+259,27/09/2024,Saada,Sa'ada,Sa'ada City,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,16,Afternoon
+264,03/10/2024,Hudaydah,Bajil,Al-Jabanah,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,18,Evening
+265,04/10/2024,Hudaydah,Bajil,Al-Jabanah,Unknown,Unknown,Unknown - Non-frontline area,1,3,0,0,0,0,0,0,0,11,Midday
+266,04/10/2024,Dhamar,Dhamar City,,Pro-Houthi Position,Military_Security_Target,Forces,1,1,0,0,0,0,0,0,0,17,Afternoon
+267,04/10/2024,Bayda,Mukayras,,Pro-Houthi Position,Military_Security_Target,Forces,1,3,0,0,0,0,0,0,0,18,Evening
+268,04/10/2024,Hudaydah,Al-Mina,Al-Katib,Pro-Houthi Position,Military_Security_Target,Forces,1,4,0,0,0,0,0,0,0,17,Afternoon
+269,04/10/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Al-Hudaydah Airport,Infrastructure,Transport,1,3,0,0,0,0,0,0,0,17,Afternoon
+270,04/10/2024,Capital,Al-Thawrah,Al-Hasabah,Maintenance Military Camp,Military_Security_Target,Military Site,1,4,0,0,0,0,0,0,0,17,Afternoon
+271,14/10/2024,Hudaydah,Al-Salif,,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,16,Afternoon
+272,15/10/2024,Hudaydah,Al-Luhaiyah,,Unknown,Unknown,Unknown - Non-frontline area,1,4,0,0,0,0,0,0,0,14,Midday
+273,17/10/2024,Saada,Sa'ada,Kahlan,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,5,0,0,0,0,0,0,0,5,Early-Morning
+274,17/10/2024,Capital,Al-Thawrah,,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,2,0,0,0,0,0,0,0,5,Early-Morning
+275,17/10/2024,Capital,Al-Sab'ein,Al-Hafa,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,2,0,0,0,0,0,0,0,5,Early-Morning
+276,17/10/2024,Sanaa,Sanhan,Jarban,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,2,0,0,0,0,0,0,0,5,Early-Morning
+277,17/10/2024,Saada,Al-Safra,,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,4,0,0,0,0,0,0,0,5,Early-Morning
+278,18/10/2024,Hudaydah,Al-Salif,Ras Issa,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,23,Night
+279,23/10/2024,Hudaydah,Al-Hawak,Al-Hudaydah Airport,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,23,Night
+280,30/10/2024,Hudaydah,Al-Hawak,,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,24,Night
+281,08/11/2024,Hudaydah,Al-Tuhayat,,Unknown,Unknown,Unknown - Frontline area,1,2,0,0,0,0,0,0,0,14,Midday
+282,09/11/2024,Capital,Al-Sab'ein,Al Hafa,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,1,0,0,0,0,0,0,0,21,Evening
+283,09/11/2024,Capital,Al-Sab'ein,An Nahdayn,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,2,0,0,0,0,0,0,0,21,Evening
+284,10/11/2024,Amran,Harf Sufyan,,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,2,0,0,0,0,0,0,0,5,Early-Morning
+285,10/11/2024,Sanaa,Sanhan,Jarban,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,1,0,0,0,0,0,0,0,5,Early-Morning
+286,10/11/2024,Capital,Al-Sab'ein,Al Hafa,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,4,0,0,0,0,0,0,0,5,Early-Morning
+287,11/11/2024,Amran,Harf Sufyan,,Unknown,Unknown,Unknown - Non-frontline area,1,7,0,0,0,0,0,0,0,5,Early-Morning
+288,11/11/2024,Saada,Al-Safra,,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,5,Early-Morning
+289,12/11/2024,Bayda,Al-Sawma'ah,As Samakhiyah,Pro-Houthi Vehicle,Military_Security_Target,Moving Target (weapons/fighters),1,1,0,0,0,0,0,0,0,11,Midday
+290,12/11/2024,Hudaydah,Al-Tuhayat,Al Fazah,Unknown,Unknown,Unknown - Frontline area,1,3,0,0,0,0,0,0,0,2,Early-Morning
+291,12/11/2024,Bayda,Dhi Naim,,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,14,Midday
+292,28/11/2024,Hudaydah,Bajil,,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,17,Afternoon
+293,15/12/2024,Hudaydah,Al-Tuhayat,,Unknown,Unknown,Unknown - Frontline area,1,1,0,0,0,0,0,0,0,15,Afternoon
+294,16/12/2024,Hajja,Midi,Buhyas,Unknown,Unknown,Unknown - Frontline area,1,1,0,0,0,0,0,0,0,1,Early-Morning
+295,16/12/2024,Capital,Al-Safiah,Al-Urdhi,Ministry of Defence,Military_Security_Target,Military Site,1,1,0,0,0,0,0,0,0,2,Early-Morning
+301,21/12/2024,Sanaa,Bani Matar,Faj Attan,Missiles Brigade Camp,Military_Security_Target,Military Site,1,2,0,0,0,0,0,0,0,23,Night
+302,21/12/2024,Capital,Azal,Nuqum,Pro-Houthi Command and Control Facility,Military_Security_Target,Military Site,1,1,0,0,0,0,0,0,0,23,Night
+303,22/12/2024,Hudaydah,Al-Luhaiyah,Jabal Juda,Unknown,Unknown,Unknown - NON-frontline area,1,1,0,0,0,0,0,0,0,1,Early-Morning
+309,27/12/2024,Capital,Al-Thawrah,Al-Nahdhah,Former First Armoured Division,Military_Security_Target,Military Site,1,1,0,0,0,0,0,0,0,21,Evening
+310,28/12/2024,Hajja,Midi,Buhyas,Unknown,Unknown,Unknown - frontline area,1,4,0,0,0,0,0,0,0,16,Afternoon
+311,30/12/2024,Hudaydah,Al-Tuhayat,,Unknown,Unknown,Unknown - frontline area,1,2,0,0,0,0,0,0,0,23,Night
+312,31/12/2024,Capital,Al-Safiah,Al-Urdhi,Ministry of Defence,Military_Security_Target,Military Site,1,1,0,0,0,0,0,0,0,14,Midday
+313,31/12/2024,Capital,Al-Thawrah,,22 May Complex,Military_Security_Target,Military Site,1,5,0,0,0,0,0,0,0,14,Midday
+314,31/12/2024,Capital,Al-Safiah,Al-Urdhi,Ministry of Defence,Military_Security_Target,Military Site,1,1,0,0,0,0,0,0,0,14,Midday
+315,31/12/2024,Capital,Al-Thawrah,,22 May Complex,Military_Security_Target,Military Site,1,5,0,0,0,0,0,0,0,14,Midday
+316,05/01/2025,Saada,Sa'ada,Sa'ada City,Unknown,Unknown,Unknown - Non-frontline area,1,3,0,0,0,0,0,0,0,3,Early-Morning
+317,08/01/2025,Amran,Harf Sufyan,,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,5,0,0,0,0,0,0,0,15,Afternoon
+318,08/01/2025,Sanaa,Sanhan,Jarban,Pro-Houthi Weapons Storage Unit,Military_Security_Target,Weapon Storage,1,2,0,0,0,0,0,0,0,15,Afternoon
+319,09/01/2025,Hudaydah,Al-Luhaiyah,,Unknown,Unknown,Unknown - Non-frontline area,1,1,0,0,0,0,0,0,0,3,Early-Morning
+320,09/01/2025,Amran,Harf Sufyan,,Unknown,Unknown,Unknown - Non-frontline area,1,3,0,0,0,0,0,0,0,3,Early-Morning
+321,09/01/2025,Sanaa,Sanhan,Jarban,Unknown,Unknown,Unknown - Non-frontline area,1,2,0,0,0,0,0,0,0,3,Early-Morning
+326,10/01/2025,Amran,Harf Sufyan,,Unknown,Unknown,Unknown - Non-frontline area,1,12,0,0,0,0,0,0,0,14,Midday
+327,17/01/2025,Amran,Harf Sufyan,,Unknown,Unknown,Unknown - Non-frontline area,1,5,0,0,0,0,0,0,0,5,Early-Morning
+328,19/01/2025,Sanaa,Hamdan,Al-Azraqayn,Unknown,Unknown,Unknown - Non-frontline area,1,4,0,0,0,0,0,0,0,5,Early-Morning
+NO INCIDENTS RECORDED IN FEBRUARY 2025,,,,,,,,,,,,,,,,,,

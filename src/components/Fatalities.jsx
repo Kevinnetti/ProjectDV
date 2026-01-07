@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { Box, Typography, CircularProgress } from '@mui/material';
+import { createSvgTooltip } from './ChartTooltip';
 
 // Import CSV tramite Vite
 import fatalitiesCsvPath from '../data/fatalities.csv?url';
 
 const Fatalities = () => {
 	const ref = useRef(null);
+	const hasAnimatedRef = useRef(false);
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
@@ -55,16 +57,32 @@ const Fatalities = () => {
 			.paddingOuter(0.05);
 
 		// Bars
-		svg.append('g')
+		// create shared svg tooltip
+		const tooltip = createSvgTooltip(svg, { padding: 8, rx: 6, fontSize: 12 });
+
+		// create bars with zero width initially for animation
+		const bars = svg.append('g')
 			.selectAll('rect')
 			.data(data)
 			.join('rect')
 			.attr('x', margin.left)
 			.attr('y', d => y(d.admin))
 			.attr('height', y.bandwidth())
-			.attr('width', d => Math.max(0, x(d.fatalities) - margin.left))
-			.attr('fill', '#9e0f0fff')
-			.attr('rx', 4);
+			.attr('width', 0)
+			.attr('fill', '#d32f2f')
+			.attr('rx', 4)
+			.on('mouseenter', function(event, d) {
+				d3.select(this).transition().duration(120).attr('fill', '#7a0b0b');
+				const cx = x(d.fatalities);
+				const cy = (y(d.admin) || 0) + y.bandwidth() / 2;
+				const offsetX = cx > (width/2) ? -80 : 15;
+				const offsetY = cy > (height/2) ? -30 : 10;
+				tooltip.show(cx + offsetX, cy + offsetY, [d.admin, `${d.fatalities.toLocaleString()} fatalities`]);
+			})
+			.on('mouseleave', function() {
+				d3.select(this).transition().duration(120).attr('fill', '#d32f2f');
+				tooltip.hide();
+			});
 
 		// ADMIN1 labels (y axis)
 		svg.append('g')
@@ -79,18 +97,58 @@ const Fatalities = () => {
 			.style('fill', '#222')
 			.text(d => d.admin);
 
-		// Values at end of bars
-		svg.append('g')
+		// Values at end of bars (start positioned at margin.left to animate later)
+		const valueTexts = svg.append('g')
 			.selectAll('text')
 			.data(data)
 			.join('text')
-			.attr('x', d => (x(d.fatalities) + 8))
+			.attr('x', margin.left)
 			.attr('y', d => (y(d.admin) || 0) + y.bandwidth() / 2)
 			.attr('dy', '0.35em')
 			.attr('text-anchor', 'start')
 			.style('font-size', '12px')
 			.style('fill', '#111')
+			.style('opacity', 0)
 			.text(d => d.fatalities.toLocaleString());
+
+		// animate bars when chart becomes visible
+		const animate = () => {
+			bars.transition()
+				.duration(800)
+				.ease(d3.easeCubicOut)
+				.attr('width', d => Math.max(0, x(d.fatalities) - margin.left));
+
+			// update label positions after animation completes
+			setTimeout(() => {
+				valueTexts
+					.attr('x', d => (x(d.fatalities) + 8))
+					.transition()
+					.duration(300)
+					.style('opacity', 1);
+			}, 820);
+		};
+
+		let observer;
+		if (typeof IntersectionObserver !== 'undefined') {
+			observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting && !hasAnimatedRef.current) {
+						hasAnimatedRef.current = true;
+						animate();
+						if (observer) observer.disconnect();
+					}
+				});
+			}, { threshold: 0.25 });
+			observer.observe(ref.current);
+		} else {
+			// fallback
+			animate();
+		}
+
+		// cleanup observer on unmount/re-run
+		return () => {
+			if (observer) observer.disconnect();
+		};
 
 		// X axis
 		const xAxis = d3.axisTop(x).ticks(5).tickFormat(d3.format('~s'));
@@ -109,6 +167,7 @@ const Fatalities = () => {
 			.text('Total Fatalities by ADMIN1');
 
 	}, [data]);
+
 
 	return (
 		<Box sx={{ width: '100%' }}>
