@@ -79,7 +79,7 @@ function App() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: '#f5f5f5', minHeight: '100vh' }}>
+    <Box sx={{ flexGrow: 1, bgcolor: '#ebdadaff', minHeight: '100vh' }}>
       
       {/* HEADER / NAVBAR */}
       <Box sx={{ pt: 2, px: 2, display: 'flex', justifyContent: 'center', position: 'sticky', top: 0, zIndex: 9999 }}>
@@ -163,12 +163,12 @@ function App() {
       </Box>
 
       {/* HERO SECTION (Intro) */}
-      <Box id="intro" sx={{ py: 8, bgcolor: 'white', textAlign: 'center', borderBottom: '1px solid #ddd' }}>
+      <Box id="intro" sx={{ py: 8, bgcolor: 'darkred', textAlign: 'center', borderBottom: '1px solid #ddd' }}>
         <Container maxWidth="md">
-          <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold', color: '#f5f5f5' }}>
             The Forgotten War
           </Typography>
-          <Typography variant="h5" color="text.secondary" paragraph>
+          <Typography variant="h5" color="text.secondary" paragraph sx={{ color: '#f5f5f5' }}>
             Yemen is often described as a 'forgotten war'. Crushed between regional powers, the poorest country on the Arabian Peninsula has faced a devastating conflict since 2014. What you will see while scrolling are not just numbers: they are the scars of a nation. From air raids that reshaped cities to economic collapse that emptied tables, and the desperate flight of millions.This is the story of how Yemen was driven to the brink.
             </Typography>
         </Container>
@@ -181,20 +181,25 @@ function App() {
         <Section 
           id="raid" 
           title="1. Air Warfare" 
-          description="Air raids that devastated Yemen between 2015 and 2022." 
+          description="Air raids that devastated Yemen between 2015 and 2025." 
           body={
-    <div style={{ textAlign: 'justify' }}>
+    <div style={{ textAlign: 'justify'  }}>
+      If we look at where the bombs fell, a stark and brutal fracture emerges. The map of Yemen is not painted uniformly; the silence was not distributed equally.
+      While the eastern desert regions remain largely grey-untouched by the air war the western part of the country, where the vast majority of the population lives, burns in warm colors, darkening into black.
+      For millions of civilians living in these districts, the sound of aircraft became the daily soundtrack of their lives for several years.
       For seven years, Yemen's skies have been synonymous with fear. The Yemen Data Project records every air raid carried out by the Saudi-led Coalition and the UAE between March 2015 and April 2022.
-
-Not only military targets were hit: bridges, hospitals, schools and markets were struck in attempts to halt the Houthi advance. Although bombing decreased after the 2022 truce, the systematic destruction of infrastructure during this period set the stage for the country's collapse.
     </div>
   }> 
     <Raid/>
     <Box sx={{ maxWidth: '640px', mx: 'auto', my: 4, textAlign: 'justify' }}>
-             <Typography variant="body2" component="div" sx={{ color: '#777' }}>
-               Insert the intermediate text you want to show between the map and the bar chart. 
-               For example, describe how the migration flows shown on the map translate into the specific numbers grouped by governorate in the chart below.
-               This box uses the same style and width as the introductory text.
+             <Typography variant="body1" component="div" sx={{ color: '#301111ff' }}>
+              Once we understand where the raids struck, we must ask what they hit. The answer, visualized in this chart, paints a picture of chaos and systemic collapse.
+              The Fog of War: The most striking feature is the massive blue arc representing the "Unknown" (10,174 raids). 
+              Nearly 40% of all airstrikes have no clear identification in the records. This is the terrifying ambiguity of modern warfare: thousands of explosions with no name.
+              The Civilian Toll: While "Military Security Targets" (in orange) make up a large portion, the remaining slices tell the story of a nation being dismantled. Over 3,100 raids directly hit civilian locations.
+              The data reveals a war fought against the very infrastructure of survival. With over 1,600 attacks on infrastructure, 1,500 on economic targets, 
+              and hundreds of strikes on schools (400) and medical facilities (96), the air campaign didn't just target armed forces it targeted Yemen's ability to function as a state, long after the smoke cleared.
+             
              </Typography>
           </Box>
     <Donut/>
@@ -208,12 +213,13 @@ Not only military targets were hit: bridges, hospitals, schools and markets were
           description="How GDP fell and national wealth was halved." 
          body={
     <div style={{ textAlign: 'justify' }}>
-      Bombs destroy buildings, but the economy destroys the future. The chart shows Yemen's GDP from the 1990s to today. Notice the sharp drop after 2014: in less than a decade the economy was halved.
-
-Port blockades, a split central bank and the collapse of the currency (Riyal) made goods scarce or unaffordable. Today even those who work struggle to buy basic food. Poverty is not an accident; it has become structural.
-
-Between 2014 and 2023 real GDP nearly halved: public wages were suspended, inflation and devaluation eroded purchasing power, turning the economic crisis into a humanitarian crisis. The conflict has severely impacted the economy, limiting imports and worsening existing shocks.
-    </div>
+      Bombs destroy buildings, but the economy destroys the future. The chart shows Yemen's GDP from the 1990s to today. 
+      Tracing the graph from the year 2000, we see a country on the rise. For over a decade, Yemen's economy was growing, reaching its peak around 2013-2014 with a GDP of over $40 billion.
+      It was a period of fragile but tangible hope.
+      Then, the war began, and the line collapses.
+      The sharp drop visible on the chart represents a catastrophic economic shock. In just a few years following the outbreak of conflict, the national wealth was effectively halved.
+      The graph plunges from its peak down to roughly $20 billion, reflecting the devastation caused by port blockades and the fracturing of the central bank.
+      </div>
   }>
       
           <GdpLineChartD3 />
@@ -225,12 +231,16 @@ Between 2014 and 2023 real GDP nearly halved: public wages were suspended, infla
         <Section 
           id="fame" 
           title="3. Geography of Hunger" 
-          description="Map of food insecurity (IPC phases)." 
+          description="The Color of Desperation: Mapping Food Insecurity in Yemen" 
               body={
             <div style={{ textAlign: 'justify' }}>
-          After a decade of war and economic collapse, this is the current result. The map shows IPC projections for 2025. You do not need to look far into the past to grasp the severity: red indicates areas where famine is imminent.
-
-        With ports blocked and humanitarian aid struggling to reach people, millions of Yemenis face 'Emergency' or 'Catastrophe' phases. Hunger in Yemen is not caused by a global lack of food but by physical and economic barriers to access.
+          If the GDP chart showed the cause, this map shows the consequence. 
+          After a decade of conflict and economic paralysis, the map of Yemen is no longer defined by administrative borders, but by levels of hunger.
+          The visualization is dominated by two colors: Orange (Crisis) and Red (Emergency). There is almost no green left.
+          The vast orange expanse covers the majority of the country. This represents about 34% of the analyzed population, nearly 12,2 millions of people,
+          living in "Crisis" (Phase 3). These are families who are skipping meals and selling their last assets just to eat.
+          The situation is even more critical in the western districts, visible as deep red patches. Here, 5,4 million people face "Emergency" conditions (Phase 4).
+          This hunger is not an accident of nature; it is a convergence of shocks. The map's red zones align with areas hit hardest by conflict, economic collapse, and severe flash floods, stripping people of their last safety nets.
           </div>
           }>
       
@@ -251,11 +261,11 @@ Between 2014 and 2023 real GDP nearly halved: public wages were suspended, infla
           }>
           <FlowMapD3 />
           <Box sx={{ maxWidth: '640px', mx: 'auto', my: 4, textAlign: 'justify' }}>
-             <Typography variant="body2" component="div" sx={{ color: '#777' }}>
-               Insert the intermediate text you want to show between the map and the bar chart. 
-               For example, describe how the migration flows shown on the map translate into the specific numbers grouped by governorate in the chart below.
-               This box uses the same style and width as the introductory text.
-             </Typography>
+             <Typography variant="body1" component="div" sx={{ color: '#301111ff' }}>
+              If the map shows the few who left, this chart reveals the millions who remained. It illustrates a nation turned into an open-air prison.
+
+The graph compares Internally Displaced Persons (IDPs) in red against External Refugees in black. The visual imbalance is devastating.
+              </Typography>
           </Box>
           <MigrationGroupedChart />  
         </Section>
@@ -274,14 +284,14 @@ The shocking detail is the cause: about 60% of these deaths are not due to direc
   }>
       
           <Fatalities />
-          <MapDis />
+          
         </Section>
 
       </Container>
 
       {/* FOOTER */}
       <Box sx={{ py: 4, bgcolor: '#1a1a1a', color: 'white', textAlign: 'center' }}>
-         <Typography variant="body2">
+         <Typography variant="body1">
           Data Visualization Project 2025/2066 - University of Genoa
           <br />
           Nettikadan Kevin 
@@ -320,11 +330,11 @@ function Section({ id, title, description, body, children }) {
         <Typography variant="h4" gutterBottom sx={{ color: '#d32f2f', fontWeight: 700 }}>
           {title}
         </Typography>
-        <Typography variant="subtitle1" gutterBottom sx={{ color: '#555' }}>
+        <Typography variant="subtitle1" gutterBottom sx={{ color: '#301111ff' }}>
           {description}
         </Typography>
         <Box sx={{ maxWidth: '640px', mx: 'auto' }}>
-          <Typography variant="body2" component="div" sx={{ color: '#777' }}>
+          <Typography variant="body1" component="div" sx={{ color: '#301111ff' }}>
             {body}
           </Typography>
         </Box>
@@ -336,7 +346,7 @@ function Section({ id, title, description, body, children }) {
           children
         ) : (
           <Box sx={{ height: 360, bgcolor: '#eee', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2 }}>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body1" color="text.secondary">
               Chart coming soon
             </Typography>
           </Box>

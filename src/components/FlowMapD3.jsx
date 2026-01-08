@@ -84,7 +84,7 @@ const FlowMapD3 = () => {
     if (!geoData || !currentYearData || !containerRef.current) return;
 
     const width = 620;
-    const height = 320;
+    const height = 275;
 
     // Se l'SVG non esiste, crealo (sfondo e paesi)
     if (!svgRef.current) {
@@ -263,11 +263,7 @@ const FlowMapD3 = () => {
 
   return (
     <Paper elevation={0} sx={{ p: 3, bgcolor: 'transparent' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', mb: 2 }}>
-        <Typography variant="h6" color="primary">
-          Yemeni Migration Trends
-        </Typography>
-      </Box>
+      
 
       {/* SLIDER SPOSTATO SOTTO, INSIEME AL PLAY */}
 
@@ -284,19 +280,19 @@ const FlowMapD3 = () => {
       <Box sx={{ display:'flex', alignItems:'center', gap: 2, mt: 2 }}>
         <Button
           variant="contained"
-          color={isPlaying ? 'secondary' : 'primary'}
           onClick={() => setIsPlaying(p => !p)}
-          sx={{ borderRadius: 999, px: 2 }}
+          sx={{ borderRadius: 999, px: 2, backgroundColor: '#d32f2f', '&:hover': { backgroundColor: '#b71c1c' } }}
+          size="small"
+          aria-label={isPlaying ? 'Pause' : 'Play'}
         >
-          {isPlaying ? <PauseIcon sx={{ mr: 1 }} /> : <PlayArrowIcon sx={{ mr: 1 }} />}
-          {isPlaying ? 'Pause' : 'Play'}
+          {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
         </Button>
         <Box sx={{ display:'flex', alignItems:'baseline', gap: 1 }}>
           <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#d32f2f' }}>
             {selectedYear}
           </Typography>
-          <Typography variant="caption" color="text.secondary">
-            Totale: {totalMigrationYear.toLocaleString()}
+          <Typography variant="caption" color="black"  fontWeight="bold">
+            Total: {totalMigrationYear.toLocaleString()}
           </Typography>
         </Box>
         <Box sx={{ flex: 1 }}>

@@ -37,7 +37,7 @@ const GdpLineChartD3 = () => {
 
     const margin = { top: 40, right: 30, bottom: 50, left: 50 };
     const width = 800; 
-    const height = 400;
+    const height = 350;
 
     const svg = container
       .append("svg")
@@ -84,7 +84,7 @@ const GdpLineChartD3 = () => {
       .attr("x2", width - margin.left - margin.right)
       .attr("y1", 0)
       .attr("y2", 0)
-      .attr("stroke", "#e0e0e0")
+      .attr("stroke", "#b87c7cff")
       .attr("stroke-dasharray", "4,4");
 
     svg.append("text")
@@ -144,6 +144,7 @@ const GdpLineChartD3 = () => {
         .attr("stroke-dasharray", totalLength + " " + totalLength)
         .attr("stroke-dashoffset", totalLength)
         .transition()
+        .delay(1000)
         .duration(2000)
         .ease(d3.easeCubicOut)
         .attr("stroke-dashoffset", 0)
@@ -209,9 +210,7 @@ const GdpLineChartD3 = () => {
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <Typography variant="h6" color="primary" gutterBottom>
-        Yemen's Economy (1990-2025)
-      </Typography>
+     
       
       {/* Mostra un caricamento se i dati non sono ancora arrivati */}
       {!data ? (

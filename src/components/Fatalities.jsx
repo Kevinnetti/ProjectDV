@@ -12,10 +12,25 @@ const Fatalities = () => {
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
-		d3.csv(fatalitiesCsvPath, (d) => ({
-			admin: d.ADMIN1 || 'Unknown',
-			fatalities: d.FATALITIES === undefined || d.FATALITIES === '' ? 0 : +d.FATALITIES
-		})).then((rows) => {
+			// Raggruppa alcune amministrazioni marine in 'Others' e riduci dimensioni del grafico
+			const seaGroups = new Set([
+				'North Arabian Sea',
+				'North Red Sea',
+				'Northwestern Indian Ocean',
+				'Red Sea',
+				'Strait of Bab el Mandeb',
+				'West Arabian Sea'
+			]);
+
+			d3.csv(fatalitiesCsvPath).then(raw => {
+				const rows = raw.map(d => {
+					const rawAdmin = (d.ADMIN1 || 'Unknown').trim();
+					const admin = seaGroups.has(rawAdmin) ? 'Others' : rawAdmin;
+					return {
+						admin,
+						fatalities: d.FATALITIES === undefined || d.FATALITIES === '' ? 0 : +d.FATALITIES
+					};
+				});
 			// Aggrega per ADMIN1 (amministrazione)
 			const byAdmin = Array.from(
 				d3.rollups(rows, v => d3.sum(v, r => r.fatalities), r => r.admin),
@@ -35,10 +50,11 @@ const Fatalities = () => {
 		const container = d3.select(ref.current);
 		container.selectAll('*').remove();
 
-		const margin = { top: 30, right: 70, bottom: 30, left: 180 };
-		const barHeight = 26;
-		const gap = 8;
-		const width = 900;
+		// Rendi il grafico più compatto
+		const margin = { top: 10, right: 50, bottom: 20, left: 140 };
+		const barHeight = 10;
+		const gap = 6;
+		const width = 700;
 		const height = margin.top + margin.bottom + data.length * (barHeight + gap);
 
 		const svg = container.append('svg')
@@ -71,12 +87,16 @@ const Fatalities = () => {
 			.attr('width', 0)
 			.attr('fill', '#d32f2f')
 			.attr('rx', 4)
+            // disable pointer events during animation to avoid interrupting transitions
+            .style('pointer-events', 'none')
 			.on('mouseenter', function(event, d) {
+				// only allow hover after initial animation completed
+				if (!hasAnimatedRef.current) return;
 				d3.select(this).transition().duration(120).attr('fill', '#7a0b0b');
 				const cx = x(d.fatalities);
 				const cy = (y(d.admin) || 0) + y.bandwidth() / 2;
-				const offsetX = cx > (width/2) ? -80 : 15;
-				const offsetY = cy > (height/2) ? -30 : 10;
+				const offsetX = cx > (width/2) ? -64 : 12;
+				const offsetY = cy > (height/2) ? -24 : 8;
 				tooltip.show(cx + offsetX, cy + offsetY, [d.admin, `${d.fatalities.toLocaleString()} fatalities`]);
 			})
 			.on('mouseleave', function() {
@@ -119,13 +139,16 @@ const Fatalities = () => {
 				.attr('width', d => Math.max(0, x(d.fatalities) - margin.left));
 
 			// update label positions after animation completes
-			setTimeout(() => {
-				valueTexts
-					.attr('x', d => (x(d.fatalities) + 8))
-					.transition()
-					.duration(300)
-					.style('opacity', 1);
-			}, 820);
+				setTimeout(() => {
+					valueTexts
+						.attr('x', d => (x(d.fatalities) + 8))
+						.transition()
+						.duration(300)
+						.style('opacity', 1);
+					// re-enable pointer events and mark as animated so hover/tooltips become active
+					bars.style('pointer-events', 'auto');
+					hasAnimatedRef.current = true;
+				}, 820);
 		};
 
 		let observer;
@@ -133,10 +156,9 @@ const Fatalities = () => {
 			observer = new IntersectionObserver((entries) => {
 				entries.forEach(entry => {
 					if (entry.isIntersecting && !hasAnimatedRef.current) {
-						hasAnimatedRef.current = true;
-						animate();
-						if (observer) observer.disconnect();
-					}
+							animate();
+							if (observer) observer.disconnect();
+						}
 				});
 			}, { threshold: 0.25 });
 			observer.observe(ref.current);
@@ -150,7 +172,7 @@ const Fatalities = () => {
 			if (observer) observer.disconnect();
 		};
 
-		// X axis
+		/*// X axis
 		const xAxis = d3.axisTop(x).ticks(5).tickFormat(d3.format('~s'));
 		svg.append('g')
 			.attr('transform', `translate(0, ${margin.top - 8})`)
@@ -165,14 +187,14 @@ const Fatalities = () => {
 			.style('font-size', '14px')
 			.style('font-weight', 600)
 			.text('Total Fatalities by ADMIN1');
-
+*/
 	}, [data]);
 
 
 	return (
 		<Box sx={{ width: '100%' }}>
-			<Typography variant="h6" gutterBottom>
-				Fatalities per ADMIN1
+			<Typography variant="h6" gutterBottom sx={{ mb: 2 }} align="center">
+				Fatalities by Governorates
 			</Typography>
 
 			{!data ? (

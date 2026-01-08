@@ -91,8 +91,8 @@ const Raid = () => {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const width = 950;
-    const height = 410;
+    const width = 750;
+    const height = 300;
     
     const container = d3.select(containerRef.current);
     // Rimuovi solo l'SVG creato da D3 per non cancellare elementi React (es. tooltip)
@@ -110,15 +110,61 @@ const Raid = () => {
 
     const path = d3.geoPath().projection(projection);
 
-    // Scala Colore: range espliciti 
+    // Scala Colore: categorie dinamiche (adatte anche per la vista aggregata)
+    // Costruiamo le categorie qui in modo che possano cambiare quando showAggregated è true
+    let categories;
+    if (showAggregated) {
+      const [minY, maxY] = yearsRange;
+      // trova il massimo aggregato tra i distretti
+      let aggMax = 0;
+      districtData.features.forEach(f => {
+        let s = 0;
+        for (let y = minY; y <= maxY; y++) s += f.properties.raids[y] || 0;
+        if (s > aggMax) aggMax = s;
+      });
+      // Se il massimo aggregato è nell'intorno di ~1700, usiamo soglie fisse sensate
+      if (aggMax <= 2000) {
+        categories = [
+          { label: '0', color: '#aaa6a6ff', min: 0, max: 0 },
+          { label: '1 - 10', color: '#4caf50', min: 1, max: 10 },
+          { label: '11 - 50', color: '#fdd835', min: 11, max: 50 },
+          { label: '51 - 150', color: '#ff9800', min: 51, max: 150 },
+          { label: '151 - 400', color: '#d32f2f', min: 151, max: 400 },
+          { label: '401 - 1000', color: '#9c27b0', min: 401, max: 1000 },
+          { label: '1001+', color: '#000000', min: 1001, max: Infinity }
+        ];
+      } else {
+        // fallback dinamico per dataset molto più grandi
+        const unit = Math.max(1, Math.ceil(aggMax / 200));
+        categories = [
+          { label: '0', color: '#aaa6a6ff', min: 0, max: 0 },
+          { label: `1 - ${unit * 5}`, color: '#4caf50', min: 1, max: unit * 5 },
+          { label: `${unit * 5 + 1} - ${unit * 25}`, color: '#fdd835', min: unit * 5 + 1, max: unit * 25 },
+          { label: `${unit * 25 + 1} - ${unit * 75}`, color: '#ff9800', min: unit * 25 + 1, max: unit * 75 },
+          { label: `${unit * 75 + 1} - ${unit * 200}`, color: '#d32f2f', min: unit * 75 + 1, max: unit * 200 },
+          { label: `${unit * 200 + 1} - ${unit * 500}`, color: '#9c27b0', min: unit * 200 + 1, max: unit * 500 },
+          { label: `${unit * 500 + 1}+`, color: '#000000', min: unit * 500 + 1, max: Infinity }
+        ];
+      }
+    } else {
+      categories = [
+        { label: '0', color: '#aaa6a6ff', min: 0, max: 0 },
+        { label: '1 - 10', color: '#4caf50', min: 1, max: 10 },
+        { label: '11 - 35', color: '#fdd835', min: 11, max: 35 },
+        { label: '36 - 70', color: '#ff9800', min: 36, max: 70 },
+        { label: '71 - 130', color: '#d32f2f', min: 71, max: 130 },
+        { label: '131 - 200', color: '#9c27b0', min: 131, max: 200 },
+        { label: '200+', color: '#000000', min: 201, max: Infinity }
+      ];
+    }
+
     const getColor = (v) => {
-      if (!v || v === 0) return '#aaa6a6ff'; // zero
-      if (v >= 1 && v <= 10) return '#4caf50'; // verde
-      if (v >= 11 && v <= 35) return '#fdd835'; // giallo
-      if (v >= 36 && v <= 70) return '#ff9800'; // arancione
-      if (v >= 71 && v <= 130) return '#d32f2f'; // rosso
-      if (v >= 131 && v <= 200) return '#9c27b0'; // viola
-      return '#000000'; // nero >200
+      if (v === null || v === undefined) return '#aaa6a6ff';
+      for (let i = 0; i < categories.length; i++) {
+        const c = categories[i];
+        if (v >= c.min && v <= c.max) return c.color;
+      }
+      return '#000000';
     };
 
     // helper per ottenere valore (anno o aggregato)
@@ -180,52 +226,44 @@ const Raid = () => {
 
     // Legenda colori
     const legendGroup = svg.append('g')
-      .attr('transform', `translate(${width - 110}, 20)`);
+      .attr('transform', `translate(${width - 90}, 16)`);
 
-    // Titolo della legenda
+    // Titolo della legenda (più piccolo)
     legendGroup.append('text')
       .attr('x', 0)
-      .attr('y', -8)
+      .attr('y', -6)
       .attr('fill', '#222')
-      .style('font-size', '13px')
+      .style('font-size', '11px')
       .style('font-weight', 600)
-      .text('Number of raids');
+      .text('Number of raids' );
 
-    const categories = [
-      { label: '0', color: '#aaa6a6ff' },
-      { label: '1 - 10', color: '#4caf50' },
-      { label: '11 - 35', color: '#fdd835' },
-      { label: '36 - 70', color: '#ff9800' },
-      { label: '71 - 130', color: '#d32f2f' },
-      { label: '131 - 200', color: '#9c27b0' },
-      { label: '200+', color: '#000000' }
-    ];
+    // categories è già definita sopra (dinamica in base a showAggregated)
 
-    const itemH = 18;
+    const itemH = 12;
     legendGroup.append('g')
       .selectAll('g')
       .data(categories)
       .join('g')
-      .attr('transform', (d, i) => `translate(0, ${i * (itemH + 8)})`)
+      .attr('transform', (d, i) => `translate(0, ${i * (itemH + 6)})`)
       .each(function(d, i) {
         const g = d3.select(this);
         g.append('rect')
-          .attr('width', 28)
+          .attr('width', 20)
           .attr('height', itemH)
           .attr('fill', d.color)
           .attr('stroke', '#333');
         g.append('text')
-          .attr('x', 36)
+          .attr('x', 26)
           .attr('y', itemH / 2)
           .attr('dy', '0.35em')
           .attr('fill', '#222')
-          .style('font-size', '12px')
+          .style('font-size', '10px')
           .text(d.label);
       });
 
     // Aggiungi i totali per anno sotto la legenda
     try {
-      const yOffset = categories.length * (itemH + 8) + 8;
+      const yOffset = categories.length * (itemH + 6) + 6;
       const yearGroup = legendGroup.append('g').attr('transform', `translate(0, ${yOffset})`);
       const displayYears = (csvYearCounts && csvYearCounts.length) ? csvYearCounts : yearCounts;
       // Show a single line: current year total, or aggregated total when showAggregated
@@ -236,7 +274,7 @@ const Raid = () => {
           .attr('x', 0)
           .attr('y', 2)
           .attr('fill', '#222')
-          .style('font-size', '10px')
+          .style('font-size', '9px')
           .style('font-weight', 600)
           .text(`Total raids: ${fmt(totalAgg)}`);
       } else {
@@ -245,7 +283,7 @@ const Raid = () => {
           .attr('x', 0)
           .attr('y', 2)
           .attr('fill', '#222')
-          .style('font-size', '10px')
+          .style('font-size', '9px')
           .style('font-weight', 600)
           .text(`Total raids: ${cur.totalFmt}`);
       }
@@ -310,7 +348,7 @@ const Raid = () => {
         Yemen Districts Raids: {showAggregated ? `${yearsRange[0]}-${yearsRange[1]} (Aggregate)` : year}
       </Typography>
 
-      <Box ref={containerRef} sx={{ minHeight: 600, position: 'relative' }}>
+      <Box ref={containerRef} sx={{ minHeight: 280, position: 'relative' }}>
         {/* Tooltip posizionato vicino al distretto (shared HtmlTooltip) */}
         <HtmlTooltip open={!!hovered} x={hovered?.x} y={hovered?.y}>
           {hovered && (
@@ -324,7 +362,7 @@ const Raid = () => {
         {year === 2023 && isMapVisible && (
           <div style={{
             position: 'absolute',
-            left: '50%',
+            left: '47%',
             top: '40%',
             transform: 'translate(-50%, -50%)',
             pointerEvents: 'none',
@@ -334,7 +372,7 @@ const Raid = () => {
             fontSize: 48,
             fontWeight: 800,
             letterSpacing: '0.04em'
-          }}>pace?</div>
+          }}>peace?</div>
         )}
       </Box>
 
@@ -342,23 +380,25 @@ const Raid = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {!showAggregated && (
-              <>
-                <IconButton
-                  onClick={() => setIsPlaying(p => !p)}
-                  size="large"
-                  aria-label={isPlaying ? 'Pause' : 'Play'}
-                  sx={{ bgcolor: isPlaying ? 'rgba(255,152,0,0.12)' : 'transparent' }}
-                >
-                  {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-                </IconButton>
-                <Typography variant="body2" sx={{ color: 'inherit' }}>{isPlaying ? 'Playing' : 'Paused'}</Typography>
-              </>
+              <Button
+                variant="contained"
+                onClick={() => setIsPlaying(p => !p)}
+                sx={{ borderRadius: 999, px: 2, backgroundColor: '#d32f2f', '&:hover': { backgroundColor: '#b71c1c' } }}
+                size="small"
+                aria-label={isPlaying ? 'Pause' : 'Play'}
+              >
+                {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+              </Button>
             )}
             <Button
               variant="contained"
               size="small"
-              onClick={() => setShowAggregated(s => !s)}
-              sx={{ ml: 1, textTransform: 'none' }}
+              onClick={() => {
+                // If we're about to enable aggregate view and animation is running, stop it
+                if (!showAggregated && isPlaying) setIsPlaying(false);
+                setShowAggregated(s => !s);
+              }}
+              sx={{ ml: 1, textTransform: 'none', backgroundColor: '#d32f2f', '&:hover': { backgroundColor: '#b71c1c' } }}
             >
               {showAggregated ? 'Close Aggregate' : 'Aggregate'}
             </Button>

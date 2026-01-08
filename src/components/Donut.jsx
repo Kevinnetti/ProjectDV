@@ -91,16 +91,25 @@ export default function Donut({ height = 600 }) {
     const centerSub = centerGroup.append('text').attr('dy','1.2em').style('font-size','14px').style('fill','#666').text('Total Raids');
     centerNumRef.current = centerNum; centerSubRef.current = centerSub;
     const interp = d3.interpolateNumber(0, total);
-    centerNum.transition().duration(900).tween('text', () => t => centerNum.text(Math.round(interp(t)).toLocaleString()));
+    centerNum.transition().delay(1000).duration(900).tween('text', () => t => centerNum.text(Math.round(interp(t)).toLocaleString()));
     const arcs = pie(data);
     const paths = svg.selectAll('path').data(arcs).join('path').attr('data-key', d=>d.data.key).attr('fill', (d,i)=>getColor(d.data.key,i)).attr('stroke','white').style('stroke-width', '2px').style('cursor','pointer').each(function(d){ this._current = { startAngle: d.startAngle, endAngle: d.startAngle }; });
-    paths.transition().duration(900).attrTween('d', function(d){ const interpolate = d3.interpolate(this._current, d); this._current = interpolate(1); return t => arc(interpolate(t)); });
+    paths.transition().delay(1000).duration(900).attrTween('d', function(d){ const interpolate = d3.interpolate(this._current, d); this._current = interpolate(1); return t => arc(interpolate(t)); });
     paths.on('mouseenter', function(event,d){ if (hoverTimeoutRef.current){ clearTimeout(hoverTimeoutRef.current); hoverTimeoutRef.current=null; } d3.select(this).transition().duration(220).attr('d', arcHover).attr('opacity',0.92); const pct = ((d.data.value/total)*100).toFixed(1); try{ centerNum.interrupt(); centerSub.interrupt(); } catch(e){} centerNum.text(d.data.value.toLocaleString()); centerSub.text(`${d.data.key} (${pct}%)`); if (containerRef.current){ const rect = containerRef.current.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; setHovered({ x: Math.min(Math.max(8, x), rect.width - 160), y: Math.min(Math.max(8, y), rect.height - 80), key: d.data.key, value: d.data.value, pct }); } });
     paths.on('mouseleave', function(event,d){ const node=this; d3.select(node).transition().duration(220).attr('d', arc).attr('opacity',1); if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current); hoverTimeoutRef.current = setTimeout(()=>{ try{ centerNum.interrupt(); centerSub.interrupt(); } catch(e){} const backInterp = d3.interpolateNumber(Number(centerNum.text().replace(/,/g,'')), total); centerNum.transition().duration(600).tween('text', () => t => centerNum.text(Math.round(backInterp(t)).toLocaleString())); centerSub.text('Total Raids'); setHovered(null); hoverTimeoutRef.current = null; }, 120); });
     paths.on('mousemove', function(event){ if (!containerRef.current) return; const rect = containerRef.current.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; setHovered(h => h ? { ...h, x: Math.min(Math.max(8, x), rect.width - 160), y: Math.min(Math.max(8, y), rect.height - 80) } : h); });
     const labelThreshold = 0.12;
-    const labels = svg.selectAll('text.slice-label').data(arcs).join('text').attr('class','slice-label').attr('transform', d => `translate(${arc.centroid(d)})`).attr('text-anchor','middle').attr('dy','0.35em').style('font-size','12px').style('pointer-events','none').style('opacity',0).text(d => (d.endAngle - d.startAngle) > labelThreshold ? `${d.data.key} (${d.data.value})` : '');
-    labels.transition().delay(600).duration(600).style('opacity',1);
+    const labels = svg.selectAll('text.slice-label').data(arcs).join('text')
+      .attr('class','slice-label')
+      .attr('transform', d => `translate(${arc.centroid(d)})`)
+      .attr('text-anchor','middle')
+      .attr('dy','0.35em')
+      .style('font-size','12px')
+      .style('pointer-events','none')
+      .style('opacity',0)
+      .style('font-weight', '700')
+      .text(d => (d.endAngle - d.startAngle) > labelThreshold ? `${d.data.key} (${d.data.value})` : '');
+    labels.transition().delay(1600).duration(600).style('opacity',1);
     hasAnimatedRef.current = true;
   }, [data, height, isVisible]);
 
@@ -142,7 +151,7 @@ export default function Donut({ height = 600 }) {
         )}
       </div>
       <div style={{ flex: 1, maxHeight: height, overflowY: 'auto', paddingLeft: '20px' }}>
-        <h4 style={{ margin: '0 0 10px 0' }}>Categories</h4>
+        <h4 style={{ margin: '0 0 10px 0' }}>Categories affected by the raids</h4>
         {data.map((d, i) => (
           <div
             key={i}
@@ -176,7 +185,7 @@ export default function Donut({ height = 600 }) {
               backgroundColor: getColor(d.key, i), 
               display: 'inline-block', marginRight: 8, borderRadius: '2px' 
             }} />
-            <span>{d.key} <strong>({d.value})</strong></span>
+            <span><strong style={{ fontWeight: 700 }}>{d.key}</strong> <span style={{ marginLeft: 6 }}>({d.value})</span></span>
           </div>
         ))}
       </div>

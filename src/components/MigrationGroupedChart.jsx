@@ -11,6 +11,7 @@ const MigrationGroupedChart = () => {
   const containerRef = useRef(null);
   const tooltipRef = useRef(null);
   const [hovered, setHovered] = useState(null);
+  const hasAnimatedRef = useRef(false);
   
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -56,7 +57,7 @@ const MigrationGroupedChart = () => {
 
       // Converti Mappa in Array e ordina
       const processedData = Array.from(statsByYear.values())
-        .filter(d => d.year >= 2011) // Filtra anni vecchi o senza dati rilevanti
+        .filter(d => d.year >= 2012) // Filtra anni vecchi o senza dati rilevanti
         .sort((a, b) => a.year - b.year);
 
       setData(processedData);
@@ -127,11 +128,12 @@ const MigrationGroupedChart = () => {
 
     // Assi
     svg.append("g")
+      .attr("class", "x-axis")
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(x0).tickFormat(d3.format("d")))
       .style("font-size", "12px");
 
-    const logTicks = [1e4, 1e5, 1e6];
+    const logTicks = [1e4, 1e5, 1e6, 5e6];
     const yAxis = useLogScale 
       ? d3.axisLeft(y)
           .tickValues(logTicks.filter(t => t >= y.domain()[0] && t <= y.domain()[1]))
@@ -156,8 +158,8 @@ const MigrationGroupedChart = () => {
       .style("font-size", "12px")
       .text(useLogScale ? "People (Log scale)" : "People (Linear)");
 
-    // Barre
-    svg.append("g")
+    // Barre (inizialmente a 0 altezza; animiamo solo la prima volta che entrano in viewport)
+    const rects = svg.append("g")
       .selectAll("g")
       .data(filteredData)
       .join("g")
@@ -166,32 +168,82 @@ const MigrationGroupedChart = () => {
       .data(d => subgroups.map(key => ({ key, value: d[key], year: d.year })))
       .join("rect")
         .attr("x", d => x1(d.key))
+        .attr("width", x1.bandwidth())
+        .attr("fill", d => color(d.key))
+        .attr("rx", 3)
+        // inizialmente collassate a fondo
+        .attr("y", height)
+        .attr("height", 0)
+        // Interazione
+        .on("mouseover", (event, d) => {
+          d3.select(event.currentTarget).style("opacity", 0.8);
+          if (!containerRef.current) return;
+          const rect = containerRef.current.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          setHovered({ x: Math.min(Math.max(8, x), rect.width - 150), y: Math.min(Math.max(8, y), rect.height - 80), data: d });
+        })
+        .on("mouseout", (event) => {
+          d3.select(event.currentTarget).style("opacity", 1);
+          setHovered(null);
+        });
+
+    const animateBars = () => {
+      rects.transition()
+        .delay((d, i) => i * 40)
+        .duration(800)
         .attr("y", d => {
           const domainMin = useLogScale ? y.domain()[0] : 0;
           const safeVal = Math.max(domainMin, d.value || 0);
           return y(safeVal);
         })
-        .attr("width", x1.bandwidth())
         .attr("height", d => {
           const domainMin = useLogScale ? y.domain()[0] : 0;
           const safeVal = Math.max(domainMin, d.value || 0);
           return height - y(safeVal);
-        })
-        .attr("fill", d => color(d.key))
-        .attr("rx", 3)
-        // Interazione
-          .on("mouseover", (event, d) => {
-            d3.select(event.currentTarget).style("opacity", 0.8);
-            if (!containerRef.current) return;
-            const rect = containerRef.current.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            setHovered({ x: Math.min(Math.max(8, x), rect.width - 150), y: Math.min(Math.max(8, y), rect.height - 80), data: d });
-          })
-          .on("mouseout", (event) => {
-            d3.select(event.currentTarget).style("opacity", 1);
-            setHovered(null);
-          });
+        });
+    };
+
+    // Se già animato, imposta direttamente le dimensioni finali
+    if (hasAnimatedRef.current) {
+      rects.attr("y", d => {
+        const domainMin = useLogScale ? y.domain()[0] : 0;
+        const safeVal = Math.max(domainMin, d.value || 0);
+        return y(safeVal);
+      }).attr("height", d => {
+        const domainMin = useLogScale ? y.domain()[0] : 0;
+        const safeVal = Math.max(domainMin, d.value || 0);
+        return height - y(safeVal);
+      });
+    } else {
+      // Trigger animation when element becomes visible (first time)
+      let observer;
+      try {
+        if (typeof IntersectionObserver !== 'undefined') {
+          observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting && !hasAnimatedRef.current) {
+                animateBars();
+                hasAnimatedRef.current = true;
+                if (observer) observer.disconnect();
+              }
+            });
+          }, { threshold: 0.25 });
+          // Observe the X axis element if possible so animation triggers when the axis becomes visible
+          const xAxisEl = containerRef.current ? containerRef.current.querySelector('.x-axis') : null;
+          if (xAxisEl) observer.observe(xAxisEl);
+          else observer.observe(containerRef.current);
+        } else {
+          // fallback: animate immediately
+          animateBars();
+          hasAnimatedRef.current = true;
+        }
+      } catch (err) {
+        // if anything goes wrong, just animate
+        animateBars();
+        hasAnimatedRef.current = true;
+      }
+    }
 
     // Legenda
     const legend = svg.append("g")
@@ -216,31 +268,26 @@ const MigrationGroupedChart = () => {
 
   return (
     <Paper elevation={0} sx={{ p: 3, position: 'relative', bgcolor: 'transparent' }}>
-      <Typography variant="h6" color="primary" gutterBottom>
-        Internal vs External Displacement
-      </Typography>
+      
 
-      {/* Controlli (solo scala) */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 2 }}>
-        
-        {/* Toggle Scala */}
-        <Box sx={{ display: 'flex', gap: 1 }}>
-          <Button 
-            variant={!useLogScale ? "contained" : "outlined"} 
-            onClick={() => setUseLogScale(false)}
-            size="small"
-          >
-            Linear Scale
-          </Button>
-          <Button 
-            variant={useLogScale ? "contained" : "outlined"} 
-            onClick={() => setUseLogScale(true)}
-            size="small"
-          >
-            Log Scale
-          </Button>
-        </Box>
-
+      {/* Controlli scala: posizionati lateralmente al grafico, impilati verticalmente */}
+      <Box sx={{ position: 'absolute', right: -60, top: '50%', transform: 'translateY(-50%)', display: 'flex', flexDirection: 'column', gap: 1, zIndex: 5 }}>
+        <Button 
+          variant={!useLogScale ? "contained" : "outlined"} 
+          onClick={() => setUseLogScale(false)}
+          size="small"
+          sx={!useLogScale ? { backgroundColor: '#d32f2f', '&:hover': { backgroundColor: '#b71c1c' } } : { color: '#d32f2f', borderColor: '#d32f2f', '&:hover': { backgroundColor: 'rgba(211,47,47,0.06)' } }}
+        >
+          Linear Scale
+        </Button>
+        <Button 
+          variant={useLogScale ? "contained" : "outlined"} 
+          onClick={() => setUseLogScale(true)}
+          size="small"
+          sx={useLogScale ? { backgroundColor: '#d32f2f', '&:hover': { backgroundColor: '#b71c1c' } } : { color: '#d32f2f', borderColor: '#d32f2f', '&:hover': { backgroundColor: 'rgba(211,47,47,0.06)' } }}
+        >
+          Log Scale
+        </Button>
       </Box>
 
       {/* Grafico */}

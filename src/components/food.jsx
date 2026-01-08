@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import ipcRaw from '../data/IPC_YE_A_82302905_2025-12-30.geojson?raw';
 
-export default function Food({ src, height = 520 }) {
+export default function Food({ src, height = 420 }) {
 	const ref = useRef(null);
 	const [data, setData] = useState(null);
 	const [stats, setStats] = useState(null);
@@ -10,6 +10,15 @@ export default function Food({ src, height = 520 }) {
 	// Unified color range to be used both for the map and the legends
 	const colorRange = ['#2ca02c','#ffdd57','#ff8c00','#d32f2f','#6a0dad'];
 	const colorScale = d3.scaleOrdinal().domain([1,2,3,4,5]).range(colorRange);
+
+	// IPC phase labels
+	const phaseLabels = {
+		1: 'P1-Minimal',
+		2: 'P2-Stressed',
+		3: 'P3-Crisis',
+		4: 'P4-Emergency',
+		5: 'P5-Famine'
+	};
 
 	useEffect(() => {
 		// If a `src` prop is provided, try fetching it (useful for overrides).
@@ -131,7 +140,7 @@ export default function Food({ src, height = 520 }) {
 		phases.forEach((p, i) => {
 			const g = legend.append('g').attr('transform', `translate(0,${i*20})`);
 			g.append('rect').attr('width', 14).attr('height', 14).attr('fill', color(p)).attr('stroke', '#333');
-			g.append('text').attr('x', 20).attr('y', 11).attr('fill', '#222').attr('font-size', 12).text(`P${p}`);
+			g.append('text').attr('x', 20).attr('y', 11).attr('fill', '#222').attr('font-size', 12).text(phaseLabels[p] || `P${p}`);
 		});
 
 		// Responsiveness: redraw on resize
@@ -156,7 +165,7 @@ export default function Food({ src, height = 520 }) {
 							<div key={p} style={{ flex: '1 1 180px', minWidth: 140 }}>
 								<div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
 									<div style={{ width: 12, height: 12, background: colorScale(p) || '#999', border: '1px solid #333' }} />
-									<div style={{ fontWeight: 700 }}>P{p}</div>
+									<div style={{ fontWeight: 700 }}>{phaseLabels[p] || `P${p}`}</div>
 								</div>
 								<div style={{ fontSize: 13, color: '#333', marginTop: 6 }}>
 									Area: {stats.areaPercent[p].toFixed(1)}% ({stats.counts[p]}/{stats.totalAreas})
