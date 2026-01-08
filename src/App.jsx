@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Container, Box, Button, Grid, Fab, IconButton, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, Typography, Container, Box, Button, Grid, Fab, IconButton, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import CloseIcon from '@mui/icons-material/Close';
 import GdpLineChartD3 from './components/GdpLineChartD3';
 import FlowMapD3 from './components/FlowMapD3';
 import MigrationGroupedChart from './components/MigrationGroupedChart';
@@ -18,6 +19,14 @@ function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [navAnchorEl, setNavAnchorEl] = useState(null);
   const [showDataPage, setShowDataPage] = useState(false);
+  const isMobile = useMediaQuery('(max-width:600px)');
+  const [showMobileBanner, setShowMobileBanner] = useState(false);
+
+  useEffect(() => {
+    setShowMobileBanner(Boolean(isMobile));
+  }, [isMobile]);
+
+  const closeMobileBanner = () => setShowMobileBanner(false);
   const getHeaderOffset = () => {
     const navEl = document.getElementById('top-nav');
     return navEl ? navEl.getBoundingClientRect().height + 15 : 0;
@@ -163,6 +172,22 @@ function App() {
           </Toolbar>
         </AppBar>
       </Box>
+
+      {isMobile && showMobileBanner && (
+        <Box sx={{ position: 'fixed', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
+          <Box sx={{ width: '82%', height: '50vh', bgcolor: '#1a1a1a', color: '#fff', px: 3, py: 2, borderRadius: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 2, position: 'relative' }}>
+            <Typography variant="h6" sx={{ fontSize: '1.25rem', fontWeight: 700 }}>
+              For the best chart experience, please use a desktop computer.
+            </Typography>
+            <Typography variant="body1" sx={{ fontSize: '1rem', color: '#ddd', maxWidth: '36rem' }}>
+              Charts are more readable on larger screens. For optimal clarity and interaction, we recommend viewing this site on a PC.
+            </Typography>
+            <IconButton size="large" color="inherit" onClick={closeMobileBanner} aria-label="close banner" sx={{ position: 'absolute', top: 12, right: 12, color: '#fff' }}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        </Box>
+      )}
 
       {/* HERO SECTION (Intro) */}
       <Box id="intro" sx={{ py: 8, bgcolor: 'darkred', textAlign: 'center', borderBottom: '1px solid #ddd' }}>
