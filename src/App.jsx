@@ -11,11 +11,13 @@ import Food from './components/food';
 import Fatalities from './components/Fatalities';
 import MapDis from './components/mapdis';
 import Donut from './components/Donut';
+import DataSources from './components/DataSources';
 
 function App() {
   const [activeSection, setActiveSection] = useState('');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [navAnchorEl, setNavAnchorEl] = useState(null);
+  const [showDataPage, setShowDataPage] = useState(false);
   const getHeaderOffset = () => {
     const navEl = document.getElementById('top-nav');
     return navEl ? navEl.getBoundingClientRect().height + 15 : 0;
@@ -176,6 +178,9 @@ function App() {
 
       {/* SEZIONI DEL PROGETTO (Le 5 visualizzazioni) */}
       <Container maxWidth="lg" sx={{ py: 6 }}>
+        {showDataPage ? (
+          <DataSources onClose={() => setShowDataPage(false)} />
+        ) : (<>
         
         {/* Sezione 1: Raid Aerei (scambiata con GDP) */}
         <Section 
@@ -191,6 +196,7 @@ function App() {
     </div>
   }> 
     <Raid/>
+  
     <Box sx={{ maxWidth: '640px', mx: 'auto', my: 4, textAlign: 'justify' }}>
              <Typography variant="body1" component="div" sx={{ color: '#301111ff' }}>
               Once we understand where the raids struck, we must ask what they hit. The answer, visualized in this chart, paints a picture of chaos and systemic collapse.
@@ -254,48 +260,86 @@ function App() {
           description="Movement of millions trapped within the country's borders." 
               body={
             <div style={{ textAlign: 'justify' }}>
-          When war destroys your home, you seek shelter. But the tragedy in Yemen is that most people cannot leave the country.
-
-        The chart compares internally displaced persons (IDPs) with refugees abroad from 2011 to today. The imbalance is clear: millions are IDPs, trapped in open-air confinement, forced to move from one combat zone to another without ever finding true safety.
-          </div>
+            When we think of war, we often imagine mass exoduses across borders. 
+            But this map reveals a different, quieter tragedy.
+            Tracing the lines on the map, we see the paths of those who managed to leave Yemen.
+            Unlike other global crises where millions pour into neighboring countries, Yemen's isolation
+            has made escape nearly impossible for the average citizen.
+            </div>
           }>
           <FlowMapD3 />
           <Box sx={{ maxWidth: '640px', mx: 'auto', my: 4, textAlign: 'justify' }}>
              <Typography variant="body1" component="div" sx={{ color: '#301111ff' }}>
               If the map shows the few who left, this chart reveals the millions who remained. It illustrates a nation turned into an open-air prison.
-
-The graph compares Internally Displaced Persons (IDPs) in red against External Refugees in black. The visual imbalance is devastating.
+              The graph compares Internally Displaced Persons (IDPs) in red against External Refugees in black. The visual imbalance is devastating.
+              As the conflict escalated, the number of internally displaced people skyrocketed from a few hundred thousand in 2014 to over 2 million in a single year
+              The black bars (refugees abroad) are barely visible compared to the towering red columns. By 2024-2025, over 4.5 million people are trapped inside the country. 
+              These families are not finding safety; they are simply moving from one danger zone to another, unable to cross the border to true refuge.
               </Typography>
           </Box>
           <MigrationGroupedChart />  
         </Section>
 
         {/* Sezione 5: Bilancio Finale */}
-        <Section 
+  <Section 
           id="bilancio" 
           title="5. The Silent Toll" 
           description="Direct vs indirect deaths: the true cost of war." 
          body={
     <div style={{ textAlign: 'justify' }}>
-      How many deaths has the war caused? The answer is more complex than counting bodies on battlefields. According to UN estimates, the conflict has caused hundreds of thousands of casualties.
-
-The shocking detail is the cause: about 60% of these deaths are not due to direct violence (bombing or shootings), but to indirect causes contaminated water, cholera, lack of medicine and malnutrition. The war in Yemen has killed more children through hunger than soldiers with bullets.
+    How do you measure the death toll of a nation? The answer is far more complex and terrifying, than simply counting bodies on a battlefield.
+    While the world watches the explosions, the true catastrophe of the war in Yemen happens in silence. According to UN estimates, the conflict has claimed hundreds of thousands of lives, but the shocking reality lies in the cause. 
+    Approximately 60% of these deaths are not due to direct violence no bullets, no airstrikes. Instead, they are the victims of a collapsing state: children dying from preventable diseases like cholera, families succumbing to malnutrition, and patients lost because hospitals ran out of power or medicine. 
+    The war has killed more people through hunger than through combat.
+    <br />
+    When violence does strike, it leaves a permanent scar. 
+    This chart breaks down the recorded casualties by governorate, revealing exactly where the fighting has been most lethal.  
+    At the top of the list, two governorates stand out with devastating parity. 
+    Marib records the highest toll with 23,869 casualties, closely followed by Taizz with 23,737.
+    Sadah, the heartland of the Houthi movement and a primary target for airstrikes, follows with 21,258 casualties.
+    The length of these red bars represents not just statistics, but the systematic dismantling of communities across every corner of the country.
     </div>
   }>
       
           <Fatalities />
           
         </Section>
+        <Box id="conclusione" sx={{ mb: 8 }}>
+          <Box sx={{ maxWidth: '900px', mx: 'auto', textAlign: 'center', mb: 3 }}>
+            <Typography variant="h4" gutterBottom sx={{ color: '#d32f2f', fontWeight: 700 }}>
+              6.A Future in the Balance
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom sx={{ color: '#301111ff' }}>
+              Riflection 
+            </Typography>
+            <Box sx={{ maxWidth: '640px', mx: 'auto' }}>
+              <Typography variant="body1" component="div" sx={{ color: '#301111ff', textAlign: 'justify' }}>
+              We started this narrative by calling Yemen the "Forgotten War." But after scrolling through the data, the reality is impossible to ignore.
+              The story of Yemen is not just one of military strategy or regional politics; it is a story of systemic dismantling.
+              We have seen how the violence began in the skies, with over 26,000 raids raining down on cities and deserts. We watched the economy flatline, erasing decades of growth and cutting the nation's wealth in half. We traced the path of millions trapped within their own borders, running from airstrikes only to face the slower, silent violence of hunger.
 
+The charts end here, but the reality continues.
+
+The tragedy of Yemen is that the damage shown in these visualizations will outlast the conflict itself. A child whose school was bombed in Sa'dah, or whose growth was stunted by malnutrition in Hajjah, carries the war into the future. Rebuilding buildings is possible; rebuilding a lost generation is the true challenge.
+
+These numbers are not just statistics to be archived. They are a call to witness. Yemen may be geographically isolated, but the human cost revealed by this data demands that it no longer remains forgotten.
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        </>)}
       </Container>
 
       {/* FOOTER */}
       <Box sx={{ py: 4, bgcolor: '#1a1a1a', color: 'white', textAlign: 'center' }}>
-         <Typography variant="body1">
+         <Typography variant="body2" sx={{ mb: 1 }}>
           Data Visualization Project 2025/2066 - University of Genoa
           <br />
           Nettikadan Kevin 
         </Typography>
+        <Button variant="text" size="small" onClick={() => setShowDataPage(true)} sx={{ color: '#fff', textDecoration: 'underline' }}>
+          Data and Sources
+        </Button>
       </Box>
 
       {/* SCROLL TO TOP BUTTON */}
