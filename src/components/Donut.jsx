@@ -98,6 +98,28 @@ export default function Donut({ height = 600 }) {
     paths.on('mouseenter', function(event,d){ if (hoverTimeoutRef.current){ clearTimeout(hoverTimeoutRef.current); hoverTimeoutRef.current=null; } d3.select(this).transition().duration(220).attr('d', arcHover).attr('opacity',0.92); const pct = ((d.data.value/total)*100).toFixed(1); try{ centerNum.interrupt(); centerSub.interrupt(); } catch(e){} centerNum.text(d.data.value.toLocaleString()); centerSub.text(`${d.data.key} (${pct}%)`); if (containerRef.current){ const rect = containerRef.current.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; setHovered({ x: Math.min(Math.max(8, x), rect.width - 160), y: Math.min(Math.max(8, y), rect.height - 80), key: d.data.key, value: d.data.value, pct }); } });
     paths.on('mouseleave', function(event,d){ const node=this; d3.select(node).transition().duration(220).attr('d', arc).attr('opacity',1); if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current); hoverTimeoutRef.current = setTimeout(()=>{ try{ centerNum.interrupt(); centerSub.interrupt(); } catch(e){} const backInterp = d3.interpolateNumber(Number(centerNum.text().replace(/,/g,'')), total); centerNum.transition().duration(600).tween('text', () => t => centerNum.text(Math.round(backInterp(t)).toLocaleString())); centerSub.text('Total Raids'); setHovered(null); hoverTimeoutRef.current = null; }, 120); });
     paths.on('mousemove', function(event){ if (!containerRef.current) return; const rect = containerRef.current.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; setHovered(h => h ? { ...h, x: Math.min(Math.max(8, x), rect.width - 160), y: Math.min(Math.max(8, y), rect.height - 80) } : h); });
+
+    // Custom handlers for legend interactions: enlarge slice without showing tooltip
+    paths.on('legendenter', function(event, d) {
+      d3.select(this).transition().duration(220).attr('d', arcHover).attr('opacity', 0.92);
+      try { centerNum.interrupt(); centerSub.interrupt(); } catch (e) {}
+      centerNum.text(d.data.value.toLocaleString());
+      centerSub.text(`${d.data.key} (${((d.data.value/total)*100).toFixed(1)}%)`);
+    });
+
+    paths.on('legendleave', function(event, d) {
+      const node = this;
+      d3.select(node).transition().duration(220).attr('d', arc).attr('opacity', 1);
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = setTimeout(() => {
+        try { centerNum.interrupt(); centerSub.interrupt(); } catch (e) {}
+        const backInterp = d3.interpolateNumber(Number(centerNum.text().replace(/,/g, '')), total);
+        centerNum.transition().duration(600).tween('text', () => t => centerNum.text(Math.round(backInterp(t)).toLocaleString()));
+        centerSub.text('Total Raids');
+        setHovered(null);
+        hoverTimeoutRef.current = null;
+      }, 120);
+    });
     const labelThreshold = 0.12;
     const labels = svg.selectAll('text.slice-label').data(arcs).join('text')
       .attr('class','slice-label')
@@ -163,9 +185,8 @@ export default function Donut({ height = 600 }) {
               const selector = `path[data-key="${String(d.key).replace(/"/g, '\\"')}"]`;
               const pathEl = svg.querySelector(selector);
               if (pathEl) {
-                const rect = containerRef.current.getBoundingClientRect();
-                const event = new MouseEvent('mouseenter', { bubbles: true, cancelable: true, view: window, clientX: rect.left + 20, clientY: rect.top + 20 + i * 18 });
-                pathEl.dispatchEvent(event);
+                const ev = new CustomEvent('legendenter', { bubbles: true });
+                pathEl.dispatchEvent(ev);
               }
             }}
             onMouseLeave={() => {
@@ -175,8 +196,8 @@ export default function Donut({ height = 600 }) {
               const selector = `path[data-key="${String(d.key).replace(/"/g, '\\"')}"]`;
               const pathEl = svg.querySelector(selector);
               if (pathEl) {
-                const event = new MouseEvent('mouseleave', { bubbles: true, cancelable: true, view: window });
-                pathEl.dispatchEvent(event);
+                const ev = new CustomEvent('legendleave', { bubbles: true });
+                pathEl.dispatchEvent(ev);
               }
             }}
           >

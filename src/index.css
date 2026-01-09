@@ -6,3 +6,12 @@ body {
 	margin: 0;
 	font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
+
+/* Legend and misc text classes */
+.chart-legend-title { font-size: 11px; font-weight: 600; fill: #222; font-family: var(--font-family); }
+.chart-legend-text { font-size: 12px; fill: #222; font-family: var(--font-family); }
+.chart-legend-note { font-size: 9px; font-weight: 600; fill: #222; font-family: var(--font-family); }
+.chart-label { font-size: var(--chart-font-size); fill: var(--chart-text); font-family: var(--font-family); }
+.chart-axis-text { font-size: var(--chart-font-size); fill: var(--chart-muted); font-family: var(--font-family); }
+.chart-html-tooltip { font-size: 13px; background: rgba(0,0,0,0.85); color: white; padding: 8px; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+.peninsula-label { font-size: var(--chart-font-size-lg); font-family: var(--font-family); fill: #fff; font-weight: 700; text-anchor: middle; }

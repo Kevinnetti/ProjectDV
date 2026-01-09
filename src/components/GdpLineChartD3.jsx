@@ -58,6 +58,37 @@ const GdpLineChartD3 = () => {
 
     const color = "#d32f2f";
 
+    // --- Highlight: start of war (2015) ---
+    const warYear = 2015;
+    const warX = xScale(warYear);
+    // Shade area from 2015 to the end
+    svg.append('rect')
+      .attr('x', warX)
+      .attr('y', margin.top)
+      .attr('width', Math.max(0, (width - margin.right) - warX))
+      .attr('height', height - margin.top - margin.bottom)
+      .attr('fill', '#ada6a6ff')
+      .attr('opacity', 0.35);
+
+    // Vertical marker line at 2015
+    svg.append('line')
+      .attr('x1', warX)
+      .attr('x2', warX)
+      .attr('y1', margin.top)
+      .attr('y2', height - margin.bottom)
+      .attr('stroke', '#b71c1c')
+      .attr('stroke-width', 2)
+      .attr('stroke-dasharray', '4,3');
+
+    // Label for the marker
+    svg.append('text')
+      .attr('x', warX + 6)
+      .attr('y', margin.top - 8)
+      .style('font-size', '12px')
+      .style('fill', '#b71c1c')
+      .style('font-weight', 700)
+      .text('Start of the war (2015)');
+
     // --- ASSI ---
     const xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
     const yAxis = d3.axisLeft(yScale).ticks(6);
@@ -95,7 +126,7 @@ const GdpLineChartD3 = () => {
       .style("text-anchor", "middle")
       .style("font-size", "12px")
       .style("fill", "#999")
-      .text("Billions of USD ($)");
+      .text(" GDP (Billions $)");
 
     // Etichetta Asse X
     svg.append("text")
@@ -174,7 +205,7 @@ const GdpLineChartD3 = () => {
     }
 
     // --- INTERAZIONE: Tooltip SVG su ogni punto (shared helper) ---
-    const tooltip = createSvgTooltip(svg, { padding: 8, rx: 6, fontSize: 12 });
+    const tooltip = createSvgTooltip(svg, { padding: 8, rx: 6, fontSize: 10 });
 
     // Hover su ogni singolo punto
     points

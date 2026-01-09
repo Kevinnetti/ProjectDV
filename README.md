@@ -7,7 +7,7 @@ Live site: https://kevinnetti.github.io/ProjectDV/
 ## Quick start
 
 Prerequisites:
-- Node.js (18+ recommended)
+- Node.js 
 - npm
 - Python 3.9+ and `pip` for preprocessing scripts
 
@@ -71,7 +71,7 @@ See `METHOD.md` for a detailed description of the data sources, cleaning steps, 
 
 ## Team
 
-Add team member names and roles here (required for submission).
+Nettikadan Kevin 5175709 
 
 ## Notes on reproducibility
 
@@ -81,6 +81,46 @@ Add team member names and roles here (required for submission).
 ## Limitations and known issues
 
 - Some visualizations filter or aggregate data for performance and clarity. See `METHOD.md` for exact thresholds, assumptions and limitations.
+ - In the `Fatalities` visualization, governorates with 0 recorded fatalities are grouped into a single category labeled **"Others"** with count 0; this grouping is used for display clarity and does not remove those governorates from the source data.
+
+## Data sources 
+
+Below are the primary data sources used in this project. Local paths link to the files included in this repository; external links point to the original data provider.
+
+- **Yemen Data Project (air raids)**
+  - Local: [src/data/Yemen_Data_Project_Unified.csv](src/data/Yemen_Data_Project_Unified.csv)
+  - External: https://yemendataproject.org/data/
+  - Used fields: `Date`, `Incident ID`, `Governorate`, `District`, `Min Projectiles` / `Min Air Raids`, `Actor`, `Main category`.
+  - Notes: multiple raw CSV exports were merged by `src/data/Raid_unifier.py`. Aggregation per district/year is performed by `merge_data.py` to create `src/data/yemen_districts_clean.json` used for the choropleth.
+
+- **ACLED (fatalities / conflict events)**
+  - Local: [src/data/fatalities.csv](src/data/fatalities.csv)
+  - External: https://acleddata.com/
+  - Used fields: fatalities counts, admin1/governorate.
+
+- **IMF / GDP (national economic data)**
+  - Local: [src/data/gdp.csv](src/data/gdp.csv)
+  - External: https://www.imf.org/external/datamapper/NGDPD@WEO/YEM
+  - Used fields: `Year`, `GDP` (used in `GdpLineChartD3`).
+
+- **IPC (food insecurity geojson)**
+  - Local: [src/data/IPC_YE_A_82302905_2025-12-30.geojson](src/data/IPC_YE_A_82302905_2025-12-30.geojson)
+  - External: https://www.ipcinfo.org/
+  - Used fields: `features`, `geometry` for the food insecurity choropleth.
+
+- **UNHCR (migration / IDP statistics)**
+  - Local: [src/data/migrations.csv](src/data/migrations.csv), [src/data/idp.csv](src/data/idp.csv)
+  - External (UNHCR data finder): https://www.unhcr.org/refugee-statistics/
+  - Used fields: `Year`, `Country of Origin`, `Country of Asylum`, `Total` (used in `FlowMapD3` and `MigrationGroupedChart`).
+
+- **Administrative / basemaps**
+  - Local: [src/data/world.geojson](src/data/world.geojson), [src/data/gadm41_YEM_1.json](src/data/gadm41_YEM_1.json), [src/data/yemen_districts_clean.json](src/data/yemen_districts_clean.json)
+  - Purpose: projection, centroids and district-level geometry for choropleth and flow maps.
+
+Notes:
+- Files under `src/data/` are referenced at runtime using Vite (see components `DataSources.jsx` and imports like `new URL('../data/..', import.meta.url)` or `?url`). When building, those referenced files are included in the output if imported.
+- If you reuse or update raw data, re-run `src/data/Raid_unifier.py` and `merge_data.py` (see `README.md` instructions) and verify `src/data/yemen_districts_clean.json` is updated.
+
 
 ---
 

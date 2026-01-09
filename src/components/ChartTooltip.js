@@ -4,7 +4,7 @@ import React from 'react';
 // svg: d3-selected svg element
 // opts: { padding, fill, rx, textFill, fontSize }
 export function createSvgTooltip(svg, opts = {}) {
-  const { padding = 8, fill = 'rgba(0,0,0,0.85)', rx = 6, textFill = 'white', fontSize = 12 } = opts;
+  const { padding = 8, fill = 'rgba(0,0,0,0.85)', rx = 6, textFill = 'white', fontSize = 0 } = opts;
 
   const g = svg.append('g')
     .attr('class', 'chart-tooltip')
@@ -14,19 +14,30 @@ export function createSvgTooltip(svg, opts = {}) {
   const rect = g.append('rect')
     .attr('fill', fill)
     .attr('rx', rx)
-    .attr('ry', rx);
+    .attr('ry', rx)
+    .attr('class', 'chart-tooltip-rect');
+
+  // resolve font size from opts or CSS var --chart-font-size / HtmlTooltip default
+  let resolvedFontSize = fontSize && Number(fontSize) ? fontSize : null;
+  try {
+    if (!resolvedFontSize && typeof window !== 'undefined' && window.getComputedStyle) {
+      const val = getComputedStyle(document.documentElement).getPropertyValue('--chart-font-size');
+      if (val) resolvedFontSize = parseInt(val.trim(), 10) || 13;
+    }
+  } catch (e) { resolvedFontSize = resolvedFontSize || 13; }
 
   const text = g.append('text')
     .attr('fill', textFill)
-    .attr('font-size', fontSize)
-    .attr('text-anchor', 'middle');
+    .attr('font-size', resolvedFontSize)
+    .attr('text-anchor', 'start')
+    .attr('class', 'chart-tooltip-text');
 
   function setLines(lines = []) {
     text.selectAll('tspan').remove();
     lines.forEach((l, i) => {
       text.append('tspan')
         .attr('x', 0)
-        .attr('dy', i === 0 ? '0em' : '1.2em')
+        .attr('dy', i === 0 ? '0em' : '1.25em')
         .style('font-weight', i === 0 ? 700 : 400)
         .text(l);
     });
@@ -36,12 +47,16 @@ export function createSvgTooltip(svg, opts = {}) {
     setLines(lines);
     if (typeof g.raise === 'function') g.raise();
     const bbox = text.node().getBBox();
+    // position rect slightly left/up from the supplied x,y to mimic HtmlTooltip offset
+    const rxPos = bbox.x - padding;
+    const ryPos = bbox.y - padding;
     rect
-      .attr('x', bbox.x - padding)
-      .attr('y', bbox.y - padding)
+      .attr('x', rxPos)
+      .attr('y', ryPos)
       .attr('width', bbox.width + padding * 2)
       .attr('height', bbox.height + padding * 2);
-    g.attr('transform', `translate(${x}, ${y})`)
+    // set group transform so the g origin matches the intended x,y (we keep text at 0,0)
+    g.attr('transform', `translate(${x - Math.max(0, bbox.width/2)}, ${y - bbox.height/2})`)
       .transition()
       .duration(120)
       .style('opacity', 1);

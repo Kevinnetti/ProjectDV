@@ -130,7 +130,7 @@ const MigrationGroupedChart = () => {
     svg.append("g")
       .attr("class", "x-axis")
       .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(x0).tickFormat(d3.format("d")))
+      .call(d3.axisBottom(x0).tickFormat(d3.format("d")).tickSize(0))
       .style("font-size", "12px");
 
     const logTicks = [1e4, 1e5, 1e6, 5e6];
@@ -138,7 +138,8 @@ const MigrationGroupedChart = () => {
       ? d3.axisLeft(y)
           .tickValues(logTicks.filter(t => t >= y.domain()[0] && t <= y.domain()[1]))
           .tickFormat(d3.format(".0s"))
-      : d3.axisLeft(y).tickFormat(d3.format("~s"));
+          .tickSize(0)
+      : d3.axisLeft(y).tickFormat(d3.format("~s")).tickSize(0);
 
     svg.append("g")
       .call(yAxis)
@@ -154,9 +155,18 @@ const MigrationGroupedChart = () => {
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .style("fill", "#666")
+      .style("fill", "#999")
       .style("font-size", "12px")
       .text(useLogScale ? "People (Log scale)" : "People (Linear)");
+
+      // Etichetta Asse X
+    svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height + 40)
+        .style("text-anchor", "middle")
+        .style("font-size", "12px")
+        .style("fill", "#999")
+        .text("Years");
 
     // Barre (inizialmente a 0 altezza; animiamo solo la prima volta che entrano in viewport)
     const rects = svg.append("g")
@@ -271,7 +281,18 @@ const MigrationGroupedChart = () => {
       
 
       {/* Controlli scala: posizionati lateralmente al grafico, impilati verticalmente */}
-      <Box sx={{ position: 'absolute', right: -60, top: '50%', transform: 'translateY(-50%)', display: 'flex', flexDirection: 'column', gap: 1, zIndex: 5 }}>
+      <Box sx={{
+        position: { xs: 'relative', md: 'absolute' },
+        right: { xs: 'auto', md: -60 },
+        top: { xs: 'auto', md: '50%' },
+        transform: { xs: 'none', md: 'translateY(-50%)' },
+        display: 'flex',
+        flexDirection: { xs: 'row', md: 'column' },
+        gap: 1,
+        zIndex: 5,
+        justifyContent: { xs: 'center', md: 'flex-start' },
+        mt: { xs: 2, md: 0 }
+      }}>
         <Button 
           variant={!useLogScale ? "contained" : "outlined"} 
           onClick={() => setUseLogScale(false)}
@@ -312,7 +333,7 @@ const MigrationGroupedChart = () => {
         )}
       </HtmlTooltip>
       
-      <Typography variant="caption" sx={{ display: 'block', mt: 1, color: '#666' }}>
+      <Typography variant="caption" sx={{ display: 'block', mt: 1, color: '#000000ff' }}>
         Note: The difference between internally displaced people (millions) and refugees (thousands) is enormous. 
         Use the log scale to compare trends.
       </Typography>

@@ -99,13 +99,9 @@ export default function Food({ src, height = 420 }) {
 		// Tooltip
 		const tooltip = d3.select(container)
 			.append('div')
+			.attr('class', 'chart-html-tooltip')
 			.style('position', 'absolute')
 			.style('pointer-events', 'none')
-			.style('background', 'rgba(0,0,0,0.75)')
-			.style('color', 'white')
-			.style('padding', '8px')
-			.style('border-radius', '6px')
-			.style('font-size', '13px')
 			.style('display', 'none');
 
 		svg.append('g')
@@ -140,7 +136,7 @@ export default function Food({ src, height = 420 }) {
 		phases.forEach((p, i) => {
 			const g = legend.append('g').attr('transform', `translate(0,${i*20})`);
 			g.append('rect').attr('width', 14).attr('height', 14).attr('fill', color(p)).attr('stroke', '#333');
-			g.append('text').attr('x', 20).attr('y', 11).attr('fill', '#222').attr('font-size', 12).text(phaseLabels[p] || `P${p}`);
+			g.append('text').attr('x', 20).attr('y', 11).attr('fill', '#222').classed('chart-legend-text', true).text(phaseLabels[p] || `P${p}`);
 		});
 
 		// Responsiveness: redraw on resize

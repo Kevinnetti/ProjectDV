@@ -6,7 +6,7 @@ This document explains the data pipeline, cleaning choices, filtering thresholds
 
 Primary inputs (stored under `src/data/`):
 
-- Yemen Data Project exports (multiple CSVs)
+- Yemen Data Project exports (`raids.csv` , `Yemen Data Project Published - US UK - Operation Poseidon Archer_12 January 2024 to 28 February 2025.csv`, `Yemen Data Project- Published Data-Operation Rough Rider_15 March - 6 May 2025.csv`, `Dec2025_Yemen Data Project Published - Israel database from 20 July 2024 to 30 September 2025.csv` )
 - ACLED / fatalities CSV (`fatalities.csv`)
 - IMF GDP CSV (`gdp.csv`)
 - IPC GeoJSON for food insecurity (`IPC_YE_A_82302905_2025-12-30.geojson`)
@@ -60,9 +60,5 @@ Primary inputs (stored under `src/data/`):
 4. Run `python merge_data.py` to produce `src/data/yemen_districts_clean.json`.
 5. Start the site with `npm run dev` and verify visualizations.
 
-## Suggestions for improvement
 
-- Add explicit logging of unmatched district names and provide a mapping file to correct them manually.
-- Publish a small CSV of `unmatched_districts.csv` produced by `merge_data.py` to help manual reconciliation.
-- Consider adding per-chart uncertainty indicators (e.g., shaded intervals, counts of missing records).
 

@@ -372,7 +372,7 @@ const Raid = () => {
             fontSize: 48,
             fontWeight: 800,
             letterSpacing: '0.04em'
-          }}>peace?</div>
+          }}>Peace?</div>
         )}
       </Box>
 
