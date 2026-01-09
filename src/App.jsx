@@ -175,7 +175,7 @@ function App() {
 
       {isMobile && showMobileBanner && (
         <Box sx={{ position: 'fixed', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
-          <Box sx={{ width: '82%', height: '50vh', bgcolor: '#1a1a1a', color: '#fff', px: 3, py: 2, borderRadius: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 2, position: 'relative' }}>
+          <Box sx={{ width: '72%', height: '50vh', bgcolor: '#1a1a1a', color: '#fff', px: 3, py: 2, borderRadius: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 2, position: 'relative' }}>
             <Typography variant="h6" sx={{ fontSize: '1.25rem', fontWeight: 700 }}>
               For the best chart experience, please use a desktop computer.
             </Typography>
@@ -296,7 +296,7 @@ function App() {
           <Box sx={{ maxWidth: '640px', mx: 'auto', my: 4, textAlign: 'justify' }}>
              <Typography variant="body1" component="div" sx={{ color: '#301111ff' }}>
               If the map shows the few who left, this chart reveals the millions who remained. It illustrates a nation turned into an open-air prison.
-              The graph compares Internally Displaced Persons (IDPs) in red against External Refugees in black. The visual imbalance is devastating.
+              The graph compares Internally Displaced People (IDPs) in red against External Refugees in black. The visual imbalance is devastating.
               As the conflict escalated, the number of internally displaced people skyrocketed from a few hundred thousand in 2014 to over 2 million in a single year
               The black bars (refugees abroad) are barely visible compared to the towering red columns. By 2024-2025, over 4.5 million people are trapped inside the country. 
               These families are not finding safety; they are simply moving from one danger zone to another, unable to cross the border to true refuge.

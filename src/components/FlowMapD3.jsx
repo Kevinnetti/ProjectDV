@@ -330,9 +330,7 @@ const FlowMapD3 = () => {
         }}
       />
       
-      <Typography variant="caption" sx={{display:'block', textAlign:'right', mt:1, color:'#777'}}>
-        Source: UNHCR data (processed in real-time)
-      </Typography>
+     
     </Paper>
   );
 };

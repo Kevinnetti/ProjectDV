@@ -221,9 +221,7 @@ const GdpLineChartD3 = () => {
         <Box ref={containerRef} sx={{ width: '100%', minHeight: '350px' }} />
       )}
 
-      <Typography variant="caption" sx={{ display: 'block', textAlign: 'right', mt: 1, color: '#777' }}>
-        Source: World Bank CSV data
-      </Typography>
+    
     </Box>
   );
 };
