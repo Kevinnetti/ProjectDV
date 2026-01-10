@@ -16,7 +16,7 @@ const DataSources = ({ onClose }) => {
       <Container maxWidth="md">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
           <Typography variant="h4" sx={{ color: '#d32f2f', fontWeight: 700 }}>Data and Sources</Typography>
-          <Button variant="outlined" color="darkred" size="small" onClick={onClose}>Back </Button>
+          <Button variant="contained" size="large" onClick={onClose} sx={{ backgroundColor: '#d32f2f', '&:hover': { backgroundColor: '#b71c1c' } }}>Home Page </Button>
         </Box>
 
         <Typography variant="body1" paragraph>

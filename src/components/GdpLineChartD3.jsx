@@ -58,8 +58,8 @@ const GdpLineChartD3 = () => {
 
     const color = "#d32f2f";
 
-    // --- Highlight: start of war (2015) ---
-    const warYear = 2015;
+    // --- Highlight: start of war (2014) ---
+    const warYear = 2014;
     const warX = xScale(warYear);
     // Shade area from 2015 to the end
     svg.append('rect')
@@ -87,7 +87,7 @@ const GdpLineChartD3 = () => {
       .style('font-size', '12px')
       .style('fill', '#b71c1c')
       .style('font-weight', 700)
-      .text('Start of the war (2015)');
+      .text('Start of the war (2014)');
 
     // --- ASSI ---
     const xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));

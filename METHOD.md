@@ -39,6 +39,10 @@ Primary inputs (stored under `src/data/`):
   - Aggregated per-year counts are used to color districts. Low-count districts may appear as low/zero.
   - Donut and other charts aggregate categories; categories labeled `Unknown` are preserved verbatim from source.
 
+- Fatalities :
+  - Aggregated fatalities by Governorate (Admin1) to feed the Bar Chart visualization.
+  - Governorates with less than 100 recorded fatalities are grouped into a single category labeled **"Others"**. 
+
 ## Assumptions and imputations
 
 - When `Actor` or `Type of Weapons` are missing in a source file, `Raid_unifier.py` sets a reasonable default based on file origin.
@@ -49,7 +53,7 @@ Primary inputs (stored under `src/data/`):
 
 - Source data completeness: Yemen Data Project and other sources may have missing or inconsistently recorded fields (dates, district names, victim counts).
 - Unknowns: a large share of incidents are tagged `Unknown` for actor/target; this introduces uncertainty in attribution.
-- Aggregation hides intra-district spatial heterogeneity and temporal reporting biases.
+- The total indirect fatalities are not precise counts but estimates based on models and surveys.
 - Estimates (e.g., total displaced) depend on UNHCR/IPC reporting policies and periodicity; they are not wall-to-wall censuses.
 
 ## How to reproduce

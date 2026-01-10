@@ -9,7 +9,7 @@ import pocPath from '../data/migrations.csv?url';
 
 const MigrationGroupedChart = () => {
   const containerRef = useRef(null);
-  const tooltipRef = useRef(null);
+  // tooltipRef is not used for HTML tooltip logic but kept for consistency if needed later
   const [hovered, setHovered] = useState(null);
   const hasAnimatedRef = useRef(false);
   
@@ -139,7 +139,7 @@ const MigrationGroupedChart = () => {
           .tickValues(logTicks.filter(t => t >= y.domain()[0] && t <= y.domain()[1]))
           .tickFormat(d3.format(".0s"))
           .tickSize(0)
-      : d3.axisLeft(y).tickFormat(d3.format("~s")).tickSize(0);
+      : d3.axisLeft(y).tickFormat(d3.format(".2s")).tickSize(0); // Changed to .2s for cleaner format (4.5M)
 
     svg.append("g")
       .call(yAxis)
@@ -264,7 +264,7 @@ const MigrationGroupedChart = () => {
       g.append("rect")
         .attr("width", 12)
         .attr("height", 12)
-        .attr("fill", i === 0 ? '#d32f2f' : '#000000')
+        .attr("fill", i === 0 ? '#d32f2f' : '#000000') // Matches color scale manually to be safe
         .attr("rx", 2);
       g.append("text")
         .attr("x", 18)
@@ -275,6 +275,13 @@ const MigrationGroupedChart = () => {
     });
 
   }, [filteredData, useLogScale]);
+
+  // Formatter: compact human-readable numbers (e.g. 4.5M, 200K)
+  const formatShortNumber = (v) => {
+    if (v == null) return '';
+    const s = d3.format('.2s')(v);
+    return s.replace(/\.0(?=[A-Za-z]|$)/, '').replace(/k$/, 'K');
+  };
 
   return (
     <Paper elevation={0} sx={{ p: 3, position: 'relative', bgcolor: 'transparent' }}>
@@ -326,8 +333,8 @@ const MigrationGroupedChart = () => {
           <>
             <div style={{ fontWeight: 'bold', marginBottom: 6 }}>{hovered.data.year}</div>
             <div style={{ color: hovered.data.key === 'internal' ? '#d32f2f' : '#e3dbdbff' }}>
-              {hovered.data.key === 'internal' ? 'Internally Displaced' : 'Refugees (external)'}: 
-              <b>{hovered.data.value.toLocaleString()}</b>
+              {hovered.data.key === 'internal' ? 'Internally Displaced' : 'Refugees (external)'} : 
+              <b>{ formatShortNumber(hovered.data.value)}</b>
             </div>
           </>
         )}

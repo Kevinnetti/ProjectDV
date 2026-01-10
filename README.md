@@ -1,18 +1,33 @@
-# Yemen Data Visualization — ProjectDV
-
-This repository contains a D3/React data-driven story about Yemen (interactive visualizations, preprocessing scripts and source data). The site is built with Vite + React and visualizations use D3.js.
+# Yemen: The Eclipse of Humanity
+### Data Visualization Project (2025)
 
 Live site: https://kevinnetti.github.io/ProjectDV/
+## 📋 Overview
+This project is an interactive **Data Visualization Story** examining the decade-long conflict in Yemen (2015-2025). It moves beyond simple statistics to narrate the systemic collapse of a country through five key dimensions:
+1.  **Air Warfare:** Mapping the intensity and targets of over 25,000 air raids.
+2.  **Economic Collapse:** Visualizing the GDP crash.
+3.  **Hunger:** A geospatial analysis of food insecurity phases.
+4.  **Displacement:** Comparing internal displacement vs. external refugees.
+5.  **The Human Toll:** Direct and indirect fatalities.
 
-## Quick start
 
-Prerequisites:
-- Node.js 
-- npm
-- Python 3.9+ and `pip` for preprocessing scripts
+## Tech Stack
+* **Framework:** React (v18)
+* **Build Tool:** Vite
+* **Visualization:** D3.js (v7)
+* **UI Components:** Material UI (MUI)
+* **Data Processing:** Python (Pandas)
+* **Maps:** GeoJSON 
 
-Install JS dependencies and run locally:
+## Project structure (high level)
 
+- `index.html` — app entry
+- `src/` — React app
+  - `src/components/` — visualization components (D3 + React)
+  - `src/data/` — CSV / GeoJSON used by components
+- `merge_data.py`, `src/data/Raid_unifier.py` — Python preprocessing scripts
+
+## Getting start  
 ```bash
 npm install
 npm run dev
@@ -32,26 +47,6 @@ npm run predeploy
 npm run deploy
 ```
 
-## Python preprocessing (reproducibility)
-
-Create and activate a virtual environment, then install Python requirements:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-Run preprocessing scripts (they expect to run from repository root):
-
-```powershell
-python src/data/Raid_unifier.py
-python merge_data.py
-```
-
-- `src/data/Raid_unifier.py` merges multiple raw CSV files into `Yemen_Data_Project_Unified.csv` in the repo root.
-- `merge_data.py` reads the unified CSV and the IPC geojson and writes `src/data/yemen_districts_clean.json` used by the choropleth.
-
 ## Where the data lives
 
 - Processed / final files used by the site: `src/data/Yemen_Data_Project_Unified.csv`, `src/data/yemen_districts_clean.json`, `src/data/fatalities.csv`, `src/data/gdp.csv`, `src/data/migrations.csv`, `src/data/world.geojson`.
@@ -61,13 +56,6 @@ python merge_data.py
 
 See `METHOD.md` for a detailed description of the data sources, cleaning steps, filtering thresholds (e.g., FlowMap shows flows > 500 and top-30 destinations), and limitations.
 
-## Project structure (high level)
-
-- `index.html` — app entry
-- `src/` — React app
-  - `src/components/` — visualization components (D3 + React)
-  - `src/data/` — CSV / GeoJSON used by components
-- `merge_data.py`, `src/data/Raid_unifier.py` — Python preprocessing scripts
 
 ## Team
 
@@ -75,7 +63,6 @@ Nettikadan Kevin 5175709
 
 ## Notes on reproducibility
 
-- Ensure `requirements.txt` is installed before running Python scripts.
 - The site uses Vite's runtime imports to load `src/data/*`; when building, the data files referenced are included in the build output.
 
 ## Limitations and known issues
