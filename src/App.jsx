@@ -351,7 +351,7 @@ function App() {
   <Section 
           id="bilancio" 
           title="5. The Silent Toll" 
-          description="Direct vs indirect deaths: the true cost of war." 
+          description="Direct vs indirect deaths: the true cost of war (2015-2025)." 
          body={
     <div style={{ textAlign: 'left' }}>
     How do you measure the death toll of a nation? The answer is far more complex and terrifying, than simply counting bodies on a battlefield.
