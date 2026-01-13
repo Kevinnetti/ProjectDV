@@ -327,7 +327,7 @@ const Fatalities = () => {
     return (
         <Box sx={{ width: '100%' }}>
             <Typography variant="h6" gutterBottom sx={{ mb: 2 }} align="center">
-                Fatalities by Governorates
+                Direct fatalities by Governorates
             </Typography>
 
             {!data ? (
