@@ -67,7 +67,7 @@ const GdpLineChartD3 = () => {
       .attr('y', margin.top)
       .attr('width', Math.max(0, (width - margin.right) - warX))
       .attr('height', height - margin.top - margin.bottom)
-      .attr('fill', '#ada6a6ff')
+      .attr('fill', 'rgba(228, 144, 144, 1)')
       .attr('opacity', 0.35);
 
     // Vertical marker line at 2015
