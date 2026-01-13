@@ -9,8 +9,15 @@ body {
 
 /* Legend and misc text classes */
 .chart-legend-title { font-size: 11px; font-weight: 600; fill: #222; font-family: var(--font-family); }
-.chart-legend-text { font-size: 12px; fill: #222; font-family: var(--font-family); }
+.chart-legend-text { font-size: 10px; fill: #222; font-family: var(--font-family); }
 .chart-legend-note { font-size: 9px; font-weight: 600; fill: #222; font-family: var(--font-family); }
+
+/* HTML legend helpers (for React-rendered legends) */
+.chart-legend { display: flex; flex-direction: column; gap: 6px; }
+.chart-legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #222; margin-bottom: 6px; }
+.chart-legend-swatch { width: 12px; height: 12px; display: inline-block; border-radius: 2px; flex: 0 0 12px; border: 2px solid #333; }
+.chart-legend-key { font-weight: normal; }
+.chart-legend-value { margin-left: 6px; color: #333; }
 .chart-label { font-size: var(--chart-font-size); fill: var(--chart-text); font-family: var(--font-family); }
 .chart-axis-text { font-size: var(--chart-font-size); fill: var(--chart-muted); font-family: var(--font-family); }
 .chart-html-tooltip { font-size: 13px; background: rgba(0,0,0,0.85); color: white; padding: 8px; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }

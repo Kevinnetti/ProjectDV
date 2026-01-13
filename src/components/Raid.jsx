@@ -233,13 +233,12 @@ const Raid = () => {
       .attr('x', 0)
       .attr('y', -6)
       .attr('fill', '#222')
-      .style('font-size', '11px')
-      .style('font-weight', 600)
+      .classed('chart-legend-title', true)
       .text('Number of raids' );
 
     // categories è già definita sopra (dinamica in base a showAggregated)
 
-    const itemH = 12;
+    const itemH = 10;
     legendGroup.append('g')
       .selectAll('g')
       .data(categories)
@@ -248,16 +247,18 @@ const Raid = () => {
       .each(function(d, i) {
         const g = d3.select(this);
         g.append('rect')
-          .attr('width', 20)
-          .attr('height', itemH)
+          .attr('width', 10)
+          .attr('height', 10)
+          .attr('rx', 1)
+          .attr('ry', 1)
           .attr('fill', d.color)
-          .attr('stroke', '#333');
+          .attr('stroke', '#222');
         g.append('text')
-          .attr('x', 26)
+          .attr('x', 18)
           .attr('y', itemH / 2)
           .attr('dy', '0.35em')
           .attr('fill', '#222')
-          .style('font-size', '10px')
+          .classed('chart-legend-text', true)
           .text(d.label);
       });
 
@@ -274,8 +275,7 @@ const Raid = () => {
           .attr('x', 0)
           .attr('y', 2)
           .attr('fill', '#222')
-          .style('font-size', '9px')
-          .style('font-weight', 600)
+          .classed('chart-legend-note', true)
           .text(`Total raids: ${fmt(totalAgg)}`);
       } else {
         const cur = displayYears.find(d => d.year === year) || { total: 0, totalFmt: fmt(0) };
@@ -283,8 +283,7 @@ const Raid = () => {
           .attr('x', 0)
           .attr('y', 2)
           .attr('fill', '#222')
-          .style('font-size', '9px')
-          .style('font-weight', 600)
+          .classed('chart-legend-note', true)
           .text(`Total raids: ${cur.totalFmt}`);
       }
     } catch (e) {
@@ -376,7 +375,7 @@ const Raid = () => {
         )}
       </Box>
 
-      <Box sx={{ px: 5, py: 0, mt: -2 }}>
+      <Box sx={{ px: 5, py: 1.5, mt: -2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {!showAggregated && (

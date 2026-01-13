@@ -72,18 +72,40 @@ export default function Donut({ height = 600 }) {
     }).catch(err => { console.error('Failed loading unified CSV for donut:', err); setData([]); });
   }, []);
 
+  // --- Useeffect principale con le modifiche per le linee ---
   useEffect(() => {
     if (!data.length || !containerRef.current) return;
     if (!isVisible) return;
     if (hasAnimatedRef.current) return;
+    
     const container = containerRef.current;
     d3.select(container).selectAll('*').remove();
-    const width = container.clientWidth; const margin = 20;
+    
+    const width = container.clientWidth; 
+    // Aumentato margine per fare spazio a linee e testo orizzontale
+    const margin = 130; 
     const radius = Math.min(width, height) / 2 - margin;
-    const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${width} ${height}`).style('width','100%').style('height','auto').append('g').attr('transform', `translate(${width/2}, ${height/2})`);
+    
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .style('width','100%')
+      .style('height','auto')
+      .append('g')
+      .attr('transform', `translate(${width/2}, ${height/2})`);
+
     const pie = d3.pie().value(d=>d.value).sort(null);
+    
+    // Arco principale del donut
     const arc = d3.arc().innerRadius(radius*0.6).outerRadius(radius);
+    // Arco per l'hover
     const arcHover = d3.arc().innerRadius(radius*0.6).outerRadius(radius+10);
+    
+    // --- NUOVO: Definizioni raggi per le linee ---
+    // Raggio esterno dove posizionare il testo e la fine della linea orizzontale
+    const radiusLabel = radius + 30; 
+    // Arco invisibile usato per calcolare il punto di snodo (gomito) della linea
+    const arcLabel = d3.arc().innerRadius(radiusLabel).outerRadius(radiusLabel);
+
     const centerGroup = svg.append('g').attr('text-anchor','middle');
     const total = d3.sum(data, d => d.value); totalRef.current = total;
     centerGroup.selectAll('text').remove();
@@ -92,45 +114,87 @@ export default function Donut({ height = 600 }) {
     centerNumRef.current = centerNum; centerSubRef.current = centerSub;
     const interp = d3.interpolateNumber(0, total);
     centerNum.transition().delay(1000).duration(900).tween('text', () => t => centerNum.text(Math.round(interp(t)).toLocaleString()));
+    
     const arcs = pie(data);
-    const paths = svg.selectAll('path').data(arcs).join('path').attr('data-key', d=>d.data.key).attr('fill', (d,i)=>getColor(d.data.key,i)).attr('stroke','white').style('stroke-width', '2px').style('cursor','pointer').each(function(d){ this._current = { startAngle: d.startAngle, endAngle: d.startAngle }; });
+    const labelThreshold = 0.12; // Soglia per mostrare etichette e linee
+
+    const paths = svg.selectAll('path.slice').data(arcs).join('path')
+      .attr('class', 'slice')
+      .attr('data-key', d=>d.data.key)
+      .attr('fill', (d,i)=>getColor(d.data.key,i))
+      .attr('stroke','white')
+      .style('stroke-width', '2px')
+      .style('cursor','pointer')
+      .each(function(d){ this._current = { startAngle: d.startAngle, endAngle: d.startAngle }; });
+
     paths.transition().delay(1000).duration(900).attrTween('d', function(d){ const interpolate = d3.interpolate(this._current, d); this._current = interpolate(1); return t => arc(interpolate(t)); });
+    
+    // (Event handlers mouseenter/leave/move e legendenter/leave rimangono uguali, li ometto per brevità ma devono esserci)
     paths.on('mouseenter', function(event,d){ if (hoverTimeoutRef.current){ clearTimeout(hoverTimeoutRef.current); hoverTimeoutRef.current=null; } d3.select(this).transition().duration(220).attr('d', arcHover).attr('opacity',0.92); const pct = ((d.data.value/total)*100).toFixed(1); try{ centerNum.interrupt(); centerSub.interrupt(); } catch(e){} centerNum.text(d.data.value.toLocaleString()); centerSub.text(`${d.data.key} (${pct}%)`); if (containerRef.current){ const rect = containerRef.current.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; setHovered({ x: Math.min(Math.max(8, x), rect.width - 160), y: Math.min(Math.max(8, y), rect.height - 80), key: d.data.key, value: d.data.value, pct }); } });
     paths.on('mouseleave', function(event,d){ const node=this; d3.select(node).transition().duration(220).attr('d', arc).attr('opacity',1); if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current); hoverTimeoutRef.current = setTimeout(()=>{ try{ centerNum.interrupt(); centerSub.interrupt(); } catch(e){} const backInterp = d3.interpolateNumber(Number(centerNum.text().replace(/,/g,'')), total); centerNum.transition().duration(600).tween('text', () => t => centerNum.text(Math.round(backInterp(t)).toLocaleString())); centerSub.text('Total Raids'); setHovered(null); hoverTimeoutRef.current = null; }, 120); });
     paths.on('mousemove', function(event){ if (!containerRef.current) return; const rect = containerRef.current.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; setHovered(h => h ? { ...h, x: Math.min(Math.max(8, x), rect.width - 160), y: Math.min(Math.max(8, y), rect.height - 80) } : h); });
+    paths.on('legendenter', function(event, d) { d3.select(this).transition().duration(220).attr('d', arcHover).attr('opacity', 0.92); try { centerNum.interrupt(); centerSub.interrupt(); } catch (e) {} centerNum.text(d.data.value.toLocaleString()); centerSub.text(`${d.data.key} (${((d.data.value/total)*100).toFixed(1)}%)`); });
+    paths.on('legendleave', function(event, d) { const node = this; d3.select(node).transition().duration(220).attr('d', arc).attr('opacity', 1); if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current); hoverTimeoutRef.current = setTimeout(() => { try { centerNum.interrupt(); centerSub.interrupt(); } catch (e) {} const backInterp = d3.interpolateNumber(Number(centerNum.text().replace(/,/g, '')), total); centerNum.transition().duration(600).tween('text', () => t => centerNum.text(Math.round(backInterp(t)).toLocaleString())); centerSub.text('Total Raids'); setHovered(null); hoverTimeoutRef.current = null; }, 120); });
 
-    // Custom handlers for legend interactions: enlarge slice without showing tooltip
-    paths.on('legendenter', function(event, d) {
-      d3.select(this).transition().duration(220).attr('d', arcHover).attr('opacity', 0.92);
-      try { centerNum.interrupt(); centerSub.interrupt(); } catch (e) {}
-      centerNum.text(d.data.value.toLocaleString());
-      centerSub.text(`${d.data.key} (${((d.data.value/total)*100).toFixed(1)}%)`);
-    });
 
-    paths.on('legendleave', function(event, d) {
-      const node = this;
-      d3.select(node).transition().duration(220).attr('d', arc).attr('opacity', 1);
-      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
-      hoverTimeoutRef.current = setTimeout(() => {
-        try { centerNum.interrupt(); centerSub.interrupt(); } catch (e) {}
-        const backInterp = d3.interpolateNumber(Number(centerNum.text().replace(/,/g, '')), total);
-        centerNum.transition().duration(600).tween('text', () => t => centerNum.text(Math.round(backInterp(t)).toLocaleString()));
-        centerSub.text('Total Raids');
-        setHovered(null);
-        hoverTimeoutRef.current = null;
-      }, 120);
-    });
-    const labelThreshold = 0.12;
+    // --- NUOVO: Aggiunta delle Polylines (le linee di collegamento) ---
+    // Vengono aggiunte PRIMA del testo così il testo appare sopra se si sovrappongono
+    const polylines = svg.selectAll('polyline').data(arcs).join('polyline')
+      .style('opacity', 0) // Partono invisibili per l'animazione
+      .attr('points', d => {
+          // Non disegnare linea se la fetta è troppo piccola
+          if ((d.endAngle - d.startAngle) <= labelThreshold) return null;
+
+          // Calcolo dell'angolo medio per decidere lato destro o sinistro
+          const midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+          // Se l'angolo è < PI, siamo a destra.
+          const isRightSide = midAngle < Math.PI;
+
+          // Punto A: Inizio linea, vicino al bordo esterno della fetta
+          const posA = arc.centroid(d); 
+          // Punto B: Punto intermedio "gomito"
+          const posB = arcLabel.centroid(d);
+          // Punto C: Punto finale orizzontale. Usiamo il raggio esterno e forziamo X a destra o sinistra
+          const posC = [ radiusLabel * (isRightSide ? 1 : -1), posB[1] ];
+
+          // Restituisce i tre punti come stringa per l'attributo 'points'
+          return [posA, posB, posC].map(p => p.join(',')).join(' ');
+      })
+      .style('fill', 'none')
+      .style('stroke', '#999') // Colore della linea
+      .style('stroke-width', '1px')
+      .style('pointer-events', 'none'); // Le linee non devono interferire col mouse
+
+    // Animazione entrata linee
+    polylines.transition().delay(1600).duration(600).style('opacity', 1);
+
+    // --- MODIFICATO: Logica posizionamento Etichette ---
     const labels = svg.selectAll('text.slice-label').data(arcs).join('text')
       .attr('class','slice-label')
-      .attr('transform', d => `translate(${arc.centroid(d)})`)
-      .attr('text-anchor','middle')
       .attr('dy','0.35em')
-      .style('font-size','12px')
+      .style('font-size','11px') // Leggermente più piccolo per gestire lo spazio
       .style('pointer-events','none')
       .style('opacity',0)
-      .style('font-weight', '700')
-      .text(d => (d.endAngle - d.startAngle) > labelThreshold ? `${d.data.key} (${d.data.value})` : '');
+      .style('font-weight', '600')
+      .text(d => (d.endAngle - d.startAngle) > labelThreshold ? `${d.data.key} (${d.data.value})` : '')
+      // Nuova logica di trasformazione per seguire la fine della linea orizzontale
+      .attr('transform', d => {
+          if ((d.endAngle - d.startAngle) <= labelThreshold) return null;
+          const midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+          const isRightSide = midAngle < Math.PI;
+          const posB = arcLabel.centroid(d);
+          const posC = [ radiusLabel * (isRightSide ? 1 : -1), posB[1] ];
+          
+          // Sposta il testo leggermente a destra o sinistra del punto C per non toccare la linea
+          const textOffset = isRightSide ? 5 : -5;
+          return `translate(${posC[0] + textOffset}, ${posC[1]})`;
+      })
+      // Ancoraggio del testo basato sul lato
+      .style('text-anchor', d => {
+          const midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+          return midAngle < Math.PI ? 'start' : 'end';
+      });
+    
     labels.transition().delay(1600).duration(600).style('opacity',1);
     hasAnimatedRef.current = true;
   }, [data, height, isVisible]);
@@ -174,10 +238,11 @@ export default function Donut({ height = 600 }) {
       </div>
       <div style={{ flex: 1, maxHeight: height, overflowY: 'auto', paddingLeft: '20px' }}>
         <h4 style={{ margin: '0 0 10px 0' }}>Categories affected by the raids</h4>
+        <div className="chart-legend">
         {data.map((d, i) => (
           <div
             key={i}
-            style={{ display: 'flex', alignItems: 'center', marginBottom: '6px', fontSize: '13px' }}
+            className="chart-legend-item"
             onMouseEnter={() => {
               if (!containerRef.current) return;
               const svg = containerRef.current.querySelector('svg');
@@ -200,15 +265,13 @@ export default function Donut({ height = 600 }) {
                 pathEl.dispatchEvent(ev);
               }
             }}
-          >
-            <span style={{ 
-              width: 12, height: 12, 
-              backgroundColor: getColor(d.key, i), 
-              display: 'inline-block', marginRight: 8, borderRadius: '2px' 
-            }} />
-            <span><strong style={{ fontWeight: 700 }}>{d.key}</strong> <span style={{ marginLeft: 6 }}>({d.value})</span></span>
+            >
+            <span className="chart-legend-swatch" style={{ backgroundColor: getColor(d.key, i) }} />
+            <span className="chart-legend-key">{d.key}</span>
+            <span className="chart-legend-value">({d.value})</span>
           </div>
         ))}
+        </div>
       </div>
     </div>
   );

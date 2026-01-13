@@ -287,14 +287,7 @@ const FlowMapD3 = () => {
         >
           {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
         </Button>
-        <Box sx={{ display:'flex', alignItems:'baseline', gap: 1 }}>
-          <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#d32f2f' }}>
-            {selectedYear}
-          </Typography>
-          <Typography variant="caption" color="black"  fontWeight="bold">
-            Total: {totalMigrationYear.toLocaleString()}
-          </Typography>
-        </Box>
+      
         <Box sx={{ flex: 1 }}>
           <Slider
             value={selectedYear}
@@ -311,6 +304,13 @@ const FlowMapD3 = () => {
             }}
           />
         </Box>
+        <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#d32f2f' }}>
+            {selectedYear}
+          </Typography>
+         <Typography variant="caption" color="black"  fontWeight="bold">
+            Total people: {totalMigrationYear.toLocaleString()}
+          </Typography>
+           
       </Box>
 
       {/* TOOLTIP (restored DOM tooltip) */}
